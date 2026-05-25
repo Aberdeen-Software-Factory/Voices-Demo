@@ -6,9 +6,165 @@ function showPage(id){
   });
   document.getElementById(id).classList.add('active');
   window.scrollTo({top:0,behavior:'instant'});
-  // trigger scroll-dependent animations
   if(id==='p-home') setTimeout(animateCards, 100);
+  if(id==='p-res') showResView('res-cat-picker');
   document.getElementById('nav').classList.remove('scrolled');
+}
+
+/* ── RESOURCES VIEW SYSTEM ── */
+let _resCat='patient';
+const _RES_CAT_LABELS={patient:'Patient experience',primary:'Primary care',nurse:'Specialist Nurse roles'};
+const _RES_CAT_FULL={patient:'Patient experience and service improvement',primary:'Primary care recognition and referral',nurse:'Specialist Vasculitis Nurse roles'};
+
+function _animateIn(el){
+  if(!el)return;
+  void el.offsetWidth;
+  el.classList.add('res-view-in');
+  el.addEventListener('animationend',()=>el.classList.remove('res-view-in'),{once:true});
+}
+
+function showResView(id){
+  const picker=document.getElementById('res-cat-picker');
+  const browse=document.getElementById('res-browse');
+  const detail=document.getElementById('res-detail');
+  const resDetail=document.getElementById('res-resource-detail');
+  const backLabel=document.getElementById('res-browse-back-label');
+
+  if(id==='res-cat-picker'){
+    if(browse) browse.style.display='none';
+    if(picker){picker.style.display='';_animateIn(picker);}
+    requestAnimationFrame(()=>requestAnimationFrame(squareCatCards));
+    return;
+  }
+  if(picker) picker.style.display='none';
+  if(browse&&browse.style.display==='none'){browse.style.display='';_animateIn(browse);}
+
+  if(id==='res-detail'){
+    if(resDetail) resDetail.style.display='none';
+    if(detail){detail.style.display='';_animateIn(detail);}
+    if(backLabel) backLabel.textContent='All categories';
+    requestAnimationFrame(()=>requestAnimationFrame(squareResCards));
+  } else if(id==='res-resource-detail'){
+    if(detail) detail.style.display='none';
+    if(resDetail){resDetail.style.display='';_animateIn(resDetail);}
+    if(backLabel) backLabel.textContent=_RES_CAT_LABELS[_resCat]||'Back';
+  }
+}
+
+function resBackBtn(){
+  const resDetail=document.getElementById('res-resource-detail');
+  if(resDetail&&resDetail.style.display!=='none') showResView('res-detail');
+  else showResView('res-cat-picker');
+}
+
+function squareCards(selector){
+  document.querySelectorAll(selector).forEach(c=>{
+    if(c.style.display==='none') return;
+    c.style.height='';
+    c.style.height=c.offsetWidth+'px';
+  });
+}
+
+function squareResCards(){ squareCards('#res-grid .res-card'); }
+function squareCatCards(){ squareCards('.res-cat-card'); }
+
+window.addEventListener('resize',()=>{
+  squareResCards();
+  squareCatCards();
+});
+
+function _buildResSidebar(){
+  const container=document.getElementById('res-sidebar-links');
+  if(!container)return;
+  const cats=[
+    {cat:'patient',label:_RES_CAT_FULL.patient},
+    {cat:'primary',label:_RES_CAT_FULL.primary},
+    {cat:'nurse',label:_RES_CAT_FULL.nurse}
+  ];
+  container.innerHTML=cats.map(({cat,label})=>{
+    const cards=[...document.querySelectorAll(`#res-grid .res-card[data-cat="${cat}"]`)];
+    const links=cards.map((card,i)=>{
+      const title=card.querySelector('.res-card-title')?.textContent.trim()||'';
+      return `<a class="toc-child res-sidebar-link" data-cat="${cat}" data-idx="${i}" href="#" onclick="openResourceByIdx('${cat}',${i});return false">${title}</a>`;
+    }).join('');
+    return `<div class="toc-section"><div class="toc-parent${cat===_resCat?' open':''}" onclick="this.classList.toggle('open')">${label} <svg class="toc-chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div><div class="toc-children">${links}</div></div>`;
+  }).join('');
+}
+
+function _syncSidebarActive(card){
+  document.querySelectorAll('#res-sidebar-links .res-sidebar-link').forEach(a=>a.classList.remove('active'));
+  if(!card)return;
+  const cards=[...document.querySelectorAll(`#res-grid .res-card[data-cat="${card.dataset.cat}"]`)];
+  const idx=cards.indexOf(card);
+  if(idx>=0){
+    const link=document.querySelector(`#res-sidebar-links .res-sidebar-link[data-cat="${card.dataset.cat}"][data-idx="${idx}"]`);
+    if(link) link.classList.add('active');
+  }
+}
+
+function openResourceByIdx(cat,idx){
+  if(cat!==_resCat){_resCat=cat;_syncResCatTabs();applyResFilters();}
+  const cards=[...document.querySelectorAll(`#res-grid .res-card[data-cat="${cat}"]`)];
+  if(cards[idx]) openResource(cards[idx]);
+}
+
+function selectResCategory(cat){
+  _resCat=cat;
+  _syncResCatTabs();
+  applyResFilters();
+  _buildResSidebar();
+  showResView('res-detail');
+}
+
+function showResCatPicker(){
+  showResView('res-cat-picker');
+}
+
+function filterResCategory(cat){
+  _resCat=cat;
+  _syncResCatTabs();
+  applyResFilters();
+  _buildResSidebar();
+  showResView('res-detail');
+}
+
+function _syncResCatTabs(){
+  document.querySelectorAll('.res-cat-tab').forEach(t=>t.classList.toggle('active',t.dataset.cat===_resCat));
+}
+
+function openResource(card){
+  document.getElementById('res-res-title').textContent=card.querySelector('.res-card-title')?.textContent.trim()||'';
+  document.getElementById('res-res-desc').textContent=card.querySelector('.res-card-desc')?.textContent.trim()||'';
+  const typeEl=card.querySelector('.res-type');
+  const resType=document.getElementById('res-res-type');
+  resType.textContent=typeEl?.textContent||'';
+  resType.className=typeEl?.className||'res-type';
+  const img=document.getElementById('res-res-img');
+  img.src=card.querySelector('.res-card-img img')?.src||'';
+  img.alt=card.querySelector('.res-card-title')?.textContent.trim()||'';
+  const cta=document.querySelector('.res-res-cta');
+  if(cta) cta.href=card.dataset.href||'#';
+  _syncSidebarActive(card);
+  showResView('res-resource-detail');
+}
+
+function closeResource(){
+  _syncSidebarActive(null);
+  showResView('res-detail');
+}
+
+function filterRes(q){
+  applyResFilters(q);
+}
+
+function applyResFilters(q){
+  const query=(q!==undefined?q:document.querySelector('.res-search')?.value||'').toLowerCase().trim();
+  document.querySelectorAll('#res-grid .res-card').forEach(card=>{
+    const catMatch=card.dataset.cat===_resCat;
+    const textMatch=!query||card.textContent.toLowerCase().includes(query);
+    card.style.display=(catMatch&&textMatch)?'':'none';
+  });
+  requestAnimationFrame(()=>requestAnimationFrame(squareResCards));
 }
 
 /* ── SCROLL + NAV ── */
