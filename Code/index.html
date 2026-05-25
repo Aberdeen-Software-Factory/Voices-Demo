@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOICES Toolkit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Asap:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="ni">
+    <button class="nlogo" aria-label="Home" onclick="showPage('p-home')">
+      <img src="VOICES-logo.PNG" alt="VOICES">
+    </button>
+    <ul class="nlinks">
+      <li><button class="nl active" data-page="p-home" onclick="showPage('p-home')">Home</button></li>
+      <li><button class="nl" data-page="p-kc" onclick="showPage('p-kc')">Key Service Components</button></li>
+      <li><button class="nl" data-page="p-change" onclick="showPage('p-change')">Assess and Prioritise Change</button></li>
+      <li><button class="nl" data-page="p-calc" onclick="showPage('p-calc')">Cost Calculator</button></li>
+      <li><button class="nl" data-page="p-atys" onclick="showPage('p-atys')">Adapt to your Service</button></li>
+      <li><button class="nl" data-page="p-res" onclick="showPage('p-res')">Resources</button></li>
+    </ul>
+    <div class="nsp"></div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <button class="tbtn" id="tbtn">
+      <svg id="tbtn-ico" viewBox="0 0 16 16" fill="currentColor" width="11" height="11"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/></svg>
+      <span id="tbtn-lbl">Dark</span>
+    </button>
+  </div>
+</nav>
+
+<div id="mobile-menu">
+  <ul class="mobile-nav">
+    <li><button data-page="p-home" onclick="showPage('p-home')">Home</button></li>
+    <li><button data-page="p-kc" onclick="showPage('p-kc');document.getElementById('mobile-menu').classList.remove('open')">Key Service Components</button></li>
+    <li><button data-page="p-change" onclick="showPage('p-change');document.getElementById('mobile-menu').classList.remove('open')">Assess and Prioritise Change</button></li>
+    <li><button data-page="p-calc" onclick="showPage('p-calc');document.getElementById('mobile-menu').classList.remove('open')">Cost Calculator</button></li>
+    <li><button data-page="p-atys" onclick="showPage('p-atys');document.getElementById('mobile-menu').classList.remove('open')">Adapt to your Service</button></li>
+    <li><button data-page="p-res" onclick="showPage('p-res');document.getElementById('mobile-menu').classList.remove('open')">Resources</button></li>
+  </ul>
+</div>
+
+<!-- ═══════ HOME PAGE ═══════ -->
+<div id="p-home" class="page active">
+  <div class="home-inner">
+    <div class="home-top">
+      <div class="hero-left">
+        <h1 class="hero-h1">Vasculitis Service Improvement Toolkit</h1>
+        <p class="blurb">Outcomes for people with systemic vasculitis are better when services include certain key components. This toolkit uses evidence from the <a href="https://www.abdn.ac.uk/iahs/academic/epidemiology/our-research/studies-list/voices/">VOICES study</a> to help vasculitis services review current provision, identify priorities for change, and adapt these components to their local context. 
+ 
+It is designed to support practical, locally relevant service improvement, recognising that services vary in their configuration, workforce and resources.</p>
+      </div>
+      <div class="hero-right">
+        <div class="kc-circle">
+          <div class="kc-orbit">
+            <div class="kc-orbit-item kc-a"><div class="kc-dot"><img src="Figures/figure-3.png" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block"></div><div><div class="kc-orbit-item-label">Timely access to services </div></div></div>
+             <div class="kc-orbit-item kc-b"><div class="kc-dot"><img src="Figures/figure-3.png" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block"></div><div><div class="kc-orbit-item-label">Integrated care </div></div></div>
+            <div class="kc-orbit-item kc-c"><div class="kc-dot"><img src="Figures/figure-3.png" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block"></div><div><div class="kc-orbit-item-label">Access to expertise </div></div></div>
+
+            <!-- <div class="kc-orbit-item kc-b"><div class="kc-dot"><svg viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div><div><div class="kc-orbit-item-label">Integrated care</div></div></div> -->
+            <!-- <div class="kc-orbit-item kc-c"><div class="kc-dot"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><div class="kc-orbit-item-label">Access to expertise </div></div></div> -->
+            <!-- <div class="kc-orbit-item kc-d"><div class="kc-dot"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><div class="kc-orbit-item-label">Access to expertise </div></div></div> -->
+            <!-- <div class="kc-orbit-item kc-e"><div class="kc-dot"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><div class="kc-orbit-item-label">Component Five Label</div></div></div> -->
+          </div>
+          <div class="kc-circle-center">
+            <button class="btn-p" onclick="showPage('p-kc')">Key Service Components</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="steps-col">
+        <div class="cards-row">
+          <div class="step-card-pair">
+            <div class="step-col tk-card tk1" tabindex="0" onclick="showPage('p-kc')">
+                <div class="step-ring">
+                  <span class="step-n">01</span>
+                </div>
+              <div class="step-body">
+                <div class="step-name">Key Service Components</div>
+                <div class="step-desc">
+                  Explore key service components associated with better patient outcomes.
+                </div>
+                <button class="btn-p" onclick="showPage('p-kc')">Start Here</button>
+                </div>
+              </div>
+            <div class="step-conn"></div>
+          </div>
+
+          <div class="step-card-pair">
+             <div class="step-col tk-card tk2" tabindex="0" onclick="showPage('p-change')">
+                <div class="step-ring">
+                  <span class="step-n">02</span>
+                </div>
+                <div class="step-body">
+                  <div class="step-name">Assess and Prioritise Change</div>
+                  <div class="step-desc">
+                    Review your current vasculitis service against the key service components and identify which changes are most relevant, feasible and important for your local context. 
+                  </div>
+                </div>
+              </div>
+            <div class="step-conn"></div>
+          </div>
+
+          <div class="step-card-pair">
+            <div class="step-col tk-card tk3" tabindex="0" onclick="showPage('p-calc')">
+              <div class="step-ring">
+                  <span class="step-n">03</span>
+              </div>
+              <div class="step-body">
+                <div class="step-name">Cost Calculator</div>
+                <div class="step-desc">
+                  Use the cost calculator to estimate the costs and potential savings associated with implementing prioritised changes.
+                </div>
+              </div>
+            </div>
+            <div class="step-conn"></div>
+          </div>
+
+          <div class="step-card-pair">
+            <div class="step-col tk-card tk4" tabindex="0" onclick="showPage('p-res')">
+              <div class="step-ring">
+                  <span class="step-n">04</span>
+              </div>
+              <div class="step-body">
+                <div class="step-name">Adapt to your Service</div>
+                <div class="step-desc">
+                  Explore practical ways to implement key service components within different service models, workforce structures and resource constraints. 
+                </div>
+              </div>
+            </div>
+            <div class="step-conn"></div>
+          </div>
+
+           <div class="step-card-pair">
+            <div class="step-col tk-card tk5" tabindex="0" onclick="showPage('p-res')">
+              <div class="step-ring">
+                  <span class="step-n">05</span>
+              </div>
+              <div class="step-body">
+                <div class="step-name">Resources</div>
+                <div class="step-desc">
+                  Find tools, templates and practical materials to help you implement local service improvements.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ KEY COMPONENTS PAGE ═══════ -->
+<div id="p-kc" class="page">
+  <div class="pg-hdr">
+    <div class="pg-hdr-inner">
+      <h2 class="pg-title">Key service components associated with better patient outcomes</h2>
+      <p class="pg-desc">
+        The content of this toolkit is based on the VOICES study -<i>Vasculitis Outcomes In relation to Care ExperienceS</i> - which examined how vasculitis services are organised and delivered across the UK and Ireland, and how different service components relate to patient outcomes. 
+        <br><br>
+        VOICES brought together evidence from a survey of vasculitis services, interviews with patients, organisational case studies and linked routine health data. The study identified key components of vasculitis care associated with better outcomes, including fewer serious infections, fewer emergency hospital admissions and, in some contexts, reduced mortality. 
+        <br><br>
+        Across the study, effective vasculitis care was characterised by timely access to specialist expertise, integrated working across teams, continuity of care, and services that helped patients feel safe. These components provide the basis for the toolkit and are intended to help services consider how best to organise care locally. 
+        <br><br>
+        <a href="https://www.thelancet.com/journals/lanrhe/article/PIIS2665-9913(24)00082-1/fulltext">Find out more about the VOICES study.</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="kcsec kcsec-1">
+    <div class="kcsec-inner">
+      <div class="kcsec-head">
+        <div class="kcsec-badge"><img src="Figures/figure-3.png" alt=""></div>
+        <div class="kcsec-namegroup">
+          <div class="kcsec-name">Timely access to care</div>
+          <div class="kcsec-tag"></div>
+        </div>
+      </div>
+      <div class="kc-accordion">
+        <div class="kc-acc-item">
+          <button class="kc-acc-trigger">Waiting time for new patients &lt 7 days <svg class="kc-acc-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="kc-acc-panel"><div class="kc-acc-panel-inner">
+            <div class="kc-acc-content">
+              <div>
+                <p>Timely diagnosis is essential in preventing mortality and morbidity</p>
+              </div>
+              <div class="kc-acc-grid">
+                
+                <div>
+                  <div class="kc-acc-label">Evidence from VOICES study</div>
+                  <p>Patients looked after in services who were able to see new patients with suspected vasculitis within 7 days had 30% fewer serious infections, 22% fewer emergency admissions to hospital and a 41% reduction in mortality. </p>
+                </div>
+                <div>
+                  <div class="kc-acc-label">What does this look like for patients?</div>
+                  <p>“I had such an incredibly intuitive [general practitioner] who did the bloods that day, and…an amazing team at the [hospital], to quickly read those results and to fast-track that treatment for me. Because I do know that they saved my kidneys.”</p>
+                </div>
+              </div>
+            </div>
+          </div></div>
+        </div>
+        <div class="kc-acc-item">
+          <button class="kc-acc-trigger">Access to IV therapy within 7 days <svg class="kc-acc-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="kc-acc-panel"><div class="kc-acc-panel-inner"><div class="kc-acc-content"><div class="kc-acc-grid" style="grid-template-columns:2fr 1fr">
+            <div>
+                <div>
+                    <ul>
+                      <li>Timely access to intravenous immunosuppressant therapy is essential to effectively manage ANCA-associated vasculitis.</li>
+                      <li>However, there is significant variation in how services accessed intravenous treatment for AAV. </li>
+                      <li>Organisations should ensure access to urgent IV treatment for AAV within 7 days and provision of appropriately trained staff to do so. </li>
+                      <li>Where treatment is delivered via other units, greater awareness of AAV would help provision of information and support for patients. </li>
+                    </ul>
+
+                </div>
+                <div style=" display: block;">
+                  <img src="Figures/figure-1.png" alt="graphic" style="width: 200px; height: 200px; margin: auto;">
+                  <img src="Figures/figure-2.png" alt="graphic" style="width: 200px; height: 200px; margin: auto;;">
+                </div>
+            </div>
+            <div>
+              <div class="kc-acc-label">Evidence from VOICES study</div>
+              <p>some text</p>
+              <div class="kc-acc-label">What does this look like for patients?</div>
+              <p><i>“they couldn’t get me booked in right away because there just wasn’t space in the ward.  You have to get your slot.  So I had to have three methylprednisolone infusions, and this is where they just put a massive dose of steroids straight in your bloodstream. … that little episode cost me two vertebrae in my spine.”</i></p>
+            </div>
+          </div></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="kcsec kcsec-2">
+    <div class="kcsec-inner">
+      <div class="kcsec-head">
+        <div class="kcsec-badge"><img src="Figures/figure-3.png" alt=""></div>
+        <div class="kcsec-namegroup">
+          <div class="kcsec-name">Integrated care</div>
+          <div class="kcsec-tag"></div>
+        </div>
+      </div>
+      <div class="kc-accordion">
+        <div class="kc-acc-item">
+          <button class="kc-acc-trigger">Care delivery via cohorted clinics <svg class="kc-acc-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="kc-acc-panel"><div class="kc-acc-panel-inner">
+            <div class="kc-acc-content">
+               <div>
+                    <ul>
+                      <li>Timely access to intravenous immunosuppressant therapy is essential to effectively manage ANCA-associated vasculitis.</li>
+                    </ul>
+
+                </div>
+              <div class="kc-acc-grid">
+            
+            <div>
+              <div class="kc-acc-label">Evidence from VOICES study</div>
+              <p>Patients looked after in services with cohorted clinics had 25% fewer serious infections and 19% fewer emergency admissions to hospital. </p>
+            </div>
+            <div>
+              <div class="kc-acc-label">What does this look like for patients?</div>
+              <p><i>“what I do like about the way they go about their business … every time I go in, they take a urine sample, a blood sample … and … they reach out to the [ear, nose, and throat] department, or to maybe the chest department, or speech [and language therapy]…”</i></p>
+            </div>
+          </div></div></div></div>
+        </div>
+        <div class="kc-acc-item">
+          <button class="kc-acc-trigger">Nurse-led clinics <svg class="kc-acc-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="kc-acc-panel"><div class="kc-acc-panel-inner">
+            <div class="kc-acc-content">
+                <div>
+                      <ul>
+                        <li>Vasculitis specialist nurses play a key role in coordinating care, supporting medication management and patient education, and providing a more holistic approach to care.</li>
+                        <li>They also help build trusting therapeutic relationships, enabling patients to raise concerns more openly, while increasing service capacity for timely review.</li>
+                      </ul>
+  
+                  </div>
+              <div class="kc-acc-grid">
+            <div>
+              <div class="kc-acc-label">Evidence from VOICES study</div>
+              <p>Patients looked after in services with nurse-led clinics had 35% fewer serious infections and 25% fewer emergency admissions to hospital. </p>
+            </div>
+            <div>
+              <div class="kc-acc-label">What does this look like for patients?</div>
+              <p><i>“Because I’m their ‘go to’, the nurse that they see the most … they’ll talk to me about everything, so sometimes it’s relationship and sex advice … A lot of it is managing the side effects of their medication and flares.”</i></p>
+            </div>
+          </div></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="kcsec kcsec-3">
+    <div class="kcsec-inner">
+      <div class="kcsec-head">
+        <div class="kcsec-badge"><img src="Figures/figure-3.png" alt=""></div>
+        <div class="kcsec-namegroup">
+          <div class="kcsec-name">Access to expertise</div>
+          <div class="kcsec-tag"></div>
+        </div>
+      </div>
+      <div class="kc-accordion">
+        <div class="kc-acc-item">
+          <button class="kc-acc-trigger">Access to vasculitis multi-disciplinary team (MDT) meetings <svg class="kc-acc-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="kc-acc-panel"><div class="kc-acc-panel-inner">
+            <div class="kc-acc-content">
+               <div>
+                      <ul>
+                        <li>Regular specialist vasculitis MDT meetings support multi-specialty discussion and coordinated decision-making - “getting the right people together in a room talking”.</li>
+                        <li>Professional tensions (between specialties, professionals, and localities) that impact on care are more likely to be acknowledged and addressed. </li>
+                      </ul>
+  
+                  </div>
+              <div class="kc-acc-grid">
+            <div>
+              <div class="kc-acc-label">Evidence from VOICES study</div>
+              <p>Patients looked after in services with access to a nurse advice line had 24% fewer serious infections and 15% fewer emergency admissions to hospital.</p>
+            </div>
+            <div>
+              <div class="kc-acc-label">What does this look like for patients?</div>
+              <p>“If I'm not sure on anything I ring her and I've got a direct number… so if I'm thinking, 'Hang on, that doesn't look right…’ Or there was a doctor looked at my bloods and he says, 'Oh, I think you should stop this [medication].’…and then the vasculitis nurse rang me and said, 'No, that figure's good.’” </p>
+            </div>
+          </div></div></div></div>
+        </div>
+        <div class="kc-acc-item">
+          <button class="kc-acc-trigger">Nurse advice line <svg class="kc-acc-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="kc-acc-panel"><div class="kc-acc-panel-inner">
+            <div class="kc-acc-content">
+               <div>
+                      <ul>
+                        <li>Nurse-led advice lines provide a single point of contact into the vasculitis service for patients and should be supported by clear escalation pathways. </li>
+                      </ul>
+  
+                  </div>
+              <div class="kc-acc-grid">
+            <div>
+              <div class="kc-acc-label">Evidence from VOICES study</div>
+              <p>Patients looked after in services with access to a nurse advice line had 24% fewer serious infections and 15% fewer emergency admissions to hospital.</p>
+            </div>
+            <div>
+              <div class="kc-acc-label">What does this look like for patients?</div>
+              <p>“If I'm not sure on anything I ring her and I've got a direct number… so if I'm thinking, 'Hang on, that doesn't look right…’ Or there was a doctor looked at my bloods and he says, 'Oh, I think you should stop this [medication].’…and then the vasculitis nurse rang me and said, 'No, that figure's good.’” </p>
+            </div>
+          </div></div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="next-page-wrap"><button class="next-page-btn" onclick="showPage('p-change')">Next: Assess and Prioritise Change<svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button></div>
+  </div>
+</div>
+
+<!-- ═══════ PRIORITISING CHANGE PAGE ═══════ -->
+<div id="p-change" class="page">
+ <div class="pg-hdr">
+    <div class="pg-hdr-inner">
+      <h2 class="pg-title">Assess and Prioritise Change </h2>
+      <p class="pg-desc">
+        Use this section to review how vasculitis care is currently organised in your local setting and to identify which key components to prioritise for improvement.
+        <br><br>
+        Mapping your current service against the key service components can help you see what is already established, what is developing, and where there may be gaps. This can support practical decision-making, recognising that it may not be feasible to implement or strengthen all five components at once. 
+        <br><br>
+        You can also use the catalyst film alongside the mapping exercise to prompt discussion with patients, families and NHS staff about what matters most locally and where change may have the greatest impact.
+       </p>
+    </div>
+  </div>
+
+  <!-- Tools Section -->
+  <div class="kcsec kcsec-1">
+    <div class="kcsec-inner">
+      <div class="kc-accordion">
+        <div class="kc-acc-item">
+          <button class="kc-acc-trigger">Assess and Prioritise Change<svg class="kc-acc-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="kc-acc-panel"><div class="kc-acc-panel-inner"><div class="kc-acc-content">
+            <p>
+              Use this section to review how vasculitis care is currently organised in your local setting and to identify which key components to prioritise for improvement.
+              <br><br>
+              Mapping your current service against the key service components can help you see what is already established, what is developing, and where there may be gaps. This can support practical decision-making, recognising that it may not be feasible to implement or strengthen all five components at once. 
+              <br><br>
+              You can also use the catalyst film alongside the mapping exercise to prompt discussion with patients, families and NHS staff about what matters most locally and where change may have the greatest impact.
+            </p>
+          </div></div></div>
+        </div>
+        <div class="kc-acc-item">
+          <button class="kc-acc-trigger">Mapping Local Vasculitis Services<svg class="kc-acc-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="kc-acc-panel"><div class="kc-acc-panel-inner"><div class="kc-acc-content">
+            <p>To support this process, we have provided an online mapping table. This is designed to help you reflect on your current service, identify what is already in place, and consider what you may be able to build on. </p>
+            <p>The table allows you to: </p>
+            <ul>
+              <li>
+                <strong>Generate a simple heat map of your service,</strong> using the response options: established, developing, not in place and don’t know. 
+              </li>
+              <li>
+                <strong>Map vasculitis care across other relevant specialties in your health board or trust,</strong> including where key components are present, absent or delivered through joint arrangements.
+              </li>
+            </ul>
+            <p>Vasculitis services examples </p>
+            <div class="hm-wrap">
+              <div class="hm-table-scroll">
+                <table class="hm-table">
+                <thead>
+                  <tr>
+                    <th><span class="th-label">Key Component</span></th>
+                  <th data-col="rheum" class="col-header"><span class="th-label">Rheumatology</span></th>
+                  <th data-col="neph" class="col-header"><span class="th-label">Nephrology</span></th>
+                  <th data-col="resp" class="col-header"><span class="th-label">Respiratory</span></th>
+                  <th data-col="ent" class="col-header"><span class="th-label">Ear, Nose & Throat</span></th>
+                  <th data-col="neuro" class="col-header"><span class="th-label">Neurology</span></th>
+                  <th data-col="derm" class="col-header"><span class="th-label">Dermatology</span></th>
+                  <th data-col="other" class="col-header"><span class="th-label">Other</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Wait times new &lt7 days </td><td data-col="rheum" data-status="established" title="Established"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td><td data-col="neph" data-status="developing" title="Developing"><svg viewBox="0 0 24 24"><path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10h2c1.042 0 2.049.42 2.795 1.17L18 12h1.5"/></svg></td><td data-col="resp" data-status="not-in-place" title="Not in place"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></td><td data-col="ent" data-status="unknown" title="Unknown"><svg viewBox="0 0 24 24"><line x1="5" y1="19" x2="19" y2="5"/></svg></td><td data-col="neuro" data-status="not-in-place" title="Not in place"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></td><td data-col="derm" data-status="developing" title="Developing"><svg viewBox="0 0 24 24"><path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10h2c1.042 0 2.049.42 2.795 1.17L18 12h1.5"/></svg></td><td data-col="other" data-status="unknown" title="Unknown"><svg viewBox="0 0 24 24"><line x1="5" y1="19" x2="19" y2="5"/></svg></td></tr>
+                  <tr><td>Access IV therapy &lt7 days </td><td data-col="rheum" data-status="established" title="Established"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td><td data-col="neph" data-status="established" title="Established"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td><td data-col="resp" data-status="developing" title="Developing"><svg viewBox="0 0 24 24"><path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10h2c1.042 0 2.049.42 2.795 1.17L18 12h1.5"/></svg></td><td data-col="ent" data-status="not-in-place" title="Not in place"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></td><td data-col="neuro" data-status="developing" title="Developing"><svg viewBox="0 0 24 24"><path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10h2c1.042 0 2.049.42 2.795 1.17L18 12h1.5"/></svg></td><td data-col="derm" data-status="not-in-place" title="Not in place"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></td><td data-col="other" data-status="unknown" title="Unknown"><svg viewBox="0 0 24 24"><line x1="5" y1="19" x2="19" y2="5"/></svg></td></tr>
+                  <tr><td>Care via cohorted clinics </td><td data-col="rheum" data-status="developing" title="Developing"><svg viewBox="0 0 24 24"><path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10h2c1.042 0 2.049.42 2.795 1.17L18 12h1.5"/></svg></td><td data-col="neph" data-status="established" title="Established"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td><td data-col="resp" data-status="not-in-place" title="Not in place"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></td><td data-col="ent" data-status="unknown" title="Unknown"><svg viewBox="0 0 24 24"><line x1="5" y1="19" x2="19" y2="5"/></svg></td><td data-col="neuro" data-status="not-in-place" title="Not in place"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></td><td data-col="derm" data-status="not-in-place" title="Not in place"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></td><td data-col="other" data-status="developing" title="Developing"><svg viewBox="0 0 24 24"><path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10h2c1.042 0 2.049.42 2.795 1.17L18 12h1.5"/></svg></td></tr>
+                  <tr><td>Nurse-led components of care </td><td data-col="rheum" data-status="established" title="Established"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td><td data-col="neph" data-status="developing" title="Developing"><svg viewBox="0 0 24 24"><path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10h2c1.042 0 2.049.42 2.795 1.17L18 12h1.5"/></svg></td><td data-col="resp" data-status="developing" title="Developing"><svg viewBox="0 0 24 24"><path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10h2c1.042 0 2.049.42 2.795 1.17L18 12h1.5"/></svg></td><td data-col="ent" data-status="not-in-place" title="Not in place"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></td><td data-col="neuro" data-status="unknown" title="Unknown"><svg viewBox="0 0 24 24"><line x1="5" y1="19" x2="19" y2="5"/></svg></td><td data-col="derm" data-status="not-in-place" title="Not in place"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></td><td data-col="other" data-status="unknown" title="Unknown"><svg viewBox="0 0 24 24"><line x1="5" y1="19" x2="19" y2="5"/></svg></td></tr>
+                  <tr><td>Access to MDT meeting </td><td data-col="rheum" data-status="developing" title="Developing"><svg viewBox="0 0 24 24"><path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10h2c1.042 0 2.049.42 2.795 1.17L18 12h1.5"/></svg></td><td data-col="neph" data-status="developing" title="Developing"><svg viewBox="0 0 24 24"><path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10h2c1.042 0 2.049.42 2.795 1.17L18 12h1.5"/></svg></td><td data-col="resp" data-status="established" title="Established"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td><td data-col="ent" data-status="unknown" title="Unknown"><svg viewBox="0 0 24 24"><line x1="5" y1="19" x2="19" y2="5"/></svg></td><td data-col="neuro" data-status="not-in-place" title="Not in place"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></td><td data-col="derm" data-status="developing" title="Developing"><svg viewBox="0 0 24 24"><path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10h2c1.042 0 2.049.42 2.795 1.17L18 12h1.5"/></svg></td><td data-col="other" data-status="not-in-place" title="Not in place"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></td></tr>
+                </tbody>                </table>
+              </div>
+              <div class="hm-legend">
+                <div class="hm-legend-title">status:</div>
+                <div class="legend-item"><div class="comp-dot established"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div> Established</div>
+                <div class="legend-item"><div class="comp-dot developing"><svg viewBox="0 0 24 24"><path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10h2c1.042 0 2.049.42 2.795 1.17L18 12h1.5"/></svg></div> Developing</div>
+                <div class="legend-item"><div class="comp-dot not-in-place"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div> Not in place</div>
+                <div class="legend-item"><div class="comp-dot unknown"><svg viewBox="0 0 24 24"><line x1="5" y1="19" x2="19" y2="5"/></svg></div> Unknown</div>
+              </div>
+            </div>
+            <div class="etbl-section">
+              <div class="etbl-toolbar">
+                <span class="etbl-section-title"></span>
+                <span class="etbl-section-desc">Consider your own service. Which of the key components are established, developing, or not in place? It’s okay if you don’t know – now is a great time to look into it and find out. Opportunity to discuss with other specialities. </span>
+                <div class="dl-wrap">
+                  <button class="dl-btn" id="dlBtn" disabled>
+                    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Download <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                  </button>
+                  <div class="dl-dropdown" id="dlDropdown">
+                    <div class="dl-opt" data-fmt="xlsx"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Excel (.xlsx)</div>
+                    <div class="dl-opt" data-fmt="csv"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>CSV (.csv)</div>
+                    <div class="dl-opt" data-fmt="pdf"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>PDF (.pdf)</div>
+                    <div class="dl-opt" data-fmt="png"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>PNG (.png)</div>
+                    <div class="dl-opt" data-fmt="jpeg"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>JPEG (.jpeg)</div>
+                    <div class="dl-opt" data-fmt="json"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>JSON (.json)</div>
+                    <div class="dl-opt" data-fmt="txt"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>TXT (.txt)</div>
+                  </div>
+                </div>
+              </div>
+              <div class="etbl-table-row">
+                <div class="etbl-scroll">
+                  <table class="etbl-table" id="etblTable">
+                    <thead>
+                      <tr id="etblHeaderRow">
+                        <th class="kc-col"><span style="font-size:var(--fs-xs);text-transform:uppercase;letter-spacing:1.5px;font-weight:700">Key Component</span></th>
+                      </tr>
+                    </thead>
+                    <tbody id="etblBody">
+                      <tr><td>Wait times new &lt;7 days</td></tr>
+                      <tr><td>Access IV therapy &lt;7 days</td></tr>
+                      <tr><td>Care via cohorted clinics</td></tr>
+                      <tr><td>Nurse-led components of care</td></tr>
+                      <tr><td>Access to MDT meeting</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="etbl-add-col-right" id="etblAddColRight" style="display:none">
+                  <button title="Add department" id="etblAddCol">+</button>
+                </div>
+              </div>
+
+              <div class="etbl-dropdown" id="etblDeptDropdown">
+                <input type="text" placeholder="Search or type department…">
+                <div class="etbl-dd-list"></div>
+              </div>
+              <div class="etbl-dropdown" id="etblStatusDropdown">
+                <div class="etbl-dd-list"></div>
+              </div>
+            </div>
+          </div></div></div>
+        </div>
+        <div class="kc-acc-item">
+          <button class="kc-acc-trigger">Catalyst Film<svg class="kc-acc-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="kc-acc-panel"><div class="kc-acc-panel-inner"><div class="kc-acc-content">
+            <div class="video-inner">
+              <div class="video-player">
+                <div style="width:100%;height:100%;background:linear-gradient(135deg,#1A1040 0%,#2A1860 50%,#18102A 100%);display:flex;align-items:center;justify-content:center">
+                  <svg viewBox="0 0 120 80" width="120" style="opacity:.15"><text x="10" y="50" font-family="Poppins,sans-serif" font-size="11" fill="white" font-weight="700">VOICES STUDY</text><text x="10" y="65" font-family="Poppins,sans-serif" font-size="8" fill="white" opacity=".6">Catalyst Video</text></svg>
+                </div>
+                <a class="video-overlay" href="https://www.hexi.ox.ac.uk/Systemic-Vasculitis-catalyst-film" target="_blank" rel="noopener noreferrer">
+                  <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                </a>
+              </div>
+              <div class="video-info">
+                <h2 class="video-title">Systemic vasculitis and healthcare catalyst film</h2>
+                <p class="video-desc">
+                  Developed as part of the VOICES study, this catalyst film is based on interviews with 32 people across the UK about their experiences of living with systemic vasculitis and using healthcare services.  
+                  <br><br>
+                  Participants also shared their ideas for service improvement. The examples included in the film highlight the importance of good communication, coordinated care and feeling safe within services.
+                  <br><br>
+                  Please use the film as a catalyst for local conversations between patients, families and NHS staff about how vasculitis services currently work, what matters most to people using them, and how experiences of care can be improved.
+                </p>
+                <div class="acts">
+                  <a href="https://www.hexi.ox.ac.uk/">
+                    <button class="btn-p">Health Experiences Insight</button>
+                  </a>
+                  
+                  <!-- <button class="btn-s">secondary button</button> -->
+                </div>
+              </div>
+            </div>
+          </div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="next-page-wrap"><button class="next-page-btn" onclick="showPage('p-calc')">Next: Cost Calculator<svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button></div>
+  </div>
+</div>
+
+<!-- ═══════ CALCULATOR PAGE ═══════ -->
+<div id="p-calc" class="page">
+  <div class="pg-hdr">
+    <div class="pg-hdr-inner">
+      <h2 class="pg-title">Cost Calculator</h2>
+      <p class="pg-desc">Estimate how the service components your team has in place affect annual outcomes and costs for patients with AAV. Set your population size, the outcome you want to model, and the unit cost per event; then toggle the components that apply. Estimates use coefficients from the VOICES modelling work — the underlying formula is shown below.</p>
+    </div>
+  </div>
+  <div class="pg-content">
+    <div class="calc-body">
+      <div class="calc-form">
+        <div class="calc-section-title">Population &amp; outcome</div>
+        <div class="form-group"><label class="form-label" for="calc-patients">Number of patients</label><input class="form-input" type="number" placeholder="e.g. 1000" id="calc-patients" oninput="updateCalc()" min="0"></div>
+        <div class="form-group"><label class="form-label" for="calc-cost">Cost per event (£)</label><input class="form-input" type="number" placeholder="e.g. 1000" id="calc-cost" value="1000" oninput="updateCalc()" min="0"></div>
+        <div class="form-group"><label class="form-label" for="calc-outcome">Outcome</label><select class="form-select" id="calc-outcome" onchange="updateCalc()">
+          <option value="Serious Infection">Serious infection</option>
+          <option value="CVD">Cardiovascular disease</option>
+          <option value="Cancer">Cancer</option>
+          <option value="Mortality">Mortality</option>
+          <option value="Emergency Hospital Admissions">Emergency hospital admissions</option>
+        </select></div>
+        <div class="calc-section-title" style="margin-top:20px">Service components in place</div>
+        <div class="comp-checks">
+          <label class="comp-check"><input type="checkbox" id="cc1" onchange="updateCalc()"><label for="cc1">Cohorted clinic</label></label>
+          <label class="comp-check"><input type="checkbox" id="cc2" onchange="updateCalc()"><label for="cc2">Joint / parallel clinic</label></label>
+          <label class="comp-check"><input type="checkbox" id="cc3" onchange="updateCalc()"><label for="cc3">Local AAV pathway</label></label>
+          <label class="comp-check"><input type="checkbox" id="cc4" onchange="updateCalc()"><label for="cc4">MDT meetings</label></label>
+          <label class="comp-check"><input type="checkbox" id="cc5" onchange="updateCalc()"><label for="cc5">Nurse-led care</label></label>
+          <label class="comp-check"><input type="checkbox" id="cc6" onchange="updateCalc()"><label for="cc6">Own day case unit</label></label>
+          <label class="comp-check"><input type="checkbox" id="cc7" onchange="updateCalc()"><label for="cc7">Wait times &lt; 7 days for new patients</label></label>
+        </div>
+        <button class="calc-submit" onclick="updateCalc()">Calculate</button>
+      </div>
+      <div class="calc-output">
+        <div class="output-card">
+          <div class="output-title">Expected events per year</div>
+          <div class="output-stat"><span class="output-stat-label">Baseline (no components)</span><span class="output-stat-val" id="out-infect">—</span></div>
+          <div class="output-stat"><span class="output-stat-label">With selected components</span><span class="output-stat-val" id="out-avoided">—</span></div>
+          <div class="output-stat"><span class="output-stat-label">Change in event rate</span><span class="output-stat-val" id="out-hosp">—</span></div>
+          <div class="impact-bar-wrap">
+            <div class="impact-label"><span>Components active</span><span id="impact-count">0 / 7</span></div>
+            <div class="impact-track"><div class="impact-fill" id="impact-bar" style="width:0%"></div></div>
+          </div>
+        </div>
+        <div class="output-card">
+          <div class="output-title">Cost impact</div>
+          <div class="output-stat"><span class="output-stat-label">Baseline cost</span><span class="output-stat-val" id="out-saving">—</span></div>
+          <div class="output-stat"><span class="output-stat-label">Cost with components</span><span class="output-stat-val" id="out-total">—</span></div>
+          <div class="output-stat"><span class="output-stat-label">Difference (− = saving)</span><span class="output-stat-val neutral" id="out-impl">—</span></div>
+        </div>
+        <div class="output-card">
+          <div class="output-title">How this is calculated</div>
+          <p id="out-recommendation" style="font-size:var(--fs-base-lg);color:var(--t2);line-height:1.7">Each outcome has an intercept (the baseline log-rate per person per year) and a coefficient for each of the seven service components. The expected event rate is computed as <strong>exp(intercept + Σ active coefficients)</strong>, then multiplied by the number of patients to get yearly events and by the unit cost to get annual cost. The difference between the with-components and baseline values is the projected annual change in cost — negative numbers are savings.</p>
+        </div>
+      </div>
+    </div>
+    <div class="next-page-wrap"><button class="next-page-btn" onclick="showPage('p-res')">Next: Resources<svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button></div>
+  </div>
+</div>
+
+<!-- ═══════ RESOURCES PAGE ═══════ -->
+<div id="p-res" class="page">
+  <div class="pg-hdr">
+    <div class="pg-hdr-inner">
+      <h2 class="pg-title">Page Title</h2>
+      <p class="pg-desc">Description of section. Description of section. Description of section. Description of section. Description of section. Description of section. Description of section. Description of section. Description of section. Description of section.</p>
+    </div>
+  </div>
+  <div class="pg-content">
+    <div class="res-layout">
+      <aside class="res-sidebar">
+        <div class="sidebar-search"><input type="text" placeholder="Placeholder text here…" oninput="filterRes(this.value)"></div>
+        <div class="toc-section">
+          <div class="toc-parent open">Section Category One <svg class="toc-chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+          <div class="toc-children">
+            <a class="toc-child active" href="#" onclick="filterResType('all');return false">Link One</a>
+            <a class="toc-child" href="#" onclick="filterResType('c1');return false">Link Two</a>
+            <a class="toc-child" href="#" onclick="filterResType('c2');return false">Link Three</a>
+            <a class="toc-child" href="#" onclick="filterResType('c3');return false">Link Four</a>
+            <a class="toc-child" href="#" onclick="filterResType('c4');return false">Link Five</a>
+            <a class="toc-child" href="#" onclick="filterResType('c5');return false">Link Six</a>
+          </div>
+        </div>
+        <div class="toc-section">
+          <div class="toc-parent open">Section Category Two <svg class="toc-chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+          <div class="toc-children">
+            <a class="toc-child" href="#">Link Seven</a>
+            <a class="toc-child" href="#">Link Eight</a>
+            <a class="toc-child" href="#">Link Nine</a>
+            <a class="toc-child" href="#">Link Ten</a>
+          </div>
+        </div>
+        <div class="toc-section">
+          <div class="toc-parent">Section Category Three <svg class="toc-chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+          <div class="toc-children">
+            <a class="toc-child" href="#">Link Eleven</a>
+            <a class="toc-child" href="#">Link Twelve</a>
+            <a class="toc-child" href="#">Link Thirteen</a>
+            <a class="toc-child" href="#">Link Fourteen</a>
+          </div>
+        </div>
+      </aside>
+      <div class="res-main">
+        <div class="res-search-bar"><input class="res-search" type="text" placeholder="Placeholder text here…" oninput="filterRes(this.value)"></div>
+        <div class="filter-tabs">
+          <button class="filter-tab active">Filter One</button>
+          <button class="filter-tab">Filter Two</button>
+          <button class="filter-tab">Filter Three</button>
+          <button class="filter-tab">Filter Four</button>
+          <button class="filter-tab">Filter Five</button>
+        </div>
+        <div class="res-grid" id="res-grid">
+          <div class="res-card"><span class="res-type guide">Tag One</span><div class="res-card-title">Description of resource. Description of resource. Description of resource. Description of resource.</div><div class="res-card-desc">Description of section. Description of section. Description of section. Description of section. Description of section. Description of section.</div><div class="res-meta"><span class="res-comp">Resource type one</span><span class="res-link">page link <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></div></div>
+          <div class="res-card"><span class="res-type research">Tag Two</span><div class="res-card-title">Description of resource. Description of resource. Description of resource. Description of resource.</div><div class="res-card-desc">Description of section. Description of section. Description of section. Description of section. Description of section. Description of section.</div><div class="res-meta"><span class="res-comp">Resource type two</span><span class="res-link">page link <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></div></div>
+          <div class="res-card"><span class="res-type tool">Tag Three</span><div class="res-card-title">Description of resource. Description of resource. Description of resource. Description of resource.</div><div class="res-card-desc">Description of section. Description of section. Description of section. Description of section. Description of section. Description of section.</div><div class="res-meta"><span class="res-comp">Resource type three</span><span class="res-link">page link <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></div></div>
+          <div class="res-card"><span class="res-type case">Tag Four</span><div class="res-card-title">Description of resource. Description of resource. Description of resource. Description of resource.</div><div class="res-card-desc">Description of section. Description of section. Description of section. Description of section. Description of section. Description of section.</div><div class="res-meta"><span class="res-comp">Resource type four</span><span class="res-link">page link <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></div></div>
+          <div class="res-card"><span class="res-type guide">Tag Five</span><div class="res-card-title">Description of resource. Description of resource. Description of resource. Description of resource.</div><div class="res-card-desc">Description of section. Description of section. Description of section. Description of section. Description of section. Description of section.</div><div class="res-meta"><span class="res-comp">Resource type five</span><span class="res-link">page link <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></div></div>
+          <div class="res-card"><span class="res-type tool">Tag Six</span><div class="res-card-title">Description of resource. Description of resource. Description of resource. Description of resource.</div><div class="res-card-desc">Description of section. Description of section. Description of section. Description of section. Description of section. Description of section.</div><div class="res-meta"><span class="res-comp">Resource type six</span><span class="res-link">page link <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <span>&copy; 2026 Footer text &middot; Toolkit name</span>
+    <nav><a href="#">Link one</a><a href="#">Link two</a><a href="#">Link three</a></nav>
+  </div>
+</footer>
+
+<script src="javascript/app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</body>
+</html>
