@@ -3030,6 +3030,12 @@ footer a:hover {
   }
 }
 
+/* ABOUT PAGE
+═══════════════════════════════════════════ */
+#p-abt {
+  min-height: 100svh;
+}
+
 
 /* RESPONSIVE */
 @media(max-width:1200px) {
