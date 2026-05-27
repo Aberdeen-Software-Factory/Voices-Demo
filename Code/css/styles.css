@@ -2437,9 +2437,9 @@ p, ul, ol {
 }
 .res-layout {
   display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 32px;
-  padding-top: 40px
+  grid-template-columns: 200px 1fr;
+  gap: 48px;
+  padding-top: 32px
 }
 
 .res-sidebar {
@@ -2447,38 +2447,217 @@ p, ul, ol {
   top: calc(var(--nh) + 24px);
   max-height: calc(100vh - var(--nh) - 48px);
   overflow-y: auto;
-  background: var(--surface);
-  border: 1px solid var(--s3);
-  border-radius: 14px;
-  padding: 20px 0;
-  box-shadow: var(--sh1)
 }
 
-.sidebar-search {
-  padding: 0 16px 16px;
-  border-bottom: 1px solid var(--s3);
-  margin-bottom: 8px
+/* Category nav buttons in sidebar */
+#res-sidebar-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-left: 1px solid var(--s3);
 }
 
-.sidebar-search input {
+.res-cat-sidebar-btn {
+  display: block;
   width: 100%;
-  padding: 7px 10px;
-  border-radius: 10px;
-  border: solid 1px var(--s3);
-  background: var(--bg);
-  color: var(--text);
+  text-align: left;
+  padding: 11px 16px;
+  background: var(--s2);
+  border: none;
+  border-left: 3px solid transparent;
+  margin-left: -1px;
   font-family: var(--fb);
-  font-size: var(--fs-base);
-  outline: none;
-
-  /* layered inset shadows for depth */
-  box-shadow:
-    inset 0 2px 4px rgba(0, 0, 0, 0.15),
-    inset 0 -2px 3px rgba(255, 255, 255, 0.6);
+  font-size: var(--fs-xl);
+  font-weight: 500;
+  color: var(--t2);
+  cursor: pointer;
+  transition: color .15s, border-color .15s, background .15s;
+  line-height: 1.4;
+  border-radius: 0 8px 8px 0;
 }
 
-.sidebar-search input:focus {
-  border-color: var(--accent)
+.res-cat-sidebar-btn:hover {
+  color: var(--text);
+  border-left-color: var(--s3);
+  background: var(--s2);
+}
+
+.res-cat-sidebar-btn.active {
+  color: var(--accent);
+  font-weight: 700;
+  border-left-color: var(--accent);
+  background: var(--al);
+}
+
+.res-sidebar-cat {
+  display: flex;
+  flex-direction: column;
+}
+
+.res-sidebar-items {
+  display: none;
+  flex-direction: column;
+  gap: 1px;
+  padding-bottom: 4px;
+}
+
+.res-cat-sidebar-btn.active + .res-sidebar-items {
+  display: flex;
+}
+
+.res-sidebar-item {
+  display: block;
+  padding: 7px 14px 7px 28px;
+  font-family: var(--fb);
+  font-size: var(--fs-xl);
+  color: var(--t2);
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 0;
+  line-height: 1.35;
+  transition: color .15s, border-color .15s, background .15s;
+}
+
+.res-sidebar-item:hover {
+  color: var(--text);
+  border-left-color: var(--s3);
+  background: var(--s2);
+}
+
+.res-sidebar-item.active {
+  color: var(--accent);
+  font-weight: 600;
+  border-left-color: var(--accent);
+  background: var(--al);
+}
+
+/* ── Resources home (3 category tiles) ── */
+#res-home {
+  padding: 8px 0 40px;
+}
+
+.res-home-cats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 680px;
+}
+
+.res-home-cat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--s2);
+  border: 1px solid var(--s3);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: background .15s, border-color .15s, transform .15s, box-shadow .15s;
+}
+
+.res-home-cat:hover {
+  background: var(--al);
+  border-color: var(--accent);
+  transform: translateX(4px);
+  box-shadow: 0 4px 18px rgba(139,107,154,.12);
+}
+
+.res-home-cat-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.res-home-cat-label {
+  font-family: var(--fb);
+  font-size: var(--fs-base-lg);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.res-home-cat-count {
+  font-family: var(--fb);
+  font-size: var(--fs-sm);
+  color: var(--t2);
+}
+
+.res-home-cat-arrow {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  stroke: var(--accent);
+  transition: transform .15s;
+}
+
+.res-home-cat:hover .res-home-cat-arrow {
+  transform: translateX(4px);
+}
+
+/* ── Back-to-categories button (inside res-detail) ── */
+.res-back-cat-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px 7px 10px;
+  margin-bottom: 20px;
+  background: none;
+  border: 1px solid var(--s3);
+  border-radius: 8px;
+  font-family: var(--fb);
+  font-size: var(--fs-sm);
+  color: var(--t2);
+  cursor: pointer;
+  transition: color .15s, border-color .15s, background .15s;
+}
+
+.res-back-cat-btn:hover {
+  color: var(--text);
+  background: var(--s2);
+  border-color: var(--s3);
+}
+
+.res-back-cat-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.res-cat-page-desc {
+  font-family: var(--fb);
+  font-size: var(--fs-xl);
+  color: var(--t2);
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+
+/* ── Breadcrumb row in resource detail ── */
+.res-detail-nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.res-breadcrumb {
+  font-family: var(--fb);
+  font-size: var(--fs-sm);
+  color: var(--t2);
+  line-height: 1.4;
+  /* truncate very long titles */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 500px;
 }
 
 .toc-section {
@@ -2710,7 +2889,8 @@ p, ul, ol {
 /* ── RESOURCE CARD IMAGE ── */
 .res-card-img {
   width: 100%;
-  flex: 0 0 44%;
+  height: 130px;
+  flex-shrink: 0;
   border-radius: 8px;
   overflow: hidden;
   background: var(--s2);
@@ -2769,42 +2949,35 @@ p, ul, ol {
   margin-bottom: 36px
 }
 
+.res-res-ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
 .res-res-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 28px;
-  background: var(--accent);
-  color: #fff;
-  border-radius: 40px;
+  display: inline;
   font-family: var(--fb);
-  font-size: var(--fs-base-lg);
-  font-weight: 600;
-  text-decoration: none;
-  transition: background .2s, transform .15s, box-shadow .2s;
-  box-shadow: 0 4px 16px rgba(139,107,154,.3)
+  font-size: var(--fs-base-md);
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color .15s;
 }
 
 .res-res-cta:hover {
-  background: #7a5c8a;
-  transform: translateX(2px);
-  box-shadow: 0 6px 22px rgba(139,107,154,.4)
+  color: var(--text);
 }
 
 .res-res-cta svg {
-  width: 15px;
-  height: 15px;
-  stroke: #fff;
-  fill: none;
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-linejoin: round
+  display: none;
 }
 
 /* ── RESOURCE CATEGORY PICKER ── */
 .res-cat-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 260px));
+  grid-template-columns: repeat(3, 200px);
   gap: 24px;
   padding-bottom: 64px;
   justify-content: center
@@ -2823,7 +2996,8 @@ p, ul, ol {
   cursor: pointer;
   text-align: left;
   transition: transform .2s, box-shadow .2s, border-color .2s;
-  width: 100%
+  width: 100%;
+  aspect-ratio: 1
 }
 
 .res-cat-card:hover {
@@ -2860,13 +3034,21 @@ p, ul, ol {
   color: var(--text);
   line-height: 1.3
 }
-/* 
+
+.res-cat-count {
+  font-family: var(--fb);
+  font-size: var(--fs-sm);
+  color: var(--t2);
+  margin-top: -6px
+}
+
 .res-cat-desc {
+  font-family: var(--fb);
   font-size: var(--fs-xl);
   color: var(--t2);
-  line-height: 1.6;
+  line-height: 1.5;
   flex: 1
-} */
+}
 
 .res-cat-arrow {
   display: flex;
@@ -3064,8 +3246,10 @@ footer a:hover {
 
 @media(max-width:900px) {
   .res-cat-grid {
-    grid-template-columns: 1fr 1fr
+    grid-template-columns: repeat(2, 200px)
   }
+
+  
 
   #p-home {
     height: auto;

@@ -1668,119 +1668,56 @@
         </p>
       </div>
 
-      <!-- Step 1: Category picker -->
-      <div id="res-cat-picker">
-        <div class="res-cat-grid">
-          <button class="res-cat-card" onclick="selectResCategory('patient')">
-            <p class="res-cat-name">Patient experience and service improvement</p>
-            <p class="res-cat-desc">Resources to support use of patient experience data, including the systemic vasculitis experience resource and catalyst film.</p>
-          </button>
-          <button class="res-cat-card" onclick="selectResCategory('primary')">
-            <p class="res-cat-name">Primary care recognition and referral</p>
-            <p class="res-cat-desc">Resources to support earlier recognition of vasculitis and referral into specialist care.</p>
-          </button>
-          <button class="res-cat-card" onclick="selectResCategory('nurse')">
-            <p class="res-cat-name">Specialist Vasculitis Nurse roles</p>
-            <p class="res-cat-desc">Example job descriptions, patient information and training resources to support development of specialist nurse roles.</p>
-          </button>
-        </div>
-      </div>
+      <div id="res-browse">
 
-      <!-- Step 2 & 3: Browse (grid + individual resource) with persistent sidebar -->
-      <div id="res-browse" style="display:none">
-        <div class="res-cat-nav">
-          <button class="res-back-btn" onclick="resBackBtn()">
-            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-            <span id="res-browse-back-label">All categories</span>
-          </button>
-          <div class="res-cat-tabs">
-            <button class="res-cat-tab" data-cat="patient" onclick="filterResCategory('patient')">Patient experience</button>
-            <button class="res-cat-tab" data-cat="primary" onclick="filterResCategory('primary')">Primary care</button>
-            <button class="res-cat-tab" data-cat="nurse" onclick="filterResCategory('nurse')">Specialist Nurse roles</button>
+        <!-- Home: 3 category selectors -->
+        <div id="res-home">
+          <div class="res-cat-grid">
+
+            <button class="res-cat-card" onclick="filterResCategory('patient')">
+              <div class="res-cat-name">Patient experience and service improvement</div>
+              <span class="res-cat-count" id="rhc-patient"></span>
+            </button>
+
+            <button class="res-cat-card" onclick="filterResCategory('primary')">
+              <div class="res-cat-name">Primary care recognition and referral</div>
+              <span class="res-cat-count" id="rhc-primary"></span>
+            </button>
+
+            <button class="res-cat-card" onclick="filterResCategory('nurse')">
+              <div class="res-cat-name">Specialist Vasculitis Nurse roles</div>
+              <span class="res-cat-count" id="rhc-nurse"></span>
+            </button>
+
           </div>
         </div>
-        <div class="res-layout">
+
+        <div class="res-layout" id="res-layout-wrap" style="display:none">
           <aside class="res-sidebar" id="res-sidebar">
-            <div class="sidebar-search"><input type="text" placeholder="Search resources…" oninput="filterRes(this.value)"></div>
-            <div id="res-sidebar-links"></div>
+            <nav id="res-sidebar-links"></nav>
           </aside>
           <div class="res-main">
 
         <!-- Grid view -->
         <div id="res-detail">
-            <div class="res-search-bar"><input class="res-search" type="text" placeholder="Search resources…" oninput="filterRes(this.value)"></div>
+            <button class="res-back-cat-btn" onclick="showResView('res-home')">
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+              All categories
+            </button>
+            <p id="res-cat-desc" class="res-cat-page-desc"></p>
             <div class="res-grid" id="res-grid">
-
-              <!-- Patient experience -->
-              <div class="res-card" data-cat="patient" data-href="#" onclick="openResource(this)">
-                <div class="res-card-img"><img src="Figures/VOICES-logo.PNG" alt=""></div>
-                <div class="res-card-title">HEXI – patient experience resource</div>
-                <div class="res-card-desc">Developed as part of the VOICES research programme, this resource covers diagnosis challenges, managing flares, relationships with healthcare staff, coordination of care, and messages for healthcare professionals.</div>
-                <div class="res-meta"><span class="res-comp">Patient experience</span><span class="res-link">View <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></div>
-              </div>
-              <div class="res-card" data-cat="patient" data-href="#" onclick="openResource(this)">
-                <div class="res-card-img"><img src="Figures/VOICES-logo.PNG" alt=""></div>
-                <div class="res-card-title">HEXI – catalyst film</div>
-                <div class="res-card-desc">A 20-minute film designed to be used as a 'catalyst' for getting local patients, families and NHS staff talking together about your service and how to jointly improve people's experiences.</div>
-                <div class="res-meta"><span class="res-comp">Patient experience</span><span class="res-link">View <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></div>
-              </div>
-
-              <!-- Primary care -->
-              <div class="res-card" data-cat="primary" data-href="#" onclick="openResource(this)">
-                <div class="res-card-img"><img src="Figures/VOICES-logo.PNG" alt=""></div>
-                <div class="res-card-title">Easily missed? ANCA associated vasculitis</div>
-                <div class="res-card-desc">BMJ article on recognising ANCA associated vasculitis in primary care, written to support earlier identification and referral into specialist services.</div>
-                <div class="res-meta"><span class="res-comp">Primary care</span><span class="res-link">View <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></div>
-              </div>
-              <div class="res-card" data-cat="primary" data-href="#" onclick="openResource(this)">
-                <div class="res-card-img"><img src="Figures/VOICES-logo.PNG" alt=""></div>
-                <div class="res-card-title">Vasculitis referral guideline (NHS Lanarkshire)</div>
-                <div class="res-card-desc">NHS Lanarkshire Right Decision Service guideline for vasculitis referral from primary care into specialist services.</div>
-                <div class="res-meta"><span class="res-comp">Primary care</span><span class="res-link">View <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></div>
-              </div>
-              <div class="res-card" data-cat="primary" data-href="#" onclick="openResource(this)">
-                <div class="res-card-img"><img src="Figures/VOICES-logo.PNG" alt=""></div>
-                <div class="res-card-title">Suspected vasculitis (NHS GGC)</div>
-                <div class="res-card-desc">NHS Greater Glasgow and Clyde Right Decision Service guidance on suspected vasculitis referral pathways for primary care clinicians.</div>
-                <div class="res-meta"><span class="res-comp">Primary care</span><span class="res-link">View <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></div>
-              </div>
-
-              <!-- Specialist Nurse roles -->
-              <div class="res-card" data-cat="nurse" data-href="#" onclick="openResource(this)">
-                <div class="res-card-img"><img src="Figures/VOICES-logo.PNG" alt=""></div>
-                <div class="res-card-title">Specialist Vasculitis Nurse – job description</div>
-                <div class="res-card-desc">Example job description for a Specialist Vasculitis Nurse role, developed to support services establishing or expanding specialist nurse provision.</div>
-                <div class="res-meta"><span class="res-comp">Nurse roles</span><span class="res-link">View <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></div>
-              </div>
-              <div class="res-card" data-cat="nurse" data-href="#" onclick="openResource(this)">
-                <div class="res-card-img"><img src="Figures/VOICES-logo.PNG" alt=""></div>
-                <div class="res-card-title">Specialist Vasculitis Nurse – job advert</div>
-                <div class="res-card-desc">Example job advert with person specification for a Specialist Vasculitis Nurse role, including links to PDF job description and person specification documents.</div>
-                <div class="res-meta"><span class="res-comp">Nurse roles</span><span class="res-link">View <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></div>
-              </div>
-              <div class="res-card" data-cat="nurse" data-href="#" onclick="openResource(this)">
-                <div class="res-card-img"><img src="Figures/VOICES-logo.PNG" alt=""></div>
-                <div class="res-card-title">Specialist Vasculitis Nurse role – patient information leaflet</div>
-                <div class="res-card-desc">NHS patient information leaflet explaining the Specialist Vasculitis Nurse role and how patients can access and benefit from the service.</div>
-                <div class="res-meta"><span class="res-comp">Nurse roles</span><span class="res-link">View <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></div>
-              </div>
-              <div class="res-card" data-cat="nurse" data-href="#" onclick="openResource(this)">
-                <div class="res-card-img"><img src="Figures/VOICES-logo.PNG" alt=""></div>
-                <div class="res-card-title">Vasculitis Nurse Training</div>
-                <div class="res-card-desc">Training resources for nurses working with vasculitis patients, provided by the Cambridge Vasculitis and Lupus Research Trust.</div>
-                <div class="res-meta"><span class="res-comp">Nurse roles</span><span class="res-link">View <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></div>
-              </div>
-              <div class="res-card" data-cat="nurse" data-href="#" onclick="openResource(this)">
-                <div class="res-card-img"><img src="Figures/VOICES-logo.PNG" alt=""></div>
-                <div class="res-card-title">Psychological and self-management support for vasculitis</div>
-                <div class="res-card-desc">UK health professionals' perspectives on psychological and self-management support for people with vasculitis or connective tissue diseases. Published in Rheumatology Advances in Practice.</div>
-                <div class="res-meta"><span class="res-comp">Nurse roles</span><span class="res-link">View <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span></div>
-              </div>
-
+              <!-- populated from _RESOURCES in app.js -->
             </div>
           </div>
           <!-- Individual resource view -->
           <div id="res-resource-detail" style="display:none">
+            <div class="res-detail-nav">
+              <button class="res-back-btn" onclick="closeResource()">
+                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+                Back
+              </button>
+              <span class="res-breadcrumb" id="res-breadcrumb"></span>
+            </div>
             <div class="res-res-layout">
               <div class="res-res-img-wrap">
                 <img id="res-res-img" src="" alt="">
@@ -1789,7 +1726,7 @@
                 <span id="res-res-type" class="res-type"></span>
                 <h2 id="res-res-title" class="res-res-title"></h2>
                 <p id="res-res-desc" class="res-res-desc"></p>
-                <a class="res-res-cta" href="#">View full resource <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+                <div id="res-res-ctas" class="res-res-ctas"></div>
               </div>
             </div>
           </div>

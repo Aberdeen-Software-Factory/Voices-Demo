@@ -7,14 +7,137 @@ function showPage(id){
   document.getElementById(id).classList.add('active');
   window.scrollTo({top:0,behavior:'instant'});
   if(id==='p-home') setTimeout(animateCards, 100);
-  if(id==='p-res') showResView('res-cat-picker');
+  if(id==='p-res') showResView('res-home');
   document.getElementById('nav').classList.remove('scrolled');
 }
 
 /* ── RESOURCES VIEW SYSTEM ── */
 let _resCat='patient';
-const _RES_CAT_LABELS={patient:'Patient experience',primary:'Primary care',nurse:'Specialist Nurse roles'};
-const _RES_CAT_FULL={patient:'Patient experience and service improvement',primary:'Primary care recognition and referral',nurse:'Specialist Vasculitis Nurse roles'};
+
+/* ================================================================
+   RESOURCE DATA — edit each object to customise an individual resource.
+   Fields:
+     cat   : ‘patient’ | ‘primary’ | ‘nurse’
+     title : title shown on the card and in the detail panel
+     desc  : description (HTML allowed) shown on card and in detail
+     img   : path to thumbnail image
+     links : array of { label, href } — one button per link in the detail panel
+             e.g. links: [
+               { label: ‘Visit website’, href: ‘https://...’ },
+               { label: ‘Download PDF’,  href: ‘https://...’ }
+             ]
+   ================================================================ */
+const _RESOURCES=[
+
+  /* ── Patient experience and service improvement ── */
+  {
+    cat  : 'patient',
+    title: 'Health Experiences Insight (HEXI) – patient experience resource',
+    img  : 'Figures/VOICES-logo.PNG',
+    desc : `
+      <p>A patient experience resource developed as part of the VOICES programme of research, covering:</p>
+      <ul>
+        <li>Challenges of getting to a systemic vasculitis diagnosis</li>
+        <li>Managing systemic vasculitis flares and seeking help</li>
+        <li>Systemic vasculitis and relationships with healthcare staff</li>
+        <li>Coordination and organisation of systemic vasculitis care</li>
+        <li>Services to help people live with systemic vasculitis</li>
+        <li>Messages about systemic vasculitis for healthcare professionals</li>
+      </ul>`,
+    links: [
+      { label: 'Systemic Vasculitis – Overview', 
+        href: 'https://www.hexi.ox.ac.uk/Systemic-Vasculitis/overview' },
+    ]
+  },
+  {
+    cat  : 'patient',
+    title: 'Health Experiences Insight (HEXI) – catalyst film to support local service improvements',
+    img  : 'Figures/VOICES-logo.PNG',
+    desc : `As part of the same work, we developed a 20-minute film to be used in imaginative ways as a ‘catalyst’ to get local patients, families and NHS staff talking together about your service and how you can jointly improve people’s experiences.`,
+    links: [
+      { label: 'Systemic Vasculitis catalyst film', 
+        href: 'https://www.hexi.ox.ac.uk/Systemic-Vasculitis-catalyst-film' }
+    ]
+  },
+
+  /* ── Primary care recognition and referral ── */
+  {
+    cat  : 'primary',
+    title: 'Easily missed? ANCA associated vasculitis',
+    img  : 'Figures/VOICES-logo.PNG',
+    links: [
+      { label: 'ANCA associated vasculitis | The BMJ', 
+        href: 'https://www.bmj.com/content/369/bmj.m1070' }
+    ]
+  },
+  {
+    cat  : 'primary',
+    title: 'Health Improvement Scotland Right Decision Service',
+    img  : 'Figures/VOICES-logo.PNG',
+    links: [
+      { label: ' Vasculitis Referral Guideline | Right Decisions (NHS Lanarkshire', 
+        href: 'https://rightdecisions.scot.nhs.uk/nhsl-referral-pathways/rheumatology-referral-pathways/vasculitis-referral-guideline/' },
+      { label: 'Suspected vasculitis | Right Decisions (NHS GGC)', 
+        href: 'https://rightdecisions.scot.nhs.uk/ggc-referral-management/rheumatology/refer-to-rheumatology/suspected-vasculitis/' },
+    ]
+  },
+
+  /* ── Specialist Vasculitis Nurse roles ── */
+  {
+    cat  : 'nurse',
+    title: 'Job Descriptions',
+    img  : 'Figures/VOICES-logo.PNG',
+    desc : 'Example job descriptions, patient information and training resources to support development of specialist nurse roles. ',
+    links: [
+      { label: 'Specialist Vasculitis Nurse Job Description (attached file) ', 
+        href: '#' },
+      { label: 'Specialist Vasculitis Nurse | Job advert | Trac (posted 19/326, now closed, this has links to pdfs of the job description and person specification) ', 
+        href: 'https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fapps.trac.jobs%2Fjob-advert%2F7820723%3Ffeedid%3D9002&data=05%7C02%7Cavril.nicoll%40abdn.ac.uk%7Caa6cebef854d41341f6608deb0273825%7C8c2b19ad5f9c49d490773ec3cfc52b3f%7C0%7C0%7C639141879642329902%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=GnmiUAnaVwzA5ksFyikhWWJjzmb6XyqOzb0yKGz5FAI%3D&reserved=0' }
+    ]
+  },
+  {
+    cat  : 'nurse',
+    title: 'Information for patients ',
+    img  : 'Figures/VOICES-logo.PNG',
+    links: [
+      { label: 'Specialist Vasculitis Nurse Role - information leaflet NHS for patients (will send on when get proper PDF -currently just have a photocopy)', 
+        href: '#' }
+    ]
+  },
+  {
+    cat  : 'nurse',
+    title: 'Training resources ',
+    img  : 'Figures/VOICES-logo.PNG',
+    desc : 'NHS patient information leaflet explaining the Specialist Vasculitis Nurse role and how patients can access and benefit from the service.',
+    links: [
+      { label: 'Vasculitis Nurse Training | Cambridge VLRT', 
+        href: 'https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.cambridge-vasculitislupuscentre.nhs.uk%2Fcourses%2Fvasculitis-nurse-training%2F&data=05%7C02%7Cavril.nicoll%40abdn.ac.uk%7Caa6cebef854d41341f6608deb0273825%7C8c2b19ad5f9c49d490773ec3cfc52b3f%7C0%7C0%7C639141879642363351%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=m9YUSxvZa0DI0M5m7AZFxPY2sSqaTnNc9bI7Sgd%2Bbps%3D&reserved=0' },
+      { label: 'Psychological and self-management support for people with vasculitis or connective tissue diseases: UK health professionals’ perspectives | Rheumatology Advances in Practice | Oxford Academic ', 
+        href: 'https://academic.oup.com/rheumap/article/4/2/rkaa016/5847602' },
+    ]
+  },
+];
+
+function _buildResGrid(){
+  const grid=document.getElementById('res-grid');
+  if(!grid) return;
+  grid.innerHTML=_RESOURCES.map((r,i)=>`
+    <div class="res-card" data-cat="${r.cat}" data-res-idx="${i}" onclick="openResource(this)">
+      <div class="res-card-img"><img src="${r.img||''}" alt=""></div>
+      <div class="res-card-title">${r.title}</div>
+      <div class="res-card-desc">${r.desc||''}</div>
+      <div class="res-meta"></div>
+    </div>`).join('');
+}
+
+const _RES_CATS=[
+  {cat:'patient',label:'Patient experience and service improvement',
+   desc:'Resources to support use of patient experience data, including the systemic vasculitis experience resource and catalyst film. '},
+  {cat:'primary',label:'Primary care recognition and referral',
+   desc:'Resources to support earlier recognition of vasculitis and referral into specialist care.'},
+  {cat:'nurse',  label:'Specialist Vasculitis Nurse roles',
+   desc:'Resources to support earlier recognition of vasculitis and referral into specialist care. '}
+];
 
 function _animateIn(el){
   if(!el)return;
@@ -23,148 +146,111 @@ function _animateIn(el){
   el.addEventListener('animationend',()=>el.classList.remove('res-view-in'),{once:true});
 }
 
-function showResView(id){
-  const picker=document.getElementById('res-cat-picker');
-  const browse=document.getElementById('res-browse');
-  const detail=document.getElementById('res-detail');
-  const resDetail=document.getElementById('res-resource-detail');
-  const backLabel=document.getElementById('res-browse-back-label');
-
-  if(id==='res-cat-picker'){
-    if(browse) browse.style.display='none';
-    if(picker){picker.style.display='';_animateIn(picker);}
-    requestAnimationFrame(()=>requestAnimationFrame(squareCatCards));
-    return;
-  }
-  if(picker) picker.style.display='none';
-  if(browse&&browse.style.display==='none'){browse.style.display='';_animateIn(browse);}
-
-  if(id==='res-detail'){
-    if(resDetail) resDetail.style.display='none';
-    if(detail){detail.style.display='';_animateIn(detail);}
-    if(backLabel) backLabel.textContent='All categories';
-    requestAnimationFrame(()=>requestAnimationFrame(squareResCards));
-  } else if(id==='res-resource-detail'){
-    if(detail) detail.style.display='none';
-    if(resDetail){resDetail.style.display='';_animateIn(resDetail);}
-    if(backLabel) backLabel.textContent=_RES_CAT_LABELS[_resCat]||'Back';
-  }
-}
-
-function resBackBtn(){
-  const resDetail=document.getElementById('res-resource-detail');
-  if(resDetail&&resDetail.style.display!=='none') showResView('res-detail');
-  else showResView('res-cat-picker');
-}
-
-function squareCards(selector){
-  document.querySelectorAll(selector).forEach(c=>{
-    if(c.style.display==='none') return;
-    c.style.height='';
-    c.style.height=c.offsetWidth+'px';
-  });
-}
-
-function squareResCards(){ squareCards('#res-grid .res-card'); }
-function squareCatCards(){ squareCards('.res-cat-card'); }
-
-window.addEventListener('resize',()=>{
-  squareResCards();
-  squareCatCards();
-});
-
-function _buildResSidebar(){
-  const container=document.getElementById('res-sidebar-links');
-  if(!container)return;
-  const cats=[
-    {cat:'patient',label:_RES_CAT_FULL.patient},
-    {cat:'primary',label:_RES_CAT_FULL.primary},
-    {cat:'nurse',label:_RES_CAT_FULL.nurse}
-  ];
-  container.innerHTML=cats.map(({cat,label})=>{
+/* Build sidebar once: category heading + resource links under each */
+function _buildSidebarResources(){
+  const nav=document.getElementById('res-sidebar-links');
+  if(!nav) return;
+  nav.innerHTML=_RES_CATS.map(({cat,label})=>{
     const cards=[...document.querySelectorAll(`#res-grid .res-card[data-cat="${cat}"]`)];
-    const links=cards.map((card,i)=>{
+    const items=cards.map((card,i)=>{
       const title=card.querySelector('.res-card-title')?.textContent.trim()||'';
-      return `<a class="toc-child res-sidebar-link" data-cat="${cat}" data-idx="${i}" href="#" onclick="openResourceByIdx('${cat}',${i});return false">${title}</a>`;
+      return `<a class="res-sidebar-item" data-cat="${cat}" data-idx="${i}" href="#"
+        onclick="openResFromSidebar('${cat}',${i});return false">${title}</a>`;
     }).join('');
-    return `<div class="toc-section"><div class="toc-parent${cat===_resCat?' open':''}" onclick="this.classList.toggle('open')">${label} <svg class="toc-chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div><div class="toc-children">${links}</div></div>`;
+    return `<div class="res-sidebar-cat">
+      <button class="res-cat-sidebar-btn${cat===_resCat?' active':''}" data-cat="${cat}"
+        onclick="filterResCategory('${cat}')">${label}</button>
+      <div class="res-sidebar-items">${items}</div>
+    </div>`;
   }).join('');
 }
 
-function _syncSidebarActive(card){
-  document.querySelectorAll('#res-sidebar-links .res-sidebar-link').forEach(a=>a.classList.remove('active'));
-  if(!card)return;
-  const cards=[...document.querySelectorAll(`#res-grid .res-card[data-cat="${card.dataset.cat}"]`)];
-  const idx=cards.indexOf(card);
-  if(idx>=0){
-    const link=document.querySelector(`#res-sidebar-links .res-sidebar-link[data-cat="${card.dataset.cat}"][data-idx="${idx}"]`);
-    if(link) link.classList.add('active');
+function showResView(id){
+  const home=document.getElementById('res-home');
+  const layoutWrap=document.getElementById('res-layout-wrap');
+  const detail=document.getElementById('res-detail');
+  const resDetail=document.getElementById('res-resource-detail');
+  if(id==='res-home'){
+    if(layoutWrap) layoutWrap.style.display='none';
+    if(home){home.style.display='';_animateIn(home);}
+  } else if(id==='res-detail'){
+    if(home) home.style.display='none';
+    if(layoutWrap) layoutWrap.style.display='';
+    if(resDetail) resDetail.style.display='none';
+    if(detail){detail.style.display='';_animateIn(detail);}
+  } else if(id==='res-resource-detail'){
+    if(home) home.style.display='none';
+    if(layoutWrap) layoutWrap.style.display='';
+    if(detail) detail.style.display='none';
+    if(resDetail){resDetail.style.display='';_animateIn(resDetail);}
   }
-}
-
-function openResourceByIdx(cat,idx){
-  if(cat!==_resCat){_resCat=cat;_syncResCatTabs();applyResFilters();}
-  const cards=[...document.querySelectorAll(`#res-grid .res-card[data-cat="${cat}"]`)];
-  if(cards[idx]) openResource(cards[idx]);
-}
-
-function selectResCategory(cat){
-  _resCat=cat;
-  _syncResCatTabs();
-  applyResFilters();
-  _buildResSidebar();
-  showResView('res-detail');
-}
-
-function showResCatPicker(){
-  showResView('res-cat-picker');
 }
 
 function filterResCategory(cat){
   _resCat=cat;
-  _syncResCatTabs();
+  document.querySelectorAll('.res-cat-sidebar-btn').forEach(btn=>{
+    btn.classList.toggle('active',btn.dataset.cat===cat);
+  });
+  document.querySelectorAll('.res-sidebar-item').forEach(a=>a.classList.remove('active'));
+  const descEl=document.getElementById('res-cat-desc');
+  if(descEl) descEl.textContent=_RES_CATS.find(c=>c.cat===cat)?.desc||'';
   applyResFilters();
-  _buildResSidebar();
   showResView('res-detail');
 }
 
-function _syncResCatTabs(){
-  document.querySelectorAll('.res-cat-tab').forEach(t=>t.classList.toggle('active',t.dataset.cat===_resCat));
+function applyResFilters(){
+  document.querySelectorAll('#res-grid .res-card').forEach(card=>{
+    card.style.display=(card.dataset.cat===_resCat)?'':'none';
+  });
+}
+
+/* Called from sidebar resource links */
+function openResFromSidebar(cat,idx){
+  if(cat!==_resCat){
+    _resCat=cat;
+    document.querySelectorAll('.res-cat-sidebar-btn').forEach(btn=>{
+      btn.classList.toggle('active',btn.dataset.cat===cat);
+    });
+    applyResFilters();
+  }
+  const cards=[...document.querySelectorAll(`#res-grid .res-card[data-cat="${cat}"]`)];
+  if(cards[idx]) openResource(cards[idx]);
 }
 
 function openResource(card){
-  document.getElementById('res-res-title').textContent=card.querySelector('.res-card-title')?.textContent.trim()||'';
-  document.getElementById('res-res-desc').textContent=card.querySelector('.res-card-desc')?.textContent.trim()||'';
-  const typeEl=card.querySelector('.res-type');
-  const resType=document.getElementById('res-res-type');
-  resType.textContent=typeEl?.textContent||'';
-  resType.className=typeEl?.className||'res-type';
+  const r=_RESOURCES[+card.dataset.resIdx];
+  if(!r) return;
+  document.getElementById('res-res-title').textContent=r.title;
+  document.getElementById('res-res-desc').innerHTML=r.desc||'';
   const img=document.getElementById('res-res-img');
-  img.src=card.querySelector('.res-card-img img')?.src||'';
-  img.alt=card.querySelector('.res-card-title')?.textContent.trim()||'';
-  const cta=document.querySelector('.res-res-cta');
-  if(cta) cta.href=card.dataset.href||'#';
-  _syncSidebarActive(card);
+  img.src=r.img||''; img.alt=r.title;
+  const ctasEl=document.getElementById('res-res-ctas');
+  if(ctasEl){
+    const ctaArrow='<svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>';
+    const links=r.links||[];
+    ctasEl.innerHTML=links.map(l=>
+      `<a class="res-res-cta" href="${l.href||'#'}" target="_blank" rel="noopener">${l.label} ${ctaArrow}</a>`
+    ).join('');
+  }
+  // Highlight matching sidebar item
+  document.querySelectorAll('.res-sidebar-item').forEach(a=>a.classList.remove('active'));
+  const cardCat=card.dataset.cat;
+  const catCards=[...document.querySelectorAll(`#res-grid .res-card[data-cat="${cardCat}"]`)];
+  const idx=catCards.indexOf(card);
+  if(idx>=0){
+    const link=document.querySelector(`.res-sidebar-item[data-cat="${cardCat}"][data-idx="${idx}"]`);
+    if(link) link.classList.add('active');
+  }
+  // Breadcrumb
+  const catLabel=_RES_CATS.find(c=>c.cat===cardCat)?.label||'';
+  const bc=document.getElementById('res-breadcrumb');
+  if(bc) bc.textContent=catLabel+' / '+r.title;
   showResView('res-resource-detail');
 }
 
 function closeResource(){
-  _syncSidebarActive(null);
+  document.querySelectorAll('.res-sidebar-item').forEach(a=>a.classList.remove('active'));
   showResView('res-detail');
-}
-
-function filterRes(q){
-  applyResFilters(q);
-}
-
-function applyResFilters(q){
-  const query=(q!==undefined?q:document.querySelector('.res-search')?.value||'').toLowerCase().trim();
-  document.querySelectorAll('#res-grid .res-card').forEach(card=>{
-    const catMatch=card.dataset.cat===_resCat;
-    const textMatch=!query||card.textContent.toLowerCase().includes(query);
-    card.style.display=(catMatch&&textMatch)?'':'none';
-  });
-  requestAnimationFrame(()=>requestAnimationFrame(squareResCards));
 }
 
 /* ── SCROLL + NAV ── */
@@ -770,4 +856,19 @@ updateCalc();
   updateUI();
   window.addEventListener('resize',recalcAngle);
 })();
+
+/* ── init resources ── */
+function _initResHome(){
+  _RES_CATS.forEach(({cat})=>{
+    const n=document.querySelectorAll(`#res-grid .res-card[data-cat="${cat}"]`).length;
+    const el=document.getElementById('rhc-'+cat);
+    if(el) el.textContent=n+' resource'+(n!==1?'s':'');
+  });
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  _buildResGrid();          // render cards from _RESOURCES
+  _buildSidebarResources(); // build sidebar from rendered cards
+  _initResHome();           // set resource counts on category tiles
+});
 
