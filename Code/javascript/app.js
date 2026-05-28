@@ -537,7 +537,6 @@ updateCalc();
 
 // ── Editable Table ──────────────────────────────────────────────────────────
 (function(){
-  const KEY_COMPONENTS=['Wait times new <7 days','Access IV therapy <7 days','Care via cohorted clinics','Nurse-led components of care','Access to MDT meeting'];
   const DEPT_SUGGESTIONS=['Rheumatology','Nephrology','Respiratory','Ear, Nose & Throat','Neurology','Dermatology','Other'];
   const STATUSES=[
     {value:'established',label:'Established',svg:'<polyline points="20 6 9 17 4 12"/>'},
@@ -770,72 +769,7 @@ updateCalc();
   }
 
 
-  // ── export ─────────────────────────────────────────────────────────────────
-  function exportData(){
-    const cols=state.cols.filter(c=>c.name.trim());
-    return KEY_COMPONENTS.map((kc,i)=>{
-      const row={'Key Component':kc};
-      cols.forEach(col=>{const v=state.cells[ck(i,col.id)];row[col.name]=v?v.replace(/-/g,' '):'Unknown';});
-      return row;
-    });
-  }
-  function triggerBlob(content,type,name){
-    const a=document.createElement('a');
-    a.href=URL.createObjectURL(new Blob([content],{type}));
-    a.download=name; a.click();
-  }
-  function doDownload(fmt){
-    const data=exportData();
-    const cols=['Key Component',...state.cols.filter(c=>c.name.trim()).map(c=>c.name)];
-    if(fmt==='csv'){
-      triggerBlob([cols.join(','),...data.map(r=>cols.map(c=>'"'+(r[c]||'').replace(/"/g,'""')+'"').join(','))].join('\n'),'text/csv','vasculitis-mapping.csv');
-    } else if(fmt==='txt'){
-      triggerBlob([cols.join('\t'),...data.map(r=>cols.map(c=>r[c]||'').join('\t'))].join('\n'),'text/plain','vasculitis-mapping.txt');
-    } else if(fmt==='json'){
-      triggerBlob(JSON.stringify(data,null,2),'application/json','vasculitis-mapping.json');
-    } else if(fmt==='xlsx'){
-      if(!window.XLSX){alert('Excel export requires internet.');return;}
-      const ws=XLSX.utils.json_to_sheet(data,{header:cols});
-      const wb=XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb,ws,'Mapping');
-      XLSX.writeFile(wb,'vasculitis-mapping.xlsx');
-    } else if(fmt==='pdf'){
-      if(!window.jspdf){alert('PDF export requires internet.');return;}
-      const {jsPDF}=window.jspdf;
-      const doc=new jsPDF({orientation:'landscape'});
-      doc.setFontSize(13); doc.text('Vasculitis Service Mapping',14,14);
-      doc.setFontSize(8);
-      let y=24; const cw=Math.min(38,(280-14)/cols.length);
-      doc.setFillColor(139,107,154); doc.setTextColor(255,255,255);
-      doc.rect(14,y-5,cw*cols.length,8,'F');
-      cols.forEach((c,i)=>doc.text(c.substring(0,14),14+i*cw+1,y));
-      y+=8; doc.setTextColor(0,0,0);
-      data.forEach((row,ri)=>{
-        if(ri%2===0){doc.setFillColor(239,236,230);doc.rect(14,y-5,cw*cols.length,8,'F');}
-        cols.forEach((c,i)=>doc.text((row[c]||'').substring(0,14),14+i*cw+1,y));
-        y+=8;
-      });
-      doc.save('vasculitis-mapping.pdf');
-    } else if(fmt==='png'||fmt==='jpeg'){
-      if(!window.html2canvas){alert('Image export requires internet.');return;}
-      const unknownSvg='<svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;display:block;margin:auto"><line x1=\"5\" y1=\"19\" x2=\"19\" y2=\"5\"/></svg>';
-      html2canvas(document.getElementById('etblTable'),{
-        backgroundColor:'#fff',scale:2,
-        onclone:function(doc){
-          doc.querySelectorAll('#etblTable td.empty-status').forEach(td=>{
-            td.style.background='#8c8c93';
-            td.innerHTML=unknownSvg;
-          });
-          doc.querySelectorAll('.dept-delete-btn,.etbl-add-col-right').forEach(el=>el.style.display='none');
-        }
-      }).then(canvas=>{
-        const a=document.createElement('a');
-        a.download='vasculitis-mapping.'+fmt;
-        a.href=canvas.toDataURL(fmt==='jpeg'?'image/jpeg':'image/png');
-        a.click();
-      });
-    }
-  }
+  function doDownload(){ /* downloads disabled */ }
 
   // ── download button ────────────────────────────────────────────────────────
   const dlBtn=document.getElementById('dlBtn');
