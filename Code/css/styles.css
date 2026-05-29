@@ -725,6 +725,7 @@ p, ul, ol {
   left: 50%;
   transform: translateX(-50%);
   background: var(--accent);
+  border-radius: 2px;
   z-index: 1;
   transform-origin: center top
 }
@@ -732,6 +733,10 @@ p, ul, ol {
 .kc-orbit-item:nth-child(2) {
   top: 252px;
   left: calc(50% + 126px)
+}
+
+.kc-orbit-item:nth-child(2) > * {
+  transform: translateY(13px)
 }
 
 .kc-orbit-item:nth-child(2)::before {
@@ -743,6 +748,7 @@ p, ul, ol {
   left: 20%;
   transform: translateX(-50%) rotate(120deg);
   background: var(--accent);
+  border-radius: 2px;
   z-index: 1;
   transform-origin: center top
 }
@@ -750,6 +756,10 @@ p, ul, ol {
 .kc-orbit-item:nth-child(3) {
   top: 252px;
   left: calc(50% - 126px)
+}
+
+.kc-orbit-item:nth-child(3) > * {
+  transform: translateY(13px)
 }
 
 .kc-orbit-item:nth-child(3)::before {
@@ -761,6 +771,7 @@ p, ul, ol {
   left: 70%;
   transform: translateX(-50%) rotate(-120deg);
   background: var(--accent);
+  border-radius: 2px;
   z-index: 1;
   transform-origin: center top
 }
@@ -2531,7 +2542,7 @@ p, ul, ol {
   color: var(--accent);
   font-weight: 700;
   border-left-color: var(--accent);
-  background: var(--al);
+  background: var(--surface);
 }
 
 .res-sidebar-cat {
@@ -2571,10 +2582,10 @@ p, ul, ol {
 }
 
 .res-sidebar-item.active {
-  color: var(--accent);
+  color: var(--s2);
   font-weight: 600;
   border-left-color: var(--accent);
-  background: var(--al);
+  background: var(--accent);
 }
 
 /* ── Resources home (3 category tiles) ── */
@@ -2641,39 +2652,6 @@ p, ul, ol {
 
 .res-home-cat:hover .res-home-cat-arrow {
   transform: translateX(4px);
-}
-
-/* ── Back-to-categories button (inside res-detail) ── */
-.res-back-cat-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 7px 14px 7px 10px;
-  margin-bottom: 20px;
-  background: none;
-  border: 1px solid var(--s3);
-  border-radius: 8px;
-  font-family: var(--fb);
-  font-size: var(--fs-sm);
-  color: var(--t2);
-  cursor: pointer;
-  transition: color .15s, border-color .15s, background .15s;
-}
-
-.res-back-cat-btn:hover {
-  color: var(--text);
-  background: var(--s2);
-  border-color: var(--s3);
-}
-
-.res-back-cat-btn svg {
-  width: 14px;
-  height: 14px;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
 }
 
 .res-cat-page-desc {
@@ -3125,29 +3103,30 @@ p, ul, ol {
   flex-wrap: wrap
 }
 
-.res-back-btn {
+.btn-ghost {
   display: flex;
   align-items: center;
   gap: 6px;
   padding: 8px 14px;
-  background: var(--s2);
-  border: 1px solid var(--s3);
+  background: transparent;
+  border: none;
   border-radius: 8px;
   font-family: var(--fb);
   font-size: var(--fs-base-md);
   font-weight: 600;
   color: var(--t2);
   cursor: pointer;
-  transition: background .15s;
+  transition: background .15s, color .15s;
   white-space: nowrap;
   flex-shrink: 0
 }
 
-.res-back-btn:hover {
-  background: var(--s3)
+.btn-ghost:hover {
+  background: var(--s2);
+  color: var(--text)
 }
 
-.res-back-btn svg {
+.btn-ghost svg {
   width: 16px;
   height: 16px;
   stroke: currentColor;
@@ -3421,13 +3400,11 @@ footer a:hover {
   }
 
   .res-layout {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr
+    grid-template-columns: 1fr
   }
 
   .res-sidebar {
-    position: static;
-    max-height: none
+    display: none
   }
 
   .nsp {

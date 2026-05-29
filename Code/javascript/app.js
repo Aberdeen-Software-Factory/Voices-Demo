@@ -377,7 +377,7 @@ document.querySelectorAll('.kc-orbit-item').forEach(node=>{
     if(sectionId){
       showPage('p-kc');
       setTimeout(()=>{
-        document.getElementById(sectionId)?.scrollIntoView({behavior:'smooth',block:'start'});
+        document.querySelector('.'+sectionId)?.scrollIntoView({behavior:'smooth',block:'start'});
       },100);
     }
   });
