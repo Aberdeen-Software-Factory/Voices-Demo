@@ -1578,17 +1578,17 @@ p, ul, ol {
   box-shadow: 0 16px 48px rgba(0, 0, 0, .4)
 }
 
-.video-learn-more {
+.learn-more {
   display: inline-flex;
   align-items: center;
   gap: 5px;
   font-family: var(--fb);
-  font-size: var(--fs-base-lg);
+  font-size: var(--fs-lg);
   color: var(--accent);
   text-decoration: none;
 }
 
-.video-learn-more:hover {
+.learn-more:hover {
   text-decoration: underline;
 }
 
