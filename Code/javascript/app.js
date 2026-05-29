@@ -541,9 +541,18 @@ const CALC_COEFS={
 };
 const CALC_COMP_IDS=['cc1','cc2','cc3','cc4','cc5','cc6','cc7'];
 
+// replace key values with actual region and corresponding cost 
+const CALC_REGIONS_COSTS={
+  'Region 1': 1000,
+  'Region 2': 1100,
+  'Region 3': 1200,
+  'Region 4': 1300,
+  'Region 5': 1400
+};
+
 function updateCalc(){
   const vol=parseInt(document.getElementById('calc-patients').value)||0;
-  const cost=parseFloat(document.getElementById('calc-cost').value)||0;
+  const cost=CALC_REGIONS_COSTS[document.getElementById('calc-cost').value]||0;
   const outcome=document.getElementById('calc-outcome').value;
   const checks=CALC_COMP_IDS.map(id=>document.getElementById(id).checked);
   const count=checks.filter(Boolean).length;

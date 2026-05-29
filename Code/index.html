@@ -1065,9 +1065,17 @@
           <div class="form-group"><label class="form-label" for="calc-patients">Number of patients</label><input
               class="form-input" type="number" placeholder="e.g. 1000" id="calc-patients" oninput="updateCalc()"
               min="0"></div>
-          <div class="form-group"><label class="form-label" for="calc-cost">Cost per event (£)</label><input
+          <!-- <div class="form-group"><label class="form-label" for="calc-cost">Cost per event (£)</label><input
               class="form-input" type="number" placeholder="e.g. 1000" id="calc-cost" value="1000"
-              oninput="updateCalc()" min="0"></div>
+              oninput="updateCalc()" min="0"></div> -->
+             <div class="form-group"><label class="form-label" for="calc-cost">Region</label><select
+              class="form-select" id="calc-cost" onchange="updateCalc()">
+              <option value="Region 1">Region 1 (£1000)</option>
+              <option value="Region 2">Region 2 (£1100)</option>
+              <option value="Region 3">Region 3 (£1200)</option>
+              <option value="Region 4">Region 4 (£1300)</option>
+              <option value="Region 5">Region 5 (£1400)</option>
+            </select></div>
           <div class="form-group"><label class="form-label" for="calc-outcome">Outcome</label><select
               class="form-select" id="calc-outcome" onchange="updateCalc()">
               <option value="Serious Infection">Serious infection</option>
