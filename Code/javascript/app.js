@@ -1,5 +1,5 @@
 /* ── PAGE ROUTING ── */
-function showPage(id){
+function showPage(id, _push=true){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nl').forEach(b=>{
     b.classList.toggle('active', b.dataset.page===id);
@@ -9,6 +9,7 @@ function showPage(id){
   if(id==='p-home') setTimeout(animateCards, 100);
   if(id==='p-res') showResView('res-home');
   document.getElementById('nav').classList.remove('scrolled');
+  if(_push) history.pushState(null,'','#'+id);
 }
 
 /* ── RESOURCES VIEW SYSTEM ── */
@@ -186,7 +187,7 @@ function showResView(id){
   }
 }
 
-function filterResCategory(cat){
+function filterResCategory(cat, _push=true){
   _resCat=cat;
   document.querySelectorAll('.res-cat-sidebar-btn').forEach(btn=>{
     btn.classList.toggle('active',btn.dataset.cat===cat);
@@ -196,6 +197,7 @@ function filterResCategory(cat){
   if(descEl) descEl.textContent=_RES_CATS.find(c=>c.cat===cat)?.desc||'';
   applyResFilters();
   showResView('res-detail');
+  if(_push) history.pushState(null,'','#p-res/'+cat);
 }
 
 function applyResFilters(){
@@ -217,7 +219,7 @@ function openResFromSidebar(cat,idx){
   if(cards[idx]) openResource(cards[idx]);
 }
 
-function openResource(card){
+function openResource(card, _push=true){
   const r=_RESOURCES[+card.dataset.resIdx];
   if(!r) return;
   document.getElementById('res-res-title').textContent=r.title;
@@ -241,22 +243,63 @@ function openResource(card){
     const link=document.querySelector(`.res-sidebar-item[data-cat="${cardCat}"][data-idx="${idx}"]`);
     if(link) link.classList.add('active');
   }
-  // Breadcrumb
+  // Breadcrumb — category part is clickable
   const catLabel=_RES_CATS.find(c=>c.cat===cardCat)?.label||'';
   const bc=document.getElementById('res-breadcrumb');
-  if(bc) bc.textContent=catLabel+' / '+r.title;
+  if(bc){
+    bc.innerHTML='';
+    const catBtn=document.createElement('button');
+    catBtn.className='res-bc-cat-btn';
+    catBtn.textContent=catLabel;
+    catBtn.addEventListener('click',()=>filterResCategory(cardCat));
+    const sep=document.createElement('span');
+    sep.setAttribute('aria-hidden','true');
+    sep.textContent=' / ';
+    const titleSpan=document.createElement('span');
+    titleSpan.textContent=r.title;
+    bc.append(catBtn,sep,titleSpan);
+  }
+  if(_push) history.pushState(null,'','#p-res/'+cardCat+'/'+card.dataset.resIdx);
   showResView('res-resource-detail');
 }
 
 function closeResource(){
   document.querySelectorAll('.res-sidebar-item').forEach(a=>a.classList.remove('active'));
+  history.pushState(null,'','#p-res/'+_resCat);
   showResView('res-detail');
+}
+
+function goResHome(){
+  history.pushState(null,'','#p-res');
+  showResView('res-home');
+}
+
+function _routeHash(hash, _push){
+  const raw=(hash||'').replace(/^#/,'');
+  const parts=raw.split('/');
+  const page=parts[0]||'p-home';
+  if(page==='p-res'){
+    showPage('p-res', _push);
+    if(parts[1]){
+      filterResCategory(parts[1], _push);
+      const idx=parts[2]!==undefined&&parts[2]!==''?parseInt(parts[2]):-1;
+      if(idx>=0){
+        const cards=[...document.querySelectorAll(`#res-grid .res-card[data-cat="${parts[1]}"]`)];
+        if(cards[idx]) openResource(cards[idx], _push);
+      }
+    }
+  } else {
+    const valid=['p-home','p-kc','p-change','p-calc','p-atys','p-abt'];
+    showPage(valid.includes(page)?page:'p-home', _push);
+  }
 }
 
 /* ── SCROLL + NAV ── */
 window.addEventListener('scroll',()=>{
   document.getElementById('nav').classList.toggle('scrolled',window.scrollY>40);
 },{passive:true});
+
+window.addEventListener('popstate',()=>_routeHash(location.hash,false));
 
 /* ── DARK MODE ── */
 const tbtn=document.getElementById('tbtn');
@@ -804,5 +847,6 @@ document.addEventListener('DOMContentLoaded',function(){
   _buildResGrid();          // render cards from _RESOURCES
   _buildSidebarResources(); // build sidebar from rendered cards
   _initResHome();           // set resource counts on category tiles
+  _routeHash(location.hash,false); // restore navigation from URL
 });
 
