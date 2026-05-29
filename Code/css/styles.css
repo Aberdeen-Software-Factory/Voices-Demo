@@ -1,6 +1,7 @@
 :root {
-  --bg: #FFFFFF/*#F7F5F0*/;
+  --bg: #FFFFFF;
   --surface: #FFFFFF;
+  --cream: #F7F5F0;
   --s2: #EFECE6;
   --s3: #DDD9D0;
   --s4: #CBC6BC;
@@ -250,6 +251,12 @@ p, ul, ol {
   border-color: var(--accent)
 }
 
+.tbtn-moon { display: none }
+[data-theme="light"] .tbtn-sun  { display: block }
+[data-theme="light"] .tbtn-moon { display: none }
+[data-theme="dark"]  .tbtn-sun  { display: none }
+[data-theme="dark"]  .tbtn-moon { display: block }
+
 .hamburger {
   display: none;
   background: none;
@@ -275,6 +282,7 @@ p, ul, ol {
 #mobile-menu {
   display: none;
   position: fixed;
+  background: var(--bg);
   inset: var(--nh) 0 0 0;
   flex-direction: column;
   z-index: 199;
@@ -289,7 +297,7 @@ p, ul, ol {
   list-style: none;
   display: flex;
   flex-direction: column;
-  padding: 20px 24px;
+  /* padding: 20px 24px; */
   gap: 0
 }
 
@@ -299,8 +307,8 @@ p, ul, ol {
 
 .mobile-nav button {
   width: 100%;
-  text-align: left;
-  padding: 16px 0;
+  text-align: center;
+  padding: 26px 0;
   background: none;
   border: none;
   font-family: var(--fb);
@@ -308,12 +316,17 @@ p, ul, ol {
   font-weight: 500;
   cursor: pointer;
   color: var(--text);
-  transition: color .2s
+  transition: color .2s;
+}
+
+.mobile-nav h2 {
+  margin-bottom: 0;
 }
 
 .mobile-nav button:hover,
 .mobile-nav button.active {
-  color: var(--accent)
+  color: var(--accent);
+  background: var(--cream);
 }
 
 /* PAGE SWITCHING */
