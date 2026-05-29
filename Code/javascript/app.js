@@ -228,10 +228,9 @@ function openResource(card, _push=true){
   img.src=r.img||''; img.alt=r.title;
   const ctasEl=document.getElementById('res-res-ctas');
   if(ctasEl){
-    const ctaArrow='<svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>';
     const links=r.links||[];
     ctasEl.innerHTML=links.map(l=>
-      `<a class="res-res-cta" href="${l.href||'#'}" target="_blank" rel="noopener">${l.label} ${ctaArrow}</a>`
+      `<a class="learn-more" href="${l.href||'#'}" target="_blank" rel="noopener">${l.label}</a>`
     ).join('');
   }
   // Highlight matching sidebar item
