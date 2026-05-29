@@ -1,5 +1,5 @@
 :root {
-  --bg: #F7F5F0;
+  --bg: #FFFFFF/*#F7F5F0*/;
   --surface: #FFFFFF;
   --s2: #EFECE6;
   --s3: #DDD9D0;
@@ -127,7 +127,7 @@ p, ul, ol {
 }
 
 #nav.scrolled {
-  background: rgba(247, 245, 240, .96);
+  background: rgba(255, 255, 255, .90);
   backdrop-filter: blur(16px);
   border-color: var(--s3);
   box-shadow: 0 1px 12px rgba(34, 32, 44, .06)
@@ -276,7 +276,6 @@ p, ul, ol {
   display: none;
   position: fixed;
   inset: var(--nh) 0 0 0;
-  background: var(--surface);
   flex-direction: column;
   z-index: 199;
   box-shadow: var(--sh2)
@@ -426,7 +425,6 @@ p, ul, ol {
 
 /* INTERIOR PAGE HEADER */
 .pg-hdr {
-  background: var(--bg);
   padding: calc(var(--nh) + 36px) 0 32px
 }
 
@@ -437,7 +435,6 @@ p, ul, ol {
 }
 
 .pg-content {
-  background: var(--surface);
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 40px 80px
@@ -447,17 +444,12 @@ p, ul, ol {
    HOME PAGE
 ═══════════════════════════════════════════ */
 #p-home {
-  background: var(--surface);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
   padding-top: var(--nh);
   overflow: auto;
   z-index: 0
-}
-
-#p-kc {
-  background: var(--surface);
 }
 
 #p-change {
@@ -2489,7 +2481,6 @@ p, ul, ol {
    ADAPT TO YOUR SERVICE PAGE
 ═══════════════════════════════════════════ */
 #p-atys {
-  background: var(--surface);
   min-height: 100svh;
 }
 
@@ -2508,7 +2499,6 @@ p, ul, ol {
 ═══════════════════════════════════════════ */
 
 #p-res {
-  background: var(--surface);
   min-height: 100svh;
 }
 .res-layout {
@@ -3257,7 +3247,6 @@ footer a:hover {
 /* ABOUT PAGE
 ═══════════════════════════════════════════ */
 #p-abt {
-  background: var(--surface);
   min-height: 100svh;
 }
 
@@ -3299,7 +3288,6 @@ footer a:hover {
   
 
   #p-home {
-    background: var(--surface);
     height: auto;
     min-height: 100svh;
     overflow: visible
