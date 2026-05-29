@@ -2376,6 +2376,12 @@ p, ul, ol {
   cursor: pointer
 }
 
+.comp-check.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .calc-submit {
   width: 100%;
   padding: 11px;
