@@ -437,6 +437,7 @@ p, ul, ol {
 }
 
 .pg-content {
+  background: var(--surface);
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 40px 80px
@@ -446,12 +447,17 @@ p, ul, ol {
    HOME PAGE
 ═══════════════════════════════════════════ */
 #p-home {
+  background: var(--surface);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
   padding-top: var(--nh);
   overflow: auto;
   z-index: 0
+}
+
+#p-kc {
+  background: var(--surface);
 }
 
 #p-change {
@@ -2483,6 +2489,7 @@ p, ul, ol {
    ADAPT TO YOUR SERVICE PAGE
 ═══════════════════════════════════════════ */
 #p-atys {
+  background: var(--surface);
   min-height: 100svh;
 }
 
@@ -2501,6 +2508,7 @@ p, ul, ol {
 ═══════════════════════════════════════════ */
 
 #p-res {
+  background: var(--surface);
   min-height: 100svh;
 }
 .res-layout {
@@ -3249,6 +3257,7 @@ footer a:hover {
 /* ABOUT PAGE
 ═══════════════════════════════════════════ */
 #p-abt {
+  background: var(--surface);
   min-height: 100svh;
 }
 
@@ -3290,6 +3299,7 @@ footer a:hover {
   
 
   #p-home {
+    background: var(--surface);
     height: auto;
     min-height: 100svh;
     overflow: visible
