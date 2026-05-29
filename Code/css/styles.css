@@ -329,7 +329,8 @@ p, ul, ol {
   display: block !important;
   visibility: visible;
   height: auto;
-  overflow: visible;
+  overflow-x: clip;
+  overflow-y: visible;
   animation: pgIn .28s ease both
 }
 
@@ -1578,6 +1579,7 @@ p, ul, ol {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-width: 0;
 }
 
 .video-player {
@@ -1683,7 +1685,9 @@ p, ul, ol {
   border-radius: 5px
 }
 
-.video-info {}
+.video-info {
+  min-width: 0;
+}
 
 .video-title {
   font-family: var(--fd);
@@ -3262,6 +3266,10 @@ footer a:hover {
     width: 380px;
     height: 340px
   }
+
+  .video-inner {
+    max-width: 1200x;
+  }
 }
 
 @media(max-width:1000px) {}
@@ -3292,7 +3300,12 @@ footer a:hover {
 
   .video-inner {
     grid-template-columns: 1fr;
-    gap: 28px
+    gap: 28px;
+    max-width: 900px;
+  }
+
+  .video-desc {
+    max-width: 100%;
   }
 
   .kc-circle {
