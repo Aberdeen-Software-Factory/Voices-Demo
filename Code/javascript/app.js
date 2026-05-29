@@ -811,7 +811,7 @@ updateCalc();
   }
 
 
-  function doDownload(){ /* downloads disabled */ }
+  function doDownload(){ alert('Feature not implemented yet.'); }
 
   // ── download button ────────────────────────────────────────────────────────
   const dlBtn=document.getElementById('dlBtn');
