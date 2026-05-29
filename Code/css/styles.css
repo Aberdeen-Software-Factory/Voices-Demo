@@ -1563,6 +1563,12 @@ p, ul, ol {
   align-items: center
 }
 
+.video-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .video-player {
   border-radius: 14px;
   overflow: hidden;
@@ -1570,6 +1576,20 @@ p, ul, ol {
   background: #0E0B1A;
   aspect-ratio: 16/9;
   box-shadow: 0 16px 48px rgba(0, 0, 0, .4)
+}
+
+.video-learn-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--fb);
+  font-size: var(--fs-base-lg);
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.video-learn-more:hover {
+  text-decoration: underline;
 }
 
 .video-thumb {

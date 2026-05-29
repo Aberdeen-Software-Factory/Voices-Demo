@@ -65,7 +65,8 @@
           onclick="showPage('p-res');document.getElementById('mobile-menu').classList.remove('open')">Resources</button>
       </li>
       <li><button data-page="p-abt"
-          onclick="showPage('p-abt');document.getElementById('mobile-menu').classList.remove('open')">About</button></li>
+          onclick="showPage('p-abt');document.getElementById('mobile-menu').classList.remove('open')">About</button>
+      </li>
     </ul>
   </div>
 
@@ -849,19 +850,19 @@
         <!-- <h2>Catalyst Film</h2> -->
         <div class="content-layout">
           <div class="video-inner">
-            <div class="video-player">
-              <div
-                style="width:100%;height:100%;background:linear-gradient(135deg,#1A1040 0%,#2A1860 50%,#18102A 100%);display:flex;align-items:center;justify-content:center">
-                <svg viewBox="0 0 120 80" width="120" style="opacity:.15"><text x="10" y="50"
-                    font-family="Poppins,sans-serif" font-size="11" fill="white" font-weight="700">VOICES
-                    STUDY</text><text x="10" y="65" font-family="Poppins,sans-serif" font-size="8" fill="white"
-                    opacity=".6">Catalyst Video</text></svg>
+            <div class="video-col">
+              <div class="video-player">
+                <iframe
+                  src="https://player.vimeo.com/video/910043512?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                  frameborder="0"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  style="position:absolute;top:0;left:0;width:100%;height:100%;"
+                  title="Systemic Vasculitis Catalyst Film"></iframe>
               </div>
-              <a class="video-overlay" href="https://www.hexi.ox.ac.uk/Systemic-Vasculitis-catalyst-film"
-                target="_blank" rel="noopener noreferrer">
-                <div class="play-btn"><svg viewBox="0 0 24 24">
-                    <polygon points="5 3 19 12 5 21 5 3" />
-                  </svg></div>
+              <a class="video-learn-more" href="https://www.hexi.ox.ac.uk/Systemic-Vasculitis-catalyst-film" target="_blank" rel="noopener noreferrer">
+                link to film
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
               </a>
             </div>
             <div class="video-info">
@@ -877,13 +878,6 @@
                 about how vasculitis services currently work, what matters most to people using them, and how
                 experiences of care can be improved.
               </p>
-              <div class="acts">
-                <a href="https://www.hexi.ox.ac.uk/">
-                  <button class="btn-p">Health Experiences Insight</button>
-                </a>
-
-                <!-- <button class="btn-s">secondary button</button> -->
-              </div>
             </div>
           </div>
         </div>
@@ -1168,7 +1162,7 @@
         </p>
       </div>
       <div>
-         <div class="kcsec kcsec-1">
+        <div class="kcsec kcsec-1">
           <div class="kcsec-inner">
             <div class="kcsec-head">
               <!-- <div class="kcsec-badge"><img src="Figures/figure-3.png" alt=""></div> -->
@@ -1177,150 +1171,165 @@
                 <div class="kcsec-tag"></div>
               </div>
             </div>
-                    <div class="kc-accordion kcsec-1">
-          <div class="kc-acc-item">
-            <button class="kc-acc-trigger">learning from different service models<svg class="kc-acc-icon"
-                viewBox="0 0 24 24">
-                <polyline points="6 9 12 15 18 9" />
-              </svg></button>
-            <div class="kc-acc-panel">
-              <div class="kc-acc-panel-inner">
-                <div class="content-layout kc-acc-content">
-                  <div>
-                    <p>To preserve anonymity, the case studies are not named. Instead, the table describes key features
-                      of each service model, including country, site arrangements, leadership, specialist nursing
-                      provision and service focus.</p>
-                    <p>The case studies illustrate different ways in which vasculitis services deliver key components in
-                      practice. They are intended to help you consider what is similar to your own service, what might
-                      be adaptable, and which elements could support local service development. </p>
-                  </div>
-                  <div class="cs-wrap">
-                    <div class="hm-wrap">
-                      <div class="hm-table-scroll">
-                        <table class="cs-table">
-                          <thead>
-                            <tr>
-                              <th></th>
-                              <th>Site 1</th>
-                              <th>Site 2</th>
-                              <th>Site 3</th>
-                              <th>Site 4</th>
-                              <th>Site 5</th>
-                              <th>Site 6</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>Location</td>
-                              <td>Scotland</td>
-                              <td>Scotland</td>
-                              <td>Scotland</td>
-                              <td>England</td>
-                              <td>England</td>
-                              <td>England</td>
-                            </tr>
-                            <tr>
-                              <td>Service context</td>
-                              <td>Single-site, joint renal-rheumatology vasculitis service</td>
-                              <td>Renal and rheumatology services based on separate sites</td>
-                              <td>Single-site rheumatology service with renal hub-and-spoke input from another Board
-                              </td>
-                              <td>Renal and rheumatology services based on separate sites</td>
-                              <td>Single-site multidisciplinary vasculitis-plus service</td>
-                              <td>Renal and rheumatology services based on separate sites</td>
-                            </tr>
-                            <tr>
-                              <td>Overall service model</td>
-                              <td>All vasculitis patients are seen through a joint vasculitis service run by renal and
-                                rheumatology</td>
-                              <td>Renal sees most vasculitis patients; rheumatology sees some patients separately</td>
-                              <td>Rheumatology and renal see vasculitis patients separately, with no formal connection
-                              </td>
-                              <td>Rheumatology and renal see vasculitis patients separately, with no formal connection
-                              </td>
-                              <td>Renal sees most vasculitis patients, with some rheumatology input into the vasculitis
-                                clinic</td>
-                              <td>Rheumatology and renal see vasculitis patients separately, with no formal connection
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Renal-rheumatology relationship</td>
-                              <td>Connected joint service</td>
-                              <td>Separate services, not formally connected</td>
-                              <td>Separate services, not formally connected</td>
-                              <td>Separate services, not formally connected</td>
-                              <td>Some connection between renal and rheumatology</td>
-                              <td>Separate services, not formally connected</td>
-                            </tr>
-                            <tr>
-                              <td>Leadership model</td>
-                              <td>Joint renal and rheumatology leadership</td>
-                              <td>Separate renal and rheumatology leadership</td>
-                              <td>Separate renal and rheumatology leadership</td>
-                              <td>Separate renal and rheumatology leadership</td>
-                              <td>Renal-led, with multidisciplinary input</td>
-                              <td>Collective responsibility for vasculitis care, with renal and rheumatology services
-                                managed separately</td>
-                            </tr>
-                            <tr>
-                              <td>Leadership background</td>
-                              <td>Clinical</td>
-                              <td>Clinical academic</td>
-                              <td>Clinical</td>
-                              <td>Clinical for CTD service; clinical academic for LVV and GCA services</td>
-                              <td>Clinical academic</td>
-                              <td>Mixed leadership in renal; clinical leadership in rheumatology</td>
-                            </tr>
-                            <tr>
-                              <td>Service focus and patient cohort</td>
-                              <td>Joint vasculitis service seeing systemic vasculitis, complex LVV and complex lupus
-                              </td>
-                              <td>Vasculitis service seeing most vasculitis patients, except LVV without renal
-                                involvement</td>
-                              <td>Rheumatology-led vasculitis and CTD service; renal-only patients managed separately
-                              </td>
-                              <td>Rheumatology-led vasculitis/CTD, LVV and GCA services; renal-only patients managed
-                                separately</td>
-                              <td>Multidisciplinary vasculitis-plus service for multisystem autoimmune/autoinflammatory
-                                disease, excluding uncomplicated GCA</td>
-                              <td>Parallel renal vasculitis and rheumatology CTD/vasculitis services, with patients
-                                largely distributed by renal or non-renal involvement</td>
-                            </tr>
-                            <tr>
-                              <td>Specialist nursing provision</td>
-                              <td>Vasculitis specialist nurse, including clinic and advice line</td>
-                              <td>Research nurse</td>
-                              <td>Rheumatology nurses</td>
-                              <td>Rheumatology nurse advice line</td>
-                              <td>Vasculitis specialist nurses, including clinic and advice line</td>
-                              <td>Vasculitis specialist/research nurse in renal; vasculitis specialist nurse, including
-                                clinic, in rheumatology</td>
-                            </tr>
-                            <tr>
-                              <td>Reflections on service development</td>
-                              <td>"we will deal with it" – but is this sustainable?</td>
-                              <td>"uni-service speciality for a multi-systemic disease"</td>
-                              <td>"aspirational"; still "finding the connection with renal here"</td>
-                              <td>"a very different set up from anywhere I've ever seen"</td>
-                              <td>"organ-agnostic"; "changing from a vasculitis service to a severe inflammatory disease
-                                service"</td>
-                              <td>"a little bit of tension between services … settled down to a very equitable level"
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+            <div class="kc-accordion kcsec-1">
+              <div class="kc-acc-item">
+                <button class="kc-acc-trigger">learning from different service models<svg class="kc-acc-icon"
+                    viewBox="0 0 24 24">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg></button>
+                <div class="kc-acc-panel">
+                  <div class="kc-acc-panel-inner">
+                    <div class="content-layout kc-acc-content">
+                      <div>
+                        <p>To preserve anonymity, the case studies are not named. Instead, the table describes key
+                          features
+                          of each service model, including country, site arrangements, leadership, specialist nursing
+                          provision and service focus.</p>
+                        <p>The case studies illustrate different ways in which vasculitis services deliver key
+                          components in
+                          practice. They are intended to help you consider what is similar to your own service, what
+                          might
+                          be adaptable, and which elements could support local service development. </p>
                       </div>
+                      <div class="cs-wrap">
+                        <div class="hm-wrap">
+                          <div class="hm-table-scroll">
+                            <table class="cs-table">
+                              <thead>
+                                <tr>
+                                  <th></th>
+                                  <th>Site 1</th>
+                                  <th>Site 2</th>
+                                  <th>Site 3</th>
+                                  <th>Site 4</th>
+                                  <th>Site 5</th>
+                                  <th>Site 6</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>Location</td>
+                                  <td>Scotland</td>
+                                  <td>Scotland</td>
+                                  <td>Scotland</td>
+                                  <td>England</td>
+                                  <td>England</td>
+                                  <td>England</td>
+                                </tr>
+                                <tr>
+                                  <td>Service context</td>
+                                  <td>Single-site, joint renal-rheumatology vasculitis service</td>
+                                  <td>Renal and rheumatology services based on separate sites</td>
+                                  <td>Single-site rheumatology service with renal hub-and-spoke input from another Board
+                                  </td>
+                                  <td>Renal and rheumatology services based on separate sites</td>
+                                  <td>Single-site multidisciplinary vasculitis-plus service</td>
+                                  <td>Renal and rheumatology services based on separate sites</td>
+                                </tr>
+                                <tr>
+                                  <td>Overall service model</td>
+                                  <td>All vasculitis patients are seen through a joint vasculitis service run by renal
+                                    and
+                                    rheumatology</td>
+                                  <td>Renal sees most vasculitis patients; rheumatology sees some patients separately
+                                  </td>
+                                  <td>Rheumatology and renal see vasculitis patients separately, with no formal
+                                    connection
+                                  </td>
+                                  <td>Rheumatology and renal see vasculitis patients separately, with no formal
+                                    connection
+                                  </td>
+                                  <td>Renal sees most vasculitis patients, with some rheumatology input into the
+                                    vasculitis
+                                    clinic</td>
+                                  <td>Rheumatology and renal see vasculitis patients separately, with no formal
+                                    connection
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>Renal-rheumatology relationship</td>
+                                  <td>Connected joint service</td>
+                                  <td>Separate services, not formally connected</td>
+                                  <td>Separate services, not formally connected</td>
+                                  <td>Separate services, not formally connected</td>
+                                  <td>Some connection between renal and rheumatology</td>
+                                  <td>Separate services, not formally connected</td>
+                                </tr>
+                                <tr>
+                                  <td>Leadership model</td>
+                                  <td>Joint renal and rheumatology leadership</td>
+                                  <td>Separate renal and rheumatology leadership</td>
+                                  <td>Separate renal and rheumatology leadership</td>
+                                  <td>Separate renal and rheumatology leadership</td>
+                                  <td>Renal-led, with multidisciplinary input</td>
+                                  <td>Collective responsibility for vasculitis care, with renal and rheumatology
+                                    services
+                                    managed separately</td>
+                                </tr>
+                                <tr>
+                                  <td>Leadership background</td>
+                                  <td>Clinical</td>
+                                  <td>Clinical academic</td>
+                                  <td>Clinical</td>
+                                  <td>Clinical for CTD service; clinical academic for LVV and GCA services</td>
+                                  <td>Clinical academic</td>
+                                  <td>Mixed leadership in renal; clinical leadership in rheumatology</td>
+                                </tr>
+                                <tr>
+                                  <td>Service focus and patient cohort</td>
+                                  <td>Joint vasculitis service seeing systemic vasculitis, complex LVV and complex lupus
+                                  </td>
+                                  <td>Vasculitis service seeing most vasculitis patients, except LVV without renal
+                                    involvement</td>
+                                  <td>Rheumatology-led vasculitis and CTD service; renal-only patients managed
+                                    separately
+                                  </td>
+                                  <td>Rheumatology-led vasculitis/CTD, LVV and GCA services; renal-only patients managed
+                                    separately</td>
+                                  <td>Multidisciplinary vasculitis-plus service for multisystem
+                                    autoimmune/autoinflammatory
+                                    disease, excluding uncomplicated GCA</td>
+                                  <td>Parallel renal vasculitis and rheumatology CTD/vasculitis services, with patients
+                                    largely distributed by renal or non-renal involvement</td>
+                                </tr>
+                                <tr>
+                                  <td>Specialist nursing provision</td>
+                                  <td>Vasculitis specialist nurse, including clinic and advice line</td>
+                                  <td>Research nurse</td>
+                                  <td>Rheumatology nurses</td>
+                                  <td>Rheumatology nurse advice line</td>
+                                  <td>Vasculitis specialist nurses, including clinic and advice line</td>
+                                  <td>Vasculitis specialist/research nurse in renal; vasculitis specialist nurse,
+                                    including
+                                    clinic, in rheumatology</td>
+                                </tr>
+                                <tr>
+                                  <td>Reflections on service development</td>
+                                  <td>"we will deal with it" – but is this sustainable?</td>
+                                  <td>"uni-service speciality for a multi-systemic disease"</td>
+                                  <td>"aspirational"; still "finding the connection with renal here"</td>
+                                  <td>"a very different set up from anywhere I've ever seen"</td>
+                                  <td>"organ-agnostic"; "changing from a vasculitis service to a severe inflammatory
+                                    disease
+                                    service"</td>
+                                  <td>"a little bit of tension between services … settled down to a very equitable
+                                    level"
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
-
                 </div>
               </div>
+
             </div>
           </div>
-
         </div>
-            </div>
-            </div>
 
         <div class="kcsec kcsec-1">
           <div class="kcsec-inner">
@@ -1349,18 +1358,27 @@
                         <div class="atys-kc-grid-row">
                           <h3>Service Setting Adaptations: </h3>
                           <ul>
-                            <li>Management (including senior management) support for service improvement, and what might motivate them to provide this </li>
-                            <li>What the current local pathway for appropriate urgent access looks like, where there are gaps, and where there are opportunities to streamline processes (with and without additional resources) </li>
+                            <li>Management (including senior management) support for service improvement, and what might
+                              motivate them to provide this </li>
+                            <li>What the current local pathway for appropriate urgent access looks like, where there are
+                              gaps, and where there are opportunities to streamline processes (with and without
+                              additional resources) </li>
                           </ul>
                           <div>
                             <h3>How do some healthcare providers reduce the time to diagnosis? </h3>
-                            <p>“The ANCA test was such a gamechanger for improving vasculitis care but the test on its own isn’t enough – you’ve got to know when to use it, have a good relationship with the labs, and be in a position to act urgently when there’s a positive result. I’ve managed to get it so that every positive ANCA locally is copied to me. I can then get in touch proactively with the doctor who made the request and offer my input”</p>
+                            <p>“The ANCA test was such a gamechanger for improving vasculitis care but the test on its
+                              own isn’t enough – you’ve got to know when to use it, have a good relationship with the
+                              labs, and be in a position to act urgently when there’s a positive result. I’ve managed to
+                              get it so that every positive ANCA locally is copied to me. I can then get in touch
+                              proactively with the doctor who made the request and offer my input”</p>
                           </div>
                         </div>
-                         <div class="atys-kc-grid-row">
+                        <div class="atys-kc-grid-row">
                           <h3>Target Audience Adaptations: </h3>
                           <ul>
-                            <li>The main audience initially may be Trust/medical director level (rather than heads of specialties) to get AAV recognised as a priority for expert review at speed on par with acute conditions such as stroke </li>
+                            <li>The main audience initially may be Trust/medical director level (rather than heads of
+                              specialties) to get AAV recognised as a priority for expert review at speed on par with
+                              acute conditions such as stroke </li>
                             <li>Visibility and penetration of the vasculitis service across secondary care </li>
                             <li>Visibility of the vasculitis service to primary care</li>
                           </ul>
@@ -1370,27 +1388,32 @@
                           <h3>Mode of Delivery Adaptations: </h3>
                           <ul>
                             <li>Who can order relevant tests and review the results </li>
-                            <li>How index of clinical suspicion is demonstrated and linked to turnaround speed of results </li>
-                            <li>How the result in the context of the clinical picture allows the patient to get into the urgent pathway quickly</li>
-                            <li>What safety netting is provided for patients where there is a high index of clinical suspicion, but results are inconclusive, or their significance is unclear </li>
+                            <li>How index of clinical suspicion is demonstrated and linked to turnaround speed of
+                              results </li>
+                            <li>How the result in the context of the clinical picture allows the patient to get into the
+                              urgent pathway quickly</li>
+                            <li>What safety netting is provided for patients where there is a high index of clinical
+                              suspicion, but results are inconclusive, or their significance is unclear </li>
                           </ul>
                           <div></div>
                         </div>
                         <div class="atys-kc-grid-row">
-                         <h3>Professional Culture Adaptations: </h3>
+                          <h3>Professional Culture Adaptations: </h3>
                           <ul>
-                            <li>Who the key local players in vasculitis are currently and in future, and how your service model will support these specialties to sustain their involvement </li>
-                            <li>Identifying people across multiple specialties who are willing to be key contacts for vasculitis, and whether/how this could be formalised</li>
+                            <li>Who the key local players in vasculitis are currently and in future, and how your
+                              service model will support these specialties to sustain their involvement </li>
+                            <li>Identifying people across multiple specialties who are willing to be key contacts for
+                              vasculitis, and whether/how this could be formalised</li>
                           </ul>
                           <div></div>
                         </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-               <div class="kc-acc-item">
+              <div class="kc-acc-item">
                 <button class="kc-acc-trigger">Access to IV therapy &lt; 7 days<svg class="kc-acc-icon"
                     viewBox="0 0 24 24">
                     <polyline points="6 9 12 15 18 9" />
@@ -1417,47 +1440,53 @@
                               <ul>
                                 <li>Run by an individual specialty (renal or rheumatology) </li>
                                 <li>Serve a number of hospital specialties (e.g. general medicine) </li>
-                                <li>Run by oncology and haematology (which may be the only specialties offering IV cyclophosphamide) </li>
+                                <li>Run by oncology and haematology (which may be the only specialties offering IV
+                                  cyclophosphamide) </li>
                               </ul>
                             </li>
-                            <li>Aseptic pharmacy and trained nursing staff are key to a streamlined IV therapy service, and both are susceptible to workforce challenges </li>
+                            <li>Aseptic pharmacy and trained nursing staff are key to a streamlined IV therapy service,
+                              and both are susceptible to workforce challenges </li>
                           </ul>
                           <div>
                             <h3>Healthcare provider quote </h3>
                             <p>To insert a quote here about reaching a compromise with haematology</p>
                           </div>
                         </div>
-                         <div class="atys-kc-grid-row">
+                        <div class="atys-kc-grid-row">
                           <h3>Target Audience Adaptations: </h3>
                           <ul>
-                            <li>The main audience may be Trust/medical director level (rather than heads of specialties) to get AAV recognised as a priority on par with cancer for urgent IV therapy</li>
+                            <li>The main audience may be Trust/medical director level (rather than heads of specialties)
+                              to get AAV recognised as a priority on par with cancer for urgent IV therapy</li>
                           </ul>
                           <div></div>
                         </div>
                         <div class="atys-kc-grid-row">
                           <h3>Mode of Delivery Adaptations: </h3>
                           <ul>
-                            <li>Extent to which specialty knowledge and relationship with patient can be maintained while achieving urgent access to IV therapy </li>
-                            <li>Extent to which IV therapy service will be nurse-led and how dependent it will be on doctor input (e.g. to consent or at initiation) </li>
+                            <li>Extent to which specialty knowledge and relationship with patient can be maintained
+                              while achieving urgent access to IV therapy </li>
+                            <li>Extent to which IV therapy service will be nurse-led and how dependent it will be on
+                              doctor input (e.g. to consent or at initiation) </li>
                           </ul>
                           <div></div>
                         </div>
                         <div class="atys-kc-grid-row">
-                         <h3>Professional Culture Adaptations: </h3>
+                          <h3>Professional Culture Adaptations: </h3>
                           <ul>
-                            <li>Understand that getting urgent access to IV therapy is often experienced by staff as a highly competitive and stressful process, and that a sustainable adaptation is likely to depend on finding a more collaborative approach</li>
+                            <li>Understand that getting urgent access to IV therapy is often experienced by staff as a
+                              highly competitive and stressful process, and that a sustainable adaptation is likely to
+                              depend on finding a more collaborative approach</li>
                           </ul>
                           <div></div>
                         </div>
-                    </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-               <div class="kc-acc-item">
-                <button class="kc-acc-trigger">Care via cohorted clinics<svg class="kc-acc-icon"
-                    viewBox="0 0 24 24">
+              <div class="kc-acc-item">
+                <button class="kc-acc-trigger">Care via cohorted clinics<svg class="kc-acc-icon" viewBox="0 0 24 24">
                     <polyline points="6 9 12 15 18 9" />
                   </svg></button>
                 <div class="kc-acc-panel">
@@ -1472,19 +1501,28 @@
                         <div class="atys-kc-grid-row">
                           <h3>Service Setting Adaptations: </h3>
                           <ul>
-                            <li>Whether an informal, gradual approach to cohorting is possible or desirable, or whether a formal business case is needed or desirable </li>
-                            <li>Whether it is most appropriate to cohort as a single specialty (renal or rheumatology), or jointly (see also Professional Culture Adaptations)</li>
+                            <li>Whether an informal, gradual approach to cohorting is possible or desirable, or whether
+                              a formal business case is needed or desirable </li>
+                            <li>Whether it is most appropriate to cohort as a single specialty (renal or rheumatology),
+                              or jointly (see also Professional Culture Adaptations)</li>
                             <li>How a cohorted clinic can support patients who do not attend it in person </li>
                           </ul>
                           <div>
                             <h3>How can the need for cohorted clinics look for healthcare providers? </h3>
-                            <p>“We’re a well-known centre of excellence for vasculitis, which is great, but it’s not right that patients travel for hours to see us, or that they get so dependent on emailing us with their queries. I worry that they miss out of developing he local relationships that will help keep them safe when they need things we can’t provide, like unscheduled care. To be frank, it’s also getting unsustainable for us because we’re not properly funded for it. A model that’s driven by individual patients advocating for themselves is not ideal. We need to find better ways for services to draw on the expertise of specialist centres while delivering more care locally” </p>
+                            <p>“We’re a well-known centre of excellence for vasculitis, which is great, but it’s not
+                              right that patients travel for hours to see us, or that they get so dependent on emailing
+                              us with their queries. I worry that they miss out of developing he local relationships
+                              that will help keep them safe when they need things we can’t provide, like unscheduled
+                              care. To be frank, it’s also getting unsustainable for us because we’re not properly
+                              funded for it. A model that’s driven by individual patients advocating for themselves is
+                              not ideal. We need to find better ways for services to draw on the expertise of specialist
+                              centres while delivering more care locally” </p>
                           </div>
                         </div>
-                         <div class="atys-kc-grid-row">
+                        <div class="atys-kc-grid-row">
                           <h3>Target Audience Adaptations: </h3>
                           <ul>
-                            <li>Consider the scope of the cohorted clinic, e.g. patients with 
+                            <li>Consider the scope of the cohorted clinic, e.g. patients with
                               <ul>
                                 <li>Systematic vasculitis and complex inflammatory disease </li>
                                 <li>All systemic vasculitis </li>
@@ -1498,30 +1536,35 @@
                         <div class="atys-kc-grid-row">
                           <h3>Mode of Delivery Adaptations: </h3>
                           <ul>
-                            <li>What alternative modes of delivery might make a cohorted clinic possible and sustainable (e.g. where, how, and by whom people are seen) </li>
-                            <li>Consider if what requires to be done face-to-face (e.g. routine observations/tests) could be done elsewhere to facilitate remote access (if applicable)</li>
-                            <li>Note that this is less about use of telephone and video appointments than issues such as whether patient contact is direct or supported by a local clinician, and whether review is scheduled by the service and/or triggered by the patient </li>
+                            <li>What alternative modes of delivery might make a cohorted clinic possible and sustainable
+                              (e.g. where, how, and by whom people are seen) </li>
+                            <li>Consider if what requires to be done face-to-face (e.g. routine observations/tests)
+                              could be done elsewhere to facilitate remote access (if applicable)</li>
+                            <li>Note that this is less about use of telephone and video appointments than issues such as
+                              whether patient contact is direct or supported by a local clinician, and whether review is
+                              scheduled by the service and/or triggered by the patient </li>
                           </ul>
                           <div></div>
                         </div>
                         <div class="atys-kc-grid-row">
-                         <h3>Professional Culture Adaptations: </h3>
+                          <h3>Professional Culture Adaptations: </h3>
                           <ul>
                             <li>If this should be a single specialty or a joint clinic </li>
-                            <li>What multidisciplinary input is needed to support the cohorted clinic (e.g. respiratory, ENT), and how this might work </li>
-                            <li>How patients will understand they are part of a cohorted clinic for people with systemic vasculitis</li>
+                            <li>What multidisciplinary input is needed to support the cohorted clinic (e.g. respiratory,
+                              ENT), and how this might work </li>
+                            <li>How patients will understand they are part of a cohorted clinic for people with systemic
+                              vasculitis</li>
                           </ul>
                           <div></div>
                         </div>
-                    </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-               <div class="kc-acc-item">
-                <button class="kc-acc-trigger">Nurse-led components of care<svg class="kc-acc-icon"
-                    viewBox="0 0 24 24">
+              <div class="kc-acc-item">
+                <button class="kc-acc-trigger">Nurse-led components of care<svg class="kc-acc-icon" viewBox="0 0 24 24">
                     <polyline points="6 9 12 15 18 9" />
                   </svg></button>
                 <div class="kc-acc-panel">
@@ -1536,20 +1579,31 @@
                         <div class="atys-kc-grid-row">
                           <h3>Service Setting Adaptations: </h3>
                           <ul>
-                            <li>What would make this post viable locally (e.g. single service (renal / rheumatology), joint, across Trusts/Boards)</li>
+                            <li>What would make this post viable locally (e.g. single service (renal / rheumatology),
+                              joint, across Trusts/Boards)</li>
                             <li>What knowledge the nurse in this role needs</li>
-                            <li>Options for financing the role (e.g. part research or combined with another specialist role; third sector or project pump priming; subspecialisation / role expansion of existing rheumatology or renal specialist nurses) </li>
+                            <li>Options for financing the role (e.g. part research or combined with another specialist
+                              role; third sector or project pump priming; subspecialisation / role expansion of existing
+                              rheumatology or renal specialist nurses) </li>
                           </ul>
                           <div>
-                            <h3>From a vasculitis specialist nurse...  </h3>
-                            <p>“There’s so much that specialist nurses could be doing to improve vasculitis patients’ experiences of care and outcomes, but there’s no blueprint for the role. How it develops in a service seems to depend as much on the vision of consultants and nurse managers as the nurse themselves, and it takes time to integrate your role and figure out what it means. I don’t have many hours but I do have a lot of autonomy. I’m developing my skills in holistic approaches, like talking therapies for mental wellbeing, and lifestyle counselling so patients can have better underlying health to cope with vasculitis and its treatments.” </p>
+                            <h3>From a vasculitis specialist nurse... </h3>
+                            <p>“There’s so much that specialist nurses could be doing to improve vasculitis patients’
+                              experiences of care and outcomes, but there’s no blueprint for the role. How it develops
+                              in a service seems to depend as much on the vision of consultants and nurse managers as
+                              the nurse themselves, and it takes time to integrate your role and figure out what it
+                              means. I don’t have many hours but I do have a lot of autonomy. I’m developing my skills
+                              in holistic approaches, like talking therapies for mental wellbeing, and lifestyle
+                              counselling so patients can have better underlying health to cope with vasculitis and its
+                              treatments.” </p>
                           </div>
                         </div>
-                         <div class="atys-kc-grid-row">
+                        <div class="atys-kc-grid-row">
                           <h3>Target Audience Adaptations: </h3>
                           <ul>
                             <li>Relative advantages and disadvantages of ‘insider’ recruitment</li>
-                            <li>Where the nurses could most add value for patients (e.g. care coordination, signposting, psychological and emotional support, medication counselling, public health) </li>
+                            <li>Where the nurses could most add value for patients (e.g. care coordination, signposting,
+                              psychological and emotional support, medication counselling, public health) </li>
                             <li>Type of patients included/excluded for manageable caseload </li>
                           </ul>
                           <div></div>
@@ -1559,25 +1613,27 @@
                           <ul>
                             <li>What will build in sustainability of the nursing arrangement </li>
                             <li>The best physical location</li>
-                            <li>Arrangements for line management and clinical supervision structures (which may not be the same)  </li>
+                            <li>Arrangements for line management and clinical supervision structures (which may not be
+                              the same) </li>
                           </ul>
                           <div></div>
                         </div>
                         <div class="atys-kc-grid-row">
-                         <h3>Professional Culture Adaptations: </h3>
+                          <h3>Professional Culture Adaptations: </h3>
                           <ul>
-                            <li>Professional isolation, conflicting identities, and the need for peer support, mentorship and professional development opportunities </li>
+                            <li>Professional isolation, conflicting identities, and the need for peer support,
+                              mentorship and professional development opportunities </li>
                             <li>Time needed to grow and embed the role </li>
                           </ul>
                           <div></div>
                         </div>
-                    </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-               <div class="kc-acc-item">
+              <div class="kc-acc-item">
                 <button class="kc-acc-trigger">Access to multi-disciplinary team meetings<svg class="kc-acc-icon"
                     viewBox="0 0 24 24">
                     <polyline points="6 9 12 15 18 9" />
@@ -1585,7 +1641,9 @@
                 <div class="kc-acc-panel">
                   <div class="kc-acc-panel-inner">
                     <div class="content-layout kc-acc-content">
-                      <p>All services looking after patients should have access to regular specialist multi-disciplinary team (MDT) meetings. There should be protected time and administrative support for leadership and attendance at MDT meetings and recording of outcomes </p>
+                      <p>All services looking after patients should have access to regular specialist multi-disciplinary
+                        team (MDT) meetings. There should be protected time and administrative support for leadership
+                        and attendance at MDT meetings and recording of outcomes </p>
                       <div class="atys-kc-grid">
                         <div class="atys-kc-grid-row">
                           <p></p>
@@ -1595,21 +1653,27 @@
                         <div class="atys-kc-grid-row">
                           <h3>Service Setting Adaptations: </h3>
                           <ul>
-                            <li>What would make a specialist MDT meeting viable locally (e.g. single service (renal-led/rheumatology-led), joint, across Trusts/Boards) </li>
+                            <li>What would make a specialist MDT meeting viable locally (e.g. single service
+                              (renal-led/rheumatology-led), joint, across Trusts/Boards) </li>
                             <li>Who is best placed to lead the specialist MDT meeting </li>
-                            <li>Whether there are formal functions required of MDT meetings in your area (e.g. access to high tariff drugs) </li>
+                            <li>Whether there are formal functions required of MDT meetings in your area (e.g. access to
+                              high tariff drugs) </li>
                             <li>Administrative support </li>
                           </ul>
                           <div>
                             <h3>What does this look like for healthcare providers?</h3>
-                            <p>“What we’ve found is that meeting regularly as Team Vasculitis doctors, nurses and pharmacists allows us to troubleshoot practical issues around patient safety and focus on service improvement in response to patient feedback.” </p>
+                            <p>“What we’ve found is that meeting regularly as Team Vasculitis doctors, nurses and
+                              pharmacists allows us to troubleshoot practical issues around patient safety and focus on
+                              service improvement in response to patient feedback.” </p>
                           </div>
                         </div>
-                         <div class="atys-kc-grid-row">
+                        <div class="atys-kc-grid-row">
                           <h3>Target Audience Adaptations: </h3>
                           <ul>
-                            <li>Scope of specialist MDT meeting in type(s) of systemic vasculitis +/- other inflammatory diseases included</li>
-                            <li>The best composition of the specialist MDT for what you are trying to achieve (e.g. consultants, nurses, other healthcare professionals) </li>
+                            <li>Scope of specialist MDT meeting in type(s) of systemic vasculitis +/- other inflammatory
+                              diseases included</li>
+                            <li>The best composition of the specialist MDT for what you are trying to achieve (e.g.
+                              consultants, nurses, other healthcare professionals) </li>
                             <li>What the primary functions of the MDT meeting need to be locally</li>
                             <li>Relationship between local and regional MDT meetings </li>
                           </ul>
@@ -1619,20 +1683,23 @@
                           <h3>Mode of Delivery Adaptations: </h3>
                           <ul>
                             <li>How to ensure governance, terms of reference, and patient safety</li>
-                            <li>Whether senior and some specialty clinicians’ input to patient management would be as effective and more efficient via an MDT meeting rather than direct contact </li>
-                            <li>How technology could make MDT meetings possible  </li>
+                            <li>Whether senior and some specialty clinicians’ input to patient management would be as
+                              effective and more efficient via an MDT meeting rather than direct contact </li>
+                            <li>How technology could make MDT meetings possible </li>
                           </ul>
                           <div></div>
                         </div>
                         <div class="atys-kc-grid-row">
-                         <h3>Professional Culture Adaptations: </h3>
+                          <h3>Professional Culture Adaptations: </h3>
                           <ul>
-                            <li>Fit of specialist MDT meeting with history of service (e.g. is vasculitis mainly dealt with by renal or rheumatology, or is it more equitable) </li>
-                            <li>Existing relationships (e.g. is there a willingness to collaborate in new ways across specialties and regions)   </li>
+                            <li>Fit of specialist MDT meeting with history of service (e.g. is vasculitis mainly dealt
+                              with by renal or rheumatology, or is it more equitable) </li>
+                            <li>Existing relationships (e.g. is there a willingness to collaborate in new ways across
+                              specialties and regions) </li>
                           </ul>
                           <div></div>
                         </div>
-                    </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1661,7 +1728,10 @@
       <div class="pg-hdr">
         <h1 class="pg-title">Resources</h1>
         <p class="pg-desc">
-          This section brings together tools, templates and practical materials to support local vasculitis service improvement. Current resources are grouped by topic and include materials on patient experience, primary care recognition and referral, and specialist vasculitis nurse roles. Further resources will be added as the toolkit develops. 
+          This section brings together tools, templates and practical materials to support local vasculitis service
+          improvement. Current resources are grouped by topic and include materials on patient experience, primary care
+          recognition and referral, and specialist vasculitis nurse roles. Further resources will be added as the
+          toolkit develops.
         </p>
       </div>
 
@@ -1695,43 +1765,47 @@
           </aside>
           <div class="res-main">
 
-        <!-- Grid view -->
-        <div id="res-detail">
-            <button class="res-back-cat-btn" onclick="goResHome()">
-              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-              All categories
-            </button>
-            <p id="res-cat-desc" class="res-cat-page-desc"></p>
-            <div class="res-grid" id="res-grid">
-              <!-- populated from _RESOURCES in app.js -->
-            </div>
-          </div>
-          <!-- Individual resource view -->
-          <div id="res-resource-detail" style="display:none">
-            <div class="res-detail-nav">
-              <button class="res-back-btn" onclick="closeResource()">
-                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-                Back
+            <!-- Grid view -->
+            <div id="res-detail">
+              <button class="res-back-cat-btn" onclick="goResHome()">
+                <svg viewBox="0 0 24 24">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+                All categories
               </button>
-              <span class="res-breadcrumb" id="res-breadcrumb"></span>
-            </div>
-            <div class="res-res-layout">
-              <div class="res-res-img-wrap">
-                <img id="res-res-img" src="" alt="">
+              <p id="res-cat-desc" class="res-cat-page-desc"></p>
+              <div class="res-grid" id="res-grid">
+                <!-- populated from _RESOURCES in app.js -->
               </div>
-              <div class="res-res-body">
-                <span id="res-res-type" class="res-type"></span>
-                <h2 id="res-res-title" class="res-res-title"></h2>
-                <p id="res-res-desc" class="res-res-desc"></p>
-                <div id="res-res-ctas" class="res-res-ctas"></div>
+            </div>
+            <!-- Individual resource view -->
+            <div id="res-resource-detail" style="display:none">
+              <div class="res-detail-nav">
+                <button class="res-back-btn" onclick="closeResource()">
+                  <svg viewBox="0 0 24 24">
+                    <polyline points="15 18 9 12 15 6" />
+                  </svg>
+                  Back
+                </button>
+                <span class="res-breadcrumb" id="res-breadcrumb"></span>
+              </div>
+              <div class="res-res-layout">
+                <div class="res-res-img-wrap">
+                  <img id="res-res-img" src="" alt="">
+                </div>
+                <div class="res-res-body">
+                  <span id="res-res-type" class="res-type"></span>
+                  <h2 id="res-res-title" class="res-res-title"></h2>
+                  <p id="res-res-desc" class="res-res-desc"></p>
+                  <div id="res-res-ctas" class="res-res-ctas"></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
-  </div>
 
   </div><!-- /p-res -->
 
@@ -1741,7 +1815,8 @@
       <div class="pg-hdr">
         <h1 class="pg-title">About</h1>
         <p class="pg-desc">
-          Description Description Description Description Description Description Description Description Description Description Description Description Description
+          Description Description Description Description Description Description Description Description Description
+          Description Description Description Description
         </p>
       </div>
     </div>
