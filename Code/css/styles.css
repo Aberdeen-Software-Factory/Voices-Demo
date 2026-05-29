@@ -588,7 +588,7 @@ p, ul, ol {
   font-weight: 600;
   color: var(--text);
   line-height: 1.2;
-  font-family: var(--fd)
+  font-family: var(--fd);
 }
 
 .kc-tag {
@@ -1295,6 +1295,10 @@ p, ul, ol {
   flex-wrap: wrap
 }
 
+.kcsec-head h2 {
+  margin: 0
+}
+
 .kcsec-badge {
   width: 56px;
   height: 56px;
@@ -1321,18 +1325,19 @@ p, ul, ol {
   stroke-linejoin: round
 }
 
-.kcsec-namegroup {
-  flex: 1
-}
+/* .kcsec-namegroup {
+  flex: 1;
+  
+} */
 
-.kcsec-name {
+/* .kcsec-name {
   font-family: var(--fd);
   font-size: clamp(18px, 2.2vw, 26px);
   font-weight: 800;
   color: var(--text);
   letter-spacing: -.5px;
   margin-bottom: 2px
-}
+} */
 
 .kcsec-tag {
   font-size: var(--fs-2xl);
@@ -1812,9 +1817,12 @@ p, ul, ol {
 .hm-table td:first-child {
   padding: 8px 10px;
   text-align: left;
-  font-size: var(--fs-base);
   word-break: break-word;
-  cursor: default
+  cursor: default;
+  font-size: var(--fs-base-md);
+  font-weight: 500;
+  color: var(--text);
+  min-width: 200px
 }
 
 .hm-table tbody td {
@@ -2111,12 +2119,6 @@ p, ul, ol {
   color: var(--t2)
 }
 
-.hm-table td:first-child {
-  font-size: var(--fs-base-md);
-  font-weight: 500;
-  color: var(--text);
-  min-width: 200px
-}
 
 .region-detail {
   background: var(--surface);
@@ -3669,7 +3671,7 @@ footer a:hover {
 .etbl-table th {
   padding: 0;
   text-align: center;
-  font-size: var(--fs-base-md);
+  font-size: var(--fs-base-lg);
   font-weight: 700;
   color: #fff;
   vertical-align: bottom;
@@ -3679,9 +3681,19 @@ footer a:hover {
 .etbl-table th.kc-col {
   width: 180px;
   min-width: 180px;
-  text-align: left;
-  padding: 12px 10px;
-  vertical-align: middle
+  height: 110px;
+  padding: 0;
+  position: relative;
+}
+
+.etbl-table th.kc-col span {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: var(--fs-base-lg);
+  font-weight: 700;
 }
 
 .etbl-table th.dept-col {
@@ -3712,7 +3724,7 @@ footer a:hover {
   overflow: visible
 }
 
-.etbl-table td.kc-col {
+/* .etbl-table td.kc-col {
   padding: 8px 10px;
   text-align: left;
   font-size: var(--fs-base);
@@ -3721,10 +3733,22 @@ footer a:hover {
   min-width: 180px;
   background: var(--s2);
   border-right: 2px solid var(--s3)
-}
+} */
 
 .etbl-table tbody td:not(.kc-col) {
   border-right: 1px solid var(--s3)
+}
+
+
+.etbl-table td:first-child {
+  padding: 8px 10px;
+  text-align: left;
+  word-break: break-word;
+  cursor: default;
+  font-size: var(--fs-base-md);
+  font-weight: 500;
+  color: var(--text);
+  min-width: 200px
 }
 
 .etbl-table tbody td:last-child {
