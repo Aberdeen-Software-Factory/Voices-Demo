@@ -48,24 +48,20 @@
 
   <div id="mobile-menu">
     <ul class="mobile-nav">
-      <li><button data-page="p-home" onclick="showPage('p-home')">Home</button></li>
+      <li><button data-page="p-home" onclick="showPage('p-home')"><h2>Home</h2></button></li>
       <li><button data-page="p-kc"
-          onclick="showPage('p-kc');document.getElementById('mobile-menu').classList.remove('open')">Key Service
-          Components</button></li>
+          onclick="showPage('p-kc');document.getElementById('mobile-menu').classList.remove('open')"><h2>Key Service Components</h2></button></li>
       <li><button data-page="p-change"
-          onclick="showPage('p-change');document.getElementById('mobile-menu').classList.remove('open')">Assess and
-          Prioritise Change</button></li>
+          onclick="showPage('p-change');document.getElementById('mobile-menu').classList.remove('open')"><h2>Assess and Prioritise Change</h2></button></li>
       <li><button data-page="p-calc"
-          onclick="showPage('p-calc');document.getElementById('mobile-menu').classList.remove('open')">Cost
-          Calculator</button></li>
+          onclick="showPage('p-calc');document.getElementById('mobile-menu').classList.remove('open')"><h2>Cost Calculator</h2></button></li>
       <li><button data-page="p-atys"
-          onclick="showPage('p-atys');document.getElementById('mobile-menu').classList.remove('open')">Adapt to your
-          Service</button></li>
+          onclick="showPage('p-atys');document.getElementById('mobile-menu').classList.remove('open')"><h2>Adapt to your Service</h2></button></li>
       <li><button data-page="p-res"
-          onclick="showPage('p-res');document.getElementById('mobile-menu').classList.remove('open')">Resources</button>
+          onclick="showPage('p-res');document.getElementById('mobile-menu').classList.remove('open')"><h2>Resources</h2></button>
       </li>
       <li><button data-page="p-abt"
-          onclick="showPage('p-abt');document.getElementById('mobile-menu').classList.remove('open')">About</button>
+          onclick="showPage('p-abt');document.getElementById('mobile-menu').classList.remove('open')"><h2>About</h2></button>
       </li>
     </ul>
   </div>
@@ -1122,7 +1118,7 @@
             <div class="output-stat"><span class="output-stat-label">Cost with components</span><span
                 class="output-stat-val" id="out-total">—</span></div>
             <div class="output-stat"><span class="output-stat-label">Difference (− = saving)</span><span
-                class="output-stat-val neutral" id="out-impl">—</span></div>
+                class="output-stat-val saving" id="out-impl">—</span></div>
           </div>
           <div class="output-card">
             <div class="output-title">How this is calculated</div>

@@ -2424,11 +2424,11 @@ p, ul, ol {
   font-family: var(--fd);
   font-size: var(--fs-3xl);
   font-weight: 800;
-  color: var(--green)
+  color: var(--accent)
 }
 
-.output-stat-val.neutral {
-  color: var(--amber)
+.output-stat-val.saving {
+  color: var(--green)
 }
 
 .impact-bar-wrap {
