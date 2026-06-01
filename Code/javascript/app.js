@@ -556,15 +556,15 @@ renderMap();
 
 /* ── CALCULATOR ──
    Coefficients from the VOICES modelling work (see CostCalculator docs).
-   Component order: Cohorted, J/P Clinic, Local Pathway, MDT, Nurse-Led, Own Day, WaitTimes<7d. */
+   Component order: Cohorted, MDT, Nurse-Led, WaitTimes<7d. */
 const CALC_COEFS={
-  'Serious Infection':            {Intercept:-1.6440643, c:[-0.0896134, 0.0991329,-0.0433361,-0.0672609, 0.0256200,-0.0012824,-0.1454075]},
-  'CVD':                          {Intercept:-2.8332321, c:[-0.0185650, 0.2257906,-0.2293697, 0.3179252,-0.1794882,-0.4972610,-0.4497504]},
-  'Cancer':                       {Intercept:-3.2475184, c:[ 0.1072834,-0.5214687, 0.1715520, 0.4019695,-0.2713268,-0.1606682, 0.0167743]},
-  'Mortality':                    {Intercept:-1.9032649, c:[-0.1894864, 0.0225450, 0.2945728, 0.3367448,-0.2144581,-0.1737194,-0.6764509]},
-  'Emergency Hospital Admissions':{Intercept:-0.4088766, c:[ 0.0129831,-0.0286491,-0.1520726, 0.0992871,-0.2126616, 0.0772243,-0.1983540]}
+  'Serious Infection':            {Intercept:-1.6440643, c:[-0.0896134,-0.0672609, 0.0256200,-0.1454075]},
+  'CVD':                          {Intercept:-2.8332321, c:[-0.0185650, 0.3179252,-0.1794882,-0.4497504]},
+  'Cancer':                       {Intercept:-3.2475184, c:[ 0.1072834, 0.4019695,-0.2713268, 0.0167743]},
+  'Mortality':                    {Intercept:-1.9032649, c:[-0.1894864, 0.3367448,-0.2144581,-0.6764509]},
+  'Emergency Hospital Admissions':{Intercept:-0.4088766, c:[ 0.0129831, 0.0992871,-0.2126616,-0.1983540]}
 };
-const CALC_COMP_IDS=['cc1','cc2','cc3','cc4','cc5','cc6','cc7'];
+const CALC_COMP_IDS=['cc1','cc4','cc5','cc7'];
 
 // replace key values with actual region and corresponding cost 
 const CALC_REGIONS_COSTS={
@@ -581,8 +581,9 @@ function updateCalc(){
   const outcome=document.getElementById('calc-outcome').value;
   const checks=CALC_COMP_IDS.map(id=>document.getElementById(id).checked);
   const count=checks.filter(Boolean).length;
-  document.getElementById('impact-count').textContent=`${count} / 7`;
-  document.getElementById('impact-bar').style.width=`${(count/7)*100}%`;
+  const total=CALC_COMP_IDS.length;
+  document.getElementById('impact-count').textContent=`${count} / ${total}`;
+  document.getElementById('impact-bar').style.width=`${(count/total)*100}%`;
 
   if(!vol){
     ['out-infect','out-avoided','out-hosp','out-saving','out-total','out-impl'].forEach(id=>{

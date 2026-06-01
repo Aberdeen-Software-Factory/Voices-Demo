@@ -1237,20 +1237,24 @@
           <div class="comp-checks">
             <label class="comp-check"><input type="checkbox" id="cc1" onchange="updateCalc()"><label for="cc1">Cohorted
                 clinic</label></label>
-            <label class="comp-check disabled"><input type="checkbox" id="cc2" onchange="updateCalc()" disabled><label for="cc2">Joint /
-                parallel clinic</label></label>
-            <label class="comp-check disabled"><input type="checkbox" id="cc3" onchange="updateCalc()" disabled><label for="cc3">Local
-                AAV pathway</label></label>
             <label class="comp-check"><input type="checkbox" id="cc4" onchange="updateCalc()"><label for="cc4">MDT
                 meetings</label></label>
             <label class="comp-check"><input type="checkbox" id="cc5" onchange="updateCalc()"><label for="cc5">Nurse-led
                 care</label></label>
-            <label class="comp-check disabled"><input type="checkbox" id="cc6" onchange="updateCalc()" disabled><label for="cc6">Own day
-                case unit</label></label>
             <label class="comp-check"><input type="checkbox" id="cc7" onchange="updateCalc()"><label for="cc7">Wait
                 times &lt; 7 days for new patients</label></label>
           </div>
           <button class="calc-submit" onclick="updateCalc()">Calculate</button>
+          <div class="calc-download-row">
+            <button class="calc-download" onclick="downloadCalc('pdf')" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download PDF
+            </button>
+            <button class="calc-download" onclick="downloadCalc('csv')" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download CSV
+            </button>
+          </div>
         </div>
         <div class="calc-output">
           <div class="output-card">
@@ -1262,7 +1266,7 @@
             <div class="output-stat"><span class="output-stat-label">Change in event rate</span><span
                 class="output-stat-val" id="out-hosp">—</span></div>
             <div class="impact-bar-wrap">
-              <div class="impact-label"><span>Components active</span><span id="impact-count">0 / 7</span></div>
+              <div class="impact-label"><span>Components active</span><span id="impact-count">0 / 4</span></div>
               <div class="impact-track">
                 <div class="impact-fill" id="impact-bar" style="width:0%"></div>
               </div>
