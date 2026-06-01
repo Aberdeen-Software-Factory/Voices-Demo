@@ -62,19 +62,19 @@
         <button data-page="p-kc" onclick="showPage('p-kc');closeMobile()">
            <h2>Toolkit</h2>
           <div class="grid">
-              <div class="grid-item" tabindex="0" onclick="showPage('p-kc')">
+              <div class="grid-item" tabindex="0" onclick="event.stopPropagation();showPage('p-kc');closeMobile()">
                   <h3>Key Service Components</h3>
               </div>
-               <div class="grid-item" tabindex="0" onclick="showPage('p-change')">
+              <div class="grid-item" tabindex="0" onclick="event.stopPropagation();showPage('p-change');closeMobile()">
                   <h3>Assess and Prioritise Change</h3>
               </div>
-               <div class="grid-item" tabindex="0" onclick="showPage('p-calc')">
+              <div class="grid-item" tabindex="0" onclick="event.stopPropagation();showPage('p-calc');closeMobile()">
                   <h3>Cost Calculator</h3>
               </div>
-               <div class="grid-item" tabindex="0" onclick="showPage('p-atys')">
+              <div class="grid-item" tabindex="0" onclick="event.stopPropagation();showPage('p-atys');closeMobile()">
                   <h3>Adapt to your Service</h3>
               </div>
-               <div class="grid-item" tabindex="0" onclick="showPage('p-res')">
+              <div class="grid-item" tabindex="0" onclick="event.stopPropagation();showPage('p-res');closeMobile()">
                   <h3>Resources</h3>
               </div>
               <!-- <div class="tk-card" tabindex="0" onclick="showPage('p-kc')">
@@ -122,7 +122,7 @@
                 </div>
               </div> -->
           </div>
-         
+
           </button>
 
       </li>
