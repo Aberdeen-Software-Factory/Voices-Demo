@@ -2841,7 +2841,7 @@ p, ul, ol {
 }
 
 .atys-kc-grid-item.service-setting {
-  background: color-mix(in srgb, var(--amber) 10%, transparent);
+  background: color-mix(in srgb, var(--amber) 10%,transparent);
 }
 
 .atys-kc-grid-item.target-audience {
