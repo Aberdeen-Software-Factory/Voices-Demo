@@ -726,12 +726,6 @@ p, ul, ol {
   border-radius: 10px
 }
 
-.btn-p:hover {
-  filter: brightness(1.15);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(139, 107, 154, .45)
-}
-
 .btn-p:hover::before {
   opacity: 1
 }
@@ -1279,10 +1273,9 @@ p, ul, ol {
 .step-n {
   font-family: var(--fd);
   font-size: var(--fs-4xl);
-  font-weight: 800;
+  font-weight: 700;
   color: var(--accent);
   transition: color .25s;
-  letter-spacing: -0.5px
 }
 
 .step-conn {
@@ -1886,6 +1879,15 @@ p, ul, ol {
   stroke: var(--accent)
 }
 
+[data-theme="dark"] .kc-dot {
+  background: color-mix(in srgb, var(--accent) 30%, white);
+}
+
+[data-theme="dark"] .kc-dot img,
+[data-theme="dark"] .kcsec-badge img {
+  filter: brightness(0) saturate(100%) invert(30%) sepia(40%) saturate(500%) hue-rotate(240deg);
+}
+
 .kcsec-3 .kc-acc-trigger {
   background: var(--accent);
   box-shadow: 0 4px 16px rgba(139, 107, 154, .35)
@@ -1905,6 +1907,12 @@ p, ul, ol {
 
 .kcsec-3 .kc-acc-label {
   color: var(--accent)
+}
+
+[data-theme="dark"] .kc-acc-trigger,
+[data-theme="dark"] .next-page-btn,
+[data-theme="dark"] .btn-p {
+  color: var(--bg);
 }
 
 /* ═══════════════════════════════════════════
