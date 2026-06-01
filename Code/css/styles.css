@@ -2254,6 +2254,10 @@ p, ul, ol {
   border-right: none
 }
 
+.cs-table tbody td:nth-child(even) {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
 .dept-name {
   font-weight: 600;
   color: var(--text)
