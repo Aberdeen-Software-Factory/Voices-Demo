@@ -1,9 +1,47 @@
 /* ── PAGE ROUTING ── */
+const TOOLKIT_PAGES = new Set(['p-kc','p-change','p-calc','p-atys','p-res']);
+
+function closeMobile(){
+  document.getElementById('mobile-menu').classList.remove('open');
+}
+
+function openToolkitMenu(){
+  document.getElementById('toolkit-menu').classList.add('open');
+}
+
+function closeToolkitMenu(){
+  document.getElementById('toolkit-menu').classList.remove('open');
+}
+
+window.matchMedia('(max-width: 900px)').addEventListener('change', e => {
+  if (!e.matches) closeToolkitMenu();
+});
+
 function showPage(id, _push=true){
+  const isToolkit = TOOLKIT_PAGES.has(id);
+
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+
+  // Main nav active state
   document.querySelectorAll('.nl').forEach(b=>{
+    if(b.id==='nl-toolkit'){
+      b.classList.toggle('active', isToolkit);
+    } else {
+      b.classList.toggle('active', b.dataset.page===id);
+    }
+  });
+
+  // Sub-nav active state (in pg-hdr of each toolkit page)
+  document.querySelectorAll('.snl').forEach(b=>{
     b.classList.toggle('active', b.dataset.page===id);
   });
+
+  // Mobile nav active state
+  document.querySelectorAll('#mobile-menu button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.page===id);
+  });
+
+  closeToolkitMenu();
   document.getElementById(id).classList.add('active');
   window.scrollTo({top:0,behavior:'instant'});
   if(id==='p-home') setTimeout(animateCards, 100);
@@ -288,7 +326,7 @@ function _routeHash(hash, _push){
       }
     }
   } else {
-    const valid=['p-home','p-kc','p-change','p-calc','p-atys','p-abt'];
+    const valid=['p-home','p-kc','p-change','p-calc','p-atys','p-abt','p-res'];
     showPage(valid.includes(page)?page:'p-home', _push);
   }
 }

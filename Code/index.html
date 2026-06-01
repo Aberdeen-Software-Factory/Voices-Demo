@@ -23,12 +23,19 @@
       </button>
       <ul class="nlinks">
         <li><button class="nl active" data-page="p-home" onclick="showPage('p-home')">Home</button></li>
-        <li><button class="nl" data-page="p-kc" onclick="showPage('p-kc')">Key Service Components</button></li>
-        <li><button class="nl" data-page="p-change" onclick="showPage('p-change')">Assess and Prioritise Change</button>
+        <li class="nl-toolkit-wrap">
+          <button class="nl nl-toolkit" id="nl-toolkit" onclick="showPage('p-kc')">
+            Toolkit
+            <svg class="nl-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="toolkit-dropdown">
+            <button onclick="showPage('p-kc')">Key Service Components</button>
+            <button onclick="showPage('p-change')">Assess and Prioritise Change</button>
+            <button onclick="showPage('p-calc')">Cost Calculator</button>
+            <button onclick="showPage('p-atys')">Adapt to your Service</button>
+            <button onclick="showPage('p-res')">Resources</button>
+          </div>
         </li>
-        <li><button class="nl" data-page="p-calc" onclick="showPage('p-calc')">Cost Calculator</button></li>
-        <li><button class="nl" data-page="p-atys" onclick="showPage('p-atys')">Adapt to your Service</button></li>
-        <li><button class="nl" data-page="p-res" onclick="showPage('p-res')">Resources</button></li>
         <li><button class="nl" data-page="p-abt" onclick="showPage('p-abt')">About</button></li>
       </ul>
       <div class="nsp"></div>
@@ -47,24 +54,123 @@
     </div>
   </nav>
 
+
   <div id="mobile-menu">
     <ul class="mobile-nav">
-      <li><button data-page="p-home" onclick="showPage('p-home')"><h2>Home</h2></button></li>
-      <li><button data-page="p-kc"
-          onclick="showPage('p-kc');document.getElementById('mobile-menu').classList.remove('open')"><h2>Key Service Components</h2></button></li>
-      <li><button data-page="p-change"
-          onclick="showPage('p-change');document.getElementById('mobile-menu').classList.remove('open')"><h2>Assess and Prioritise Change</h2></button></li>
-      <li><button data-page="p-calc"
-          onclick="showPage('p-calc');document.getElementById('mobile-menu').classList.remove('open')"><h2>Cost Calculator</h2></button></li>
-      <li><button data-page="p-atys"
-          onclick="showPage('p-atys');document.getElementById('mobile-menu').classList.remove('open')"><h2>Adapt to your Service</h2></button></li>
-      <li><button data-page="p-res"
-          onclick="showPage('p-res');document.getElementById('mobile-menu').classList.remove('open')"><h2>Resources</h2></button>
+      <li><button data-page="p-home" onclick="showPage('p-home');closeMobile()"><h2>Home</h2></button></li>
+      <li>
+        <button data-page="p-kc" onclick="showPage('p-kc');closeMobile()">
+           <h2>Toolkit</h2>
+          <div class="grid">
+              <div class="grid-item" tabindex="0" onclick="showPage('p-kc')">
+                  <h3>Key Service Components</h3>
+              </div>
+               <div class="grid-item" tabindex="0" onclick="showPage('p-change')">
+                  <h3>Assess and Prioritise Change</h3>
+              </div>
+               <div class="grid-item" tabindex="0" onclick="showPage('p-calc')">
+                  <h3>Cost Calculator</h3>
+              </div>
+               <div class="grid-item" tabindex="0" onclick="showPage('p-atys')">
+                  <h3>Adapt to your Service</h3>
+              </div>
+               <div class="grid-item" tabindex="0" onclick="showPage('p-res')">
+                  <h3>Resources</h3>
+              </div>
+              <!-- <div class="tk-card" tabindex="0" onclick="showPage('p-kc')">
+                <div class="step-ring">
+                  <span class="step-n">01</span>
+                </div>
+                <div class="step-body">
+                  <h3 class="step-name">Key Service Components</h3>
+                </div>
+              </div>
+
+              <div class="tk-card" tabindex="0" onclick="showPage('p-change')">
+                <div class="step-ring">
+                  <span class="step-n">02</span>
+                </div>
+                <div class="step-body">
+                  <h3 class="step-name">Assess and Prioritise Change</h3>
+                </div>
+              </div>
+
+              <div class="tk-card" tabindex="0" onclick="showPage('p-calc')">
+                <div class="step-ring">
+                  <span class="step-n">03</span>
+                </div>
+                <div class="step-body">
+                  <h3 class="step-name">Cost Calculator</h3>
+                </div>
+              </div>
+
+              <div class="tk-card" tabindex="0" onclick="showPage('p-atys')">
+                <div class="step-ring">
+                  <span class="step-n">04</span>
+                </div>
+                <div class="step-body">
+                  <h3 class="step-name">Adapt to your Service</h3>
+                </div>
+              </div>
+
+                <div class="tk-card" tabindex="0" onclick="showPage('p-res')">
+                <div class="step-ring">
+                  <span class="step-n">05</span>
+                </div>
+                <div class="step-body">
+                  <h3 class="step-name">Resources</h3>
+                </div>
+              </div> -->
+          </div>
+         
+          </button>
+
       </li>
-      <li><button data-page="p-abt"
-          onclick="showPage('p-abt');document.getElementById('mobile-menu').classList.remove('open')"><h2>About</h2></button>
-      </li>
+      <!-- <li class="mobile-toolkit-label"><span>Toolkit</span></li>
+      <li class="mobile-sub"><button data-page="p-kc" onclick="showPage('p-kc');closeMobile()">Key Service Components</button></li>
+      <li class="mobile-sub"><button data-page="p-change" onclick="showPage('p-change');closeMobile()">Assess and Prioritise Change</button></li>
+      <li class="mobile-sub"><button data-page="p-calc" onclick="showPage('p-calc');closeMobile()">Cost Calculator</button></li>
+      <li class="mobile-sub"><button data-page="p-atys" onclick="showPage('p-atys');closeMobile()">Adapt to your Service</button></li>
+      <li class="mobile-sub"><button data-page="p-res" onclick="showPage('p-res');closeMobile()">Resources</button></li> -->
+      <li><button data-page="p-abt" onclick="showPage('p-abt');closeMobile()"><h2>About</h2></button></li>
     </ul>
+  </div>
+
+  <!-- TOOLKIT SUBMENU (mobile) -->
+  <div id="toolkit-menu">
+    <div class="toolkit-menu-inner">
+      <button class="pg-subnav-toggle" onclick="closeToolkitMenu()">
+        <!-- <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> -->
+        Return to page
+      </button>
+     <h2>Toolkit</h2>
+        <div class="grid">
+            <div class="tk-card" data-page="p-kc" tabindex="0" onclick="showPage('p-kc')">
+
+                <h3>Key Service Components</h3>
+            </div>
+
+            <div class="tk-card" data-page="p-change" tabindex="0" onclick="showPage('p-change')">
+
+                <h3>Assess and Prioritise Change</h3>
+            </div>
+
+            <div class="tk-card" data-page="p-calc" tabindex="0" onclick="showPage('p-calc')">
+
+                <h3>Cost Calculator</h3>
+            </div>
+
+            <div class="tk-card" data-page="p-atys" tabindex="0" onclick="showPage('p-atys')">
+
+                <h3>Adapt to your Service</h3>
+            </div>
+
+              <div class="tk-card" data-page="p-res" tabindex="0" onclick="showPage('p-res')">
+
+                <h3>Resources</h3>
+            </div>
+        </div>
+    </div>
   </div>
 
   <!-- ═══════ HOME PAGE ═══════ -->
@@ -204,6 +310,20 @@
   <div id="p-kc" class="page">
     <div class="pg-content">
       <div class="pg-hdr">
+        <nav class="pg-subnav">
+          <button class="pg-subnav-toggle" onclick="openToolkitMenu()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            In this Toolkit
+          </button>
+          <div class="pg-subnav-links">
+            <h3>In this Tooklkit: </h3>
+            <button class="snl" data-page="p-kc" onclick="showPage('p-kc')">Key Service Components</button>
+            <button class="snl" data-page="p-change" onclick="showPage('p-change')">Assess and Prioritise Change</button>
+            <button class="snl" data-page="p-calc" onclick="showPage('p-calc')">Cost Calculator</button>
+            <button class="snl" data-page="p-atys" onclick="showPage('p-atys')">Adapt to your Service</button>
+            <button class="snl" data-page="p-res" onclick="showPage('p-res')">Resources</button>
+          </div>
+        </nav>
         <h1>Key service components associated with better patient outcomes</h1>
         <p class="pg-desc">
           The content of this toolkit is based on the VOICES study -<i>Vasculitis Outcomes In relation to Care
@@ -494,6 +614,20 @@
   <div id="p-change" class="page">
     <div class="pg-content">
       <div class="pg-hdr">
+        <nav class="pg-subnav">
+          <button class="pg-subnav-toggle" onclick="openToolkitMenu()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            In this Toolkit
+          </button>
+          <div class="pg-subnav-links">
+            <h3>In this Tooklkit: </h3>
+            <button class="snl" data-page="p-kc" onclick="showPage('p-kc')">Key Service Components</button>
+            <button class="snl" data-page="p-change" onclick="showPage('p-change')">Assess and Prioritise Change</button>
+            <button class="snl" data-page="p-calc" onclick="showPage('p-calc')">Cost Calculator</button>
+            <button class="snl" data-page="p-atys" onclick="showPage('p-atys')">Adapt to your Service</button>
+            <button class="snl" data-page="p-res" onclick="showPage('p-res')">Resources</button>
+          </div>
+        </nav>
         <h1>Assess and Prioritise Change </h1>
         <p class="pg-desc">
           Use this section to review how vasculitis care is currently organised in your local setting and to identify
@@ -1044,6 +1178,20 @@
   <div id="p-calc" class="page">
     <div class="pg-content">
       <div class="pg-hdr">
+        <nav class="pg-subnav">
+          <button class="pg-subnav-toggle" onclick="openToolkitMenu()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            In this Toolkit
+          </button>
+          <div class="pg-subnav-links">
+            <h3>In this Tooklkit: </h3>
+            <button class="snl" data-page="p-kc" onclick="showPage('p-kc')">Key Service Components</button>
+            <button class="snl" data-page="p-change" onclick="showPage('p-change')">Assess and Prioritise Change</button>
+            <button class="snl" data-page="p-calc" onclick="showPage('p-calc')">Cost Calculator</button>
+            <button class="snl" data-page="p-atys" onclick="showPage('p-atys')">Adapt to your Service</button>
+            <button class="snl" data-page="p-res" onclick="showPage('p-res')">Resources</button>
+          </div>
+        </nav>
         <h1 class="pg-title">Cost Calculator</h1>
         <p class="pg-desc">
           Use the cost calculator to estimate the potential financial impact of implementing selected key service
@@ -1149,6 +1297,20 @@
   <div id="p-atys" class="page">
     <div class="pg-content">
       <div class="pg-hdr">
+        <nav class="pg-subnav">
+          <button class="pg-subnav-toggle" onclick="openToolkitMenu()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            In this Toolkit
+          </button>
+          <div class="pg-subnav-links">
+            <h3>In this Tooklkit: </h3>
+            <button class="snl" data-page="p-kc" onclick="showPage('p-kc')">Key Service Components</button>
+            <button class="snl" data-page="p-change" onclick="showPage('p-change')">Assess and Prioritise Change</button>
+            <button class="snl" data-page="p-calc" onclick="showPage('p-calc')">Cost Calculator</button>
+            <button class="snl" data-page="p-atys" onclick="showPage('p-atys')">Adapt to your Service</button>
+            <button class="snl" data-page="p-res" onclick="showPage('p-res')">Resources</button>
+          </div>
+        </nav>
         <h1 class="pg-title">Adapt to your Service</h1>
         <p class="pg-desc">
           This section focuses on how the key service components can be adapted to different vasculitis services,
@@ -1710,6 +1872,20 @@
   <div id="p-res" class="page">
     <div class="pg-content">
       <div class="pg-hdr">
+        <nav class="pg-subnav">
+          <button class="pg-subnav-toggle" onclick="openToolkitMenu()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            In this Toolkit
+          </button>
+          <div class="pg-subnav-links">
+            <h3>In this Tooklkit: </h3>
+            <button class="snl" data-page="p-kc" onclick="showPage('p-kc')">Key Service Components</button>
+            <button class="snl" data-page="p-change" onclick="showPage('p-change')">Assess and Prioritise Change</button>
+            <button class="snl" data-page="p-calc" onclick="showPage('p-calc')">Cost Calculator</button>
+            <button class="snl" data-page="p-atys" onclick="showPage('p-atys')">Adapt to your Service</button>
+            <button class="snl" data-page="p-res" onclick="showPage('p-res')">Resources</button>
+          </div>
+        </nav>
         <h1 class="pg-title">Resources</h1>
         <p class="pg-desc">
           This section brings together tools, templates and practical materials to support local vasculitis service
