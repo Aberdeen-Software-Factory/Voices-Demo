@@ -952,23 +952,19 @@ p, ul, ol {
 /* MINDMAP COMPONENT LAYOUT ON RIGHT */
 .kc-circle {
   position: relative;
-  width: 420px;
-  height: 360px;
+  width: 100%;
+  max-width: 420px;
   display: flex;
   align-items: center;
   justify-content: center
 }
 
 .kc-circle-center {
-  position: absolute;
-  z-index: 10;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%)
+  gap: 0
 }
 
 .kc-circle-center .btn-p {
@@ -987,6 +983,19 @@ p, ul, ol {
 
 .kc-circle-center .btn-s {
   display: none
+}
+
+.kc-circle-center button:not(.btn-p):not(.btn-s) {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer
+}
+
+.kc-circle-center button:not(.btn-p):not(.btn-s) img {
+  max-width: 100%;
+  height: auto;
+  display: block
 }
 
 .kc-orbit {
@@ -1257,6 +1266,7 @@ p, ul, ol {
   height: 48px;
   border-radius: 50%;
   ;
+  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1265,8 +1275,9 @@ p, ul, ol {
 }
 
 .step-col:hover .step-ring {
-  border-color: var(--accent);
-  background: rgba(139, 107, 154, .15);
+  /* border-color: var(--accent); */
+  border: 1px solid var(--accent);
+  background: white;
   box-shadow: 0 4px 12px rgba(139, 107, 154, .2);
 }
 
@@ -1275,7 +1286,7 @@ p, ul, ol {
   font-size: var(--fs-4xl);
   font-weight: 700;
   color: var(--accent);
-  transition: color .25s;
+  transition: color border .25s;
 }
 
 .step-conn {
@@ -1360,7 +1371,7 @@ p, ul, ol {
   overflow: hidden;
   transition: box-shadow .35s cubic-bezier(.4, 0, .2, 1), transform .35s cubic-bezier(.4, 0, .2, 1), background .15s;
   opacity: 0;
-  transform: translateY(18px);
+  /* transform: translateY(18px); */
   box-shadow: var(--sh1)
 }
 
@@ -1369,29 +1380,22 @@ p, ul, ol {
   transform: translateY(0)
 }
 
-.tk-card:hover {
-  background: rgba(139, 107, 154, .1);
-  box-shadow: var(--sh2);
-  transform: translateY(-5px)
+.tk-card-thick {
+  border: 2px solid var(--accent)
 }
 
-.tk-card::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--accent);
-  transform: scaleY(0);
-  transition: transform .3s;
-  transform-origin: bottom
+.tk-card:hover {
+  /* border-width: 4px; */
+  background: rgba(139, 107, 154, .1);
+  box-shadow: var(--sh2);
+  transform: scale(1.08)
 }
 
 .tk-card:hover::before {
   transform: scaleY(1);
   transform-origin: top
 }
+
 
 .tk-head {
   display: flex;
@@ -1406,7 +1410,7 @@ p, ul, ol {
 
 .tk-card:hover .tk-num {
   opacity: .85;
-  transform: scale(1.08)
+  /* transform: scale(1.08); */
 }
 
 .tk-ico {
@@ -1418,7 +1422,7 @@ p, ul, ol {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform .3s
+  transition: transform .3s;
 }
 
 .tk-card:hover .tk-ico {
@@ -1493,25 +1497,6 @@ p, ul, ol {
   stroke-linejoin: round
 }
 
-.step-card-pair:nth-child(1) .tk-card {
-  transition-delay: .04s
-}
-
-.step-card-pair:nth-child(2) .tk-card {
-  transition-delay: .09s
-}
-
-.step-card-pair:nth-child(3) .tk-card {
-  transition-delay: .14s
-}
-
-.step-card-pair:nth-child(4) .tk-card {
-  transition-delay: .19s
-}
-
-.step-card-pair:nth-child(5) .tk-card {
-  transition-delay: .24s
-}
 
 .tk2 .tk-num,
 .tk2:hover .tk-num {
@@ -2865,19 +2850,23 @@ p, ul, ol {
 }
 
 .atys-kc-grid-item.service-setting {
-  background: color-mix(in srgb, var(--amber) 10%,transparent);
+  background: color-mix(in srgb, var(--amber) 12%, white);
+  
 }
 
 .atys-kc-grid-item.target-audience {
-  background: color-mix(in srgb, var(--green) 10%, transparent);
+  
+  background: color-mix(in srgb, var(--error) 12%, white);
+  
 }
 
 .atys-kc-grid-item.mode-of-delivery {
-  background: color-mix(in srgb, var(--blue) 10%, transparent);
+  background: color-mix(in srgb, var(--green) 12%, white);
+  
 }
 
 .atys-kc-grid-item.professional-culture {
-  background: color-mix(in srgb, var(--t2) 10%, transparent);
+  background: color-mix(in srgb, var(--blue) 12%, white);
 }
 
 
@@ -3649,10 +3638,6 @@ footer a:hover {
     grid-template-columns: 1fr
   }
 
-  .kc-circle {
-    width: 380px;
-    height: 340px
-  }
 
   .video-inner {
     max-width: 1200x;
@@ -3748,10 +3733,6 @@ footer a:hover {
     max-width: 100%;
   }
 
-  .kc-circle {
-    width: 340px;
-    height: 300px
-  }
 
   .kc-orbit {
     width: 100%;
@@ -3831,6 +3812,7 @@ footer a:hover {
     border-top: 14px solid var(--accent);
     border-bottom: none
   }
+
 
   .home-bottom {
     padding-top: 24px
@@ -4451,6 +4433,50 @@ footer a:hover {
 .etbl-dd-opt:hover {
   background: var(--al);
   color: var(--accent)
+}
+
+.etbl-dd-opt.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none
+}
+
+.etbl-custom-input-wrap {
+  display: flex;
+  gap: 6px;
+  padding: 4px 2px
+}
+
+.etbl-custom-input {
+  flex: 1;
+  padding: 7px 10px;
+  border: 1px solid var(--s3);
+  border-radius: 6px;
+  font-family: var(--fb);
+  font-size: var(--fs-base-md);
+  color: var(--text);
+  outline: none;
+  box-sizing: border-box
+}
+
+.etbl-custom-input:focus {
+  border-color: var(--accent)
+}
+
+.etbl-custom-confirm {
+  padding: 7px 12px;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  font-family: var(--fb);
+  font-size: var(--fs-base-md);
+  cursor: pointer;
+  white-space: nowrap
+}
+
+.etbl-custom-confirm:hover {
+  opacity: 0.85
 }
 
 .status-dot {

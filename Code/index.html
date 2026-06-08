@@ -26,15 +26,15 @@
         <li class="nl-toolkit-wrap">
           <button class="nl nl-toolkit" id="nl-toolkit" onclick="showPage('p-kc')">
             Toolkit
-            <svg class="nl-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><polyline points="6 9 12 15 18 9"/></svg>
+            <!-- <svg class="nl-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><polyline points="6 9 12 15 18 9"/></svg> -->
           </button>
-          <div class="toolkit-dropdown">
+          <!-- <div class="toolkit-dropdown">
             <button onclick="showPage('p-kc')">Key Service Components</button>
             <button onclick="showPage('p-change')">Assess and Prioritise Change</button>
             <button onclick="showPage('p-calc')">Cost Calculator</button>
             <button onclick="showPage('p-atys')">Adapt to your Service</button>
             <button onclick="showPage('p-res')">Resources</button>
-          </div>
+          </div> -->
         </li>
         <li><button class="nl" data-page="p-abt" onclick="showPage('p-abt')">About</button></li>
       </ul>
@@ -43,6 +43,7 @@
           viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg></button>
+      <!-- theme toggle disabled
       <button class="tbtn" id="tbtn">
         <svg class="tbtn-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
           <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
@@ -51,33 +52,36 @@
           <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
         </svg>
       </button>
+      -->
     </div>
   </nav>
 
 
   <div id="mobile-menu">
     <ul class="mobile-nav">
-      <li><button data-page="p-home" onclick="showPage('p-home');closeMobile()"><h2>Home</h2></button></li>
+      <li><button data-page="p-home" onclick="showPage('p-home');closeMobile()">
+          <h2>Home</h2>
+        </button></li>
       <li>
         <button data-page="p-kc" onclick="showPage('p-kc');closeMobile()">
-           <h2>Toolkit</h2>
+          <h2>Toolkit</h2>
           <div class="grid">
-              <div class="grid-item" tabindex="0" onclick="event.stopPropagation();showPage('p-kc');closeMobile()">
-                  <h3>Key Service Components</h3>
-              </div>
-              <div class="grid-item" tabindex="0" onclick="event.stopPropagation();showPage('p-change');closeMobile()">
-                  <h3>Assess and Prioritise Change</h3>
-              </div>
-              <div class="grid-item" tabindex="0" onclick="event.stopPropagation();showPage('p-calc');closeMobile()">
-                  <h3>Cost Calculator</h3>
-              </div>
-              <div class="grid-item" tabindex="0" onclick="event.stopPropagation();showPage('p-atys');closeMobile()">
-                  <h3>Adapt to your Service</h3>
-              </div>
-              <div class="grid-item" tabindex="0" onclick="event.stopPropagation();showPage('p-res');closeMobile()">
-                  <h3>Resources</h3>
-              </div>
-              <!-- <div class="tk-card" tabindex="0" onclick="showPage('p-kc')">
+            <div class="grid-item" tabindex="0" onclick="event.stopPropagation();showPage('p-kc');closeMobile()">
+              <h3>Key Service Components</h3>
+            </div>
+            <div class="grid-item" tabindex="0" onclick="event.stopPropagation();showPage('p-change');closeMobile()">
+              <h3>Assess and Prioritise Change</h3>
+            </div>
+            <div class="grid-item" tabindex="0" onclick="event.stopPropagation();showPage('p-calc');closeMobile()">
+              <h3>Cost Calculator</h3>
+            </div>
+            <div class="grid-item" tabindex="0" onclick="event.stopPropagation();showPage('p-atys');closeMobile()">
+              <h3>Adapt to your Service</h3>
+            </div>
+            <div class="grid-item" tabindex="0" onclick="event.stopPropagation();showPage('p-res');closeMobile()">
+              <h3>Resources</h3>
+            </div>
+            <!-- <div class="tk-card" tabindex="0" onclick="showPage('p-kc')">
                 <div class="step-ring">
                   <span class="step-n">01</span>
                 </div>
@@ -123,7 +127,7 @@
               </div> -->
           </div>
 
-          </button>
+        </button>
 
       </li>
       <!-- <li class="mobile-toolkit-label"><span>Toolkit</span></li>
@@ -132,7 +136,9 @@
       <li class="mobile-sub"><button data-page="p-calc" onclick="showPage('p-calc');closeMobile()">Cost Calculator</button></li>
       <li class="mobile-sub"><button data-page="p-atys" onclick="showPage('p-atys');closeMobile()">Adapt to your Service</button></li>
       <li class="mobile-sub"><button data-page="p-res" onclick="showPage('p-res');closeMobile()">Resources</button></li> -->
-      <li><button data-page="p-abt" onclick="showPage('p-abt');closeMobile()"><h2>About</h2></button></li>
+      <li><button data-page="p-abt" onclick="showPage('p-abt');closeMobile()">
+          <h2>About</h2>
+        </button></li>
     </ul>
   </div>
 
@@ -143,33 +149,33 @@
         <!-- <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> -->
         Return to page
       </button>
-     <h2>Toolkit</h2>
-        <div class="grid">
-            <div class="tk-card" data-page="p-kc" tabindex="0" onclick="showPage('p-kc')">
+      <h2>Toolkit</h2>
+      <div class="grid">
+        <div class="tk-card" data-page="p-kc" tabindex="0" onclick="showPage('p-kc')">
 
-                <h3>Key Service Components</h3>
-            </div>
-
-            <div class="tk-card" data-page="p-change" tabindex="0" onclick="showPage('p-change')">
-
-                <h3>Assess and Prioritise Change</h3>
-            </div>
-
-            <div class="tk-card" data-page="p-calc" tabindex="0" onclick="showPage('p-calc')">
-
-                <h3>Cost Calculator</h3>
-            </div>
-
-            <div class="tk-card" data-page="p-atys" tabindex="0" onclick="showPage('p-atys')">
-
-                <h3>Adapt to your Service</h3>
-            </div>
-
-              <div class="tk-card" data-page="p-res" tabindex="0" onclick="showPage('p-res')">
-
-                <h3>Resources</h3>
-            </div>
+          <h3>Key Service Components</h3>
         </div>
+
+        <div class="tk-card" data-page="p-change" tabindex="0" onclick="showPage('p-change')">
+
+          <h3>Assess and Prioritise Change</h3>
+        </div>
+
+        <div class="tk-card" data-page="p-calc" tabindex="0" onclick="showPage('p-calc')">
+
+          <h3>Cost Calculator</h3>
+        </div>
+
+        <div class="tk-card" data-page="p-atys" tabindex="0" onclick="showPage('p-atys')">
+
+          <h3>Adapt to your Service</h3>
+        </div>
+
+        <div class="tk-card" data-page="p-res" tabindex="0" onclick="showPage('p-res')">
+
+          <h3>Resources</h3>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -181,7 +187,7 @@
           <h1 class="hero-h1">Vasculitis Service Improvement Toolkit</h1>
           <p class="blurb">Outcomes for people with systemic vasculitis are better when services include certain key
             components. This toolkit uses evidence from the <a class="learn-more"
-              href="https://www.abdn.ac.uk/iahs/academic/epidemiology/our-research/studies-list/voices/">VOICES
+              href="https://www.abdn.ac.uk/iahs/academic/epidemiology/our-research/studies-list/voices/" target="_blank">VOICES
               study</a> to help vasculitis services review current provision, identify priorities for change, and adapt
             these components to their local context.
 
@@ -190,8 +196,8 @@
         </div>
         <div class="hero-right">
           <div class="kc-circle">
-            <div class="kc-orbit">
-              <div class="kc-orbit-item kc-a">
+            <!-- <div class="kc-orbit"> -->
+              <!-- <div class="kc-orbit-item kc-a">
                 <div class="kc-dot"><img src="Figures/stopwatch.svg" alt=""></div>
                 <div>
                   <div class="kc-orbit-item-label">Timely access to services </div>
@@ -208,15 +214,18 @@
                 <div>
                   <div class="kc-orbit-item-label">Access to expertise </div>
                 </div>
-              </div>
+              </div> -->
 
               <!-- <div class="kc-orbit-item kc-b"><div class="kc-dot"><svg viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div><div><div class="kc-orbit-item-label">Integrated care</div></div></div> -->
               <!-- <div class="kc-orbit-item kc-c"><div class="kc-dot"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><div class="kc-orbit-item-label">Access to expertise </div></div></div> -->
               <!-- <div class="kc-orbit-item kc-d"><div class="kc-dot"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><div class="kc-orbit-item-label">Access to expertise </div></div></div> -->
               <!-- <div class="kc-orbit-item kc-e"><div class="kc-dot"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><div class="kc-orbit-item-label">Component Five Label</div></div></div> -->
-            </div>
+            <!-- </div> -->
             <div class="kc-circle-center">
-              <button class="btn-p" onclick="showPage('p-kc')">Key Service Components</button>
+              <!-- <button class="btn-p" onclick="showPage('p-kc')">Key Service Components</button> -->
+              <button onclick="showPage('p-kc')"><img src="Figures/VOICES_Service_Components_Diagram.png" style="object-fit: contain"
+                  alt=""></button>
+
             </div>
           </div>
         </div>
@@ -224,7 +233,7 @@
       <div class="steps-col">
         <div class="cards-row">
           <div class="step-card-pair">
-            <div class="step-col tk-card tk1" tabindex="0" onclick="showPage('p-kc')">
+            <div class="step-col tk-card tk-card-thick tk1" tabindex="0" onclick="showPage('p-kc')">
               <div class="step-ring">
                 <span class="step-n">01</span>
               </div>
@@ -240,7 +249,7 @@
           </div>
 
           <div class="step-card-pair">
-            <div class="step-col tk-card tk2" tabindex="0" onclick="showPage('p-change')">
+            <div class="step-col tk-card tk-card-thick tk2" tabindex="0" onclick="showPage('p-change')">
               <div class="step-ring">
                 <span class="step-n">02</span>
               </div>
@@ -256,7 +265,7 @@
           </div>
 
           <div class="step-card-pair">
-            <div class="step-col tk-card tk3" tabindex="0" onclick="showPage('p-calc')">
+            <div class="step-col tk-card tk-card-thick tk3" tabindex="0" onclick="showPage('p-calc')">
               <div class="step-ring">
                 <span class="step-n">03</span>
               </div>
@@ -272,7 +281,7 @@
           </div>
 
           <div class="step-card-pair">
-            <div class="step-col tk-card tk4" tabindex="0" onclick="showPage('p-atys')">
+            <div class="step-col tk-card tk-card-thick tk4" tabindex="0" onclick="showPage('p-atys')">
               <div class="step-ring">
                 <span class="step-n">04</span>
               </div>
@@ -288,7 +297,7 @@
           </div>
 
           <div class="step-card-pair">
-            <div class="step-col tk-card tk5" tabindex="0" onclick="showPage('p-res')">
+            <div class="step-col tk-card tk-card-thick tk5" tabindex="0" onclick="showPage('p-res')">
               <div class="step-ring">
                 <span class="step-n">05</span>
               </div>
@@ -312,13 +321,19 @@
       <div class="pg-hdr">
         <nav class="pg-subnav">
           <button class="pg-subnav-toggle" onclick="openToolkitMenu()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
             In this Toolkit
           </button>
           <div class="pg-subnav-links">
             <h3>In this Toolkit: </h3>
             <button class="snl" data-page="p-kc" onclick="showPage('p-kc')">Key Service Components</button>
-            <button class="snl" data-page="p-change" onclick="showPage('p-change')">Assess and Prioritise Change</button>
+            <button class="snl" data-page="p-change" onclick="showPage('p-change')">Assess and Prioritise
+              Change</button>
             <button class="snl" data-page="p-calc" onclick="showPage('p-calc')">Cost Calculator</button>
             <button class="snl" data-page="p-atys" onclick="showPage('p-atys')">Adapt to your Service</button>
             <button class="snl" data-page="p-res" onclick="showPage('p-res')">Resources</button>
@@ -340,7 +355,8 @@
           components provide the basis for the toolkit and are intended to help services consider how best to organise
           care locally.
           <br><br>
-          <a class="learn-more" href="https://www.thelancet.com/journals/lanrhe/article/PIIS2665-9913(24)00082-1/fulltext">Find out more
+          <a class="learn-more"
+            href="https://www.thelancet.com/journals/lanrhe/article/PIIS2665-9913(24)00082-1/fulltext" target="_blank">Find out more
             about the VOICES study.</a>
         </p>
       </div>
@@ -443,7 +459,7 @@
       <div class="kcsec kcsec-2">
         <div class="kcsec-inner">
           <div class="kcsec-head">
-            <div class="kcsec-badge"><img src="Figures/key_health care access.svg" alt=""></div>
+            <div class="kcsec-badge"><img src="Figures/handshake.svg" alt=""></div>
             <div class="kcsec-namegroup">
               <h2>Integrated care</h2>
             </div>
@@ -525,7 +541,7 @@
       <div class="kcsec kcsec-3">
         <div class="kcsec-inner">
           <div class="kcsec-head">
-            <div class="kcsec-badge"><img src="Figures/handshake.svg" alt=""></div>
+            <div class="kcsec-badge"><img src="Figures/key_health care access.svg" alt=""></div>
             <h2>Access to expertise</h2>
           </div>
           <div class="kc-accordion">
@@ -616,13 +632,19 @@
       <div class="pg-hdr">
         <nav class="pg-subnav">
           <button class="pg-subnav-toggle" onclick="openToolkitMenu()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
             In this Toolkit
           </button>
           <div class="pg-subnav-links">
             <h3>In this Toolkit: </h3>
             <button class="snl" data-page="p-kc" onclick="showPage('p-kc')">Key Service Components</button>
-            <button class="snl" data-page="p-change" onclick="showPage('p-change')">Assess and Prioritise Change</button>
+            <button class="snl" data-page="p-change" onclick="showPage('p-change')">Assess and Prioritise
+              Change</button>
             <button class="snl" data-page="p-calc" onclick="showPage('p-calc')">Cost Calculator</button>
             <button class="snl" data-page="p-atys" onclick="showPage('p-atys')">Adapt to your Service</button>
             <button class="snl" data-page="p-res" onclick="showPage('p-res')">Resources</button>
@@ -885,8 +907,7 @@
                   <thead>
                     <!-- <tr><th><span class="th-label">Key Component</span></th></tr> -->
                     <tr id="etblHeaderRow">
-                      <th class="kc-col"><span
-                          >Key
+                      <th class="kc-col"><span>Key
                           Component</span></th>
                     </tr>
                   </thead>
@@ -927,10 +948,10 @@
                   </svg>
                 </button>
                 <div class="dl-dropdown" id="dlDropdown">
-                  <div class="dl-opt" data-fmt="xlsx"><svg viewBox="0 0 24 24">
+                  <!-- <div class="dl-opt" data-fmt="xlsx"><svg viewBox="0 0 24 24">
                       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                       <polyline points="14 2 14 8 20 8" />
-                    </svg>Excel (.xlsx)</div>
+                    </svg>Excel (.xlsx)</div> -->
                   <div class="dl-opt" data-fmt="csv"><svg viewBox="0 0 24 24">
                       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                       <polyline points="14 2 14 8 20 8" />
@@ -939,7 +960,7 @@
                       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                       <polyline points="14 2 14 8 20 8" />
                     </svg>PDF (.pdf)</div>
-                  <div class="dl-opt" data-fmt="png"><svg viewBox="0 0 24 24">
+                  <!-- <div class="dl-opt" data-fmt="png"><svg viewBox="0 0 24 24">
                       <rect x="3" y="3" width="18" height="18" rx="2" />
                       <circle cx="8.5" cy="8.5" r="1.5" />
                       <polyline points="21 15 16 10 5 21" />
@@ -956,12 +977,11 @@
                   <div class="dl-opt" data-fmt="txt"><svg viewBox="0 0 24 24">
                       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                       <polyline points="14 2 14 8 20 8" />
-                    </svg>TXT (.txt)</div>
+                    </svg>TXT (.txt)</div> -->
                 </div>
               </div>
             </div>
             <div class="etbl-dropdown" id="etblDeptDropdown">
-              <input type="text" placeholder="Search or type department…">
               <div class="etbl-dd-list"></div>
             </div>
             <div class="etbl-dropdown" id="etblStatusDropdown">
@@ -987,11 +1007,11 @@
                   allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                   referrerpolicy="strict-origin-when-cross-origin"
                   style="position:absolute;top:0;left:0;width:100%;height:100%;"
-                  title="Systemic Vasculitis Catalyst Film"
-                  loading="lazy"></iframe>
+                  title="Systemic Vasculitis Catalyst Film" loading="lazy"></iframe>
                 <script src="https://player.vimeo.com/api/player.js"></script>
               </div>
-              <a class="learn-more" href="https://www.hexi.ox.ac.uk/Systemic-Vasculitis-catalyst-film" target="_blank" rel="noopener noreferrer">Learn more</a>
+              <a class="learn-more" href="https://www.hexi.ox.ac.uk/Systemic-Vasculitis-catalyst-film" target="_blank"
+                rel="noopener noreferrer">Learn more</a>
             </div>
             <div class="video-info">
               <h2 class="video-title">Systemic vasculitis and healthcare catalyst film</h2>
@@ -1006,7 +1026,8 @@
                 about how vasculitis services currently work, what matters most to people using them, and how
                 experiences of care can be improved.
               </p>
-                <a class="learn-more" href="https://www.hexi.ox.ac.uk/" target="_blank" rel="noopener noreferrer">Health Experiences Insight</a>
+              <a class="learn-more" href="https://www.hexi.ox.ac.uk/" target="_blank" rel="noopener noreferrer">Health
+                Experiences Insight</a>
             </div>
           </div>
         </div>
@@ -1182,13 +1203,19 @@
       <div class="pg-hdr">
         <nav class="pg-subnav">
           <button class="pg-subnav-toggle" onclick="openToolkitMenu()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
             In this Toolkit
           </button>
           <div class="pg-subnav-links">
             <h3>In this Toolkit: </h3>
             <button class="snl" data-page="p-kc" onclick="showPage('p-kc')">Key Service Components</button>
-            <button class="snl" data-page="p-change" onclick="showPage('p-change')">Assess and Prioritise Change</button>
+            <button class="snl" data-page="p-change" onclick="showPage('p-change')">Assess and Prioritise
+              Change</button>
             <button class="snl" data-page="p-calc" onclick="showPage('p-calc')">Cost Calculator</button>
             <button class="snl" data-page="p-atys" onclick="showPage('p-atys')">Adapt to your Service</button>
             <button class="snl" data-page="p-res" onclick="showPage('p-res')">Resources</button>
@@ -1217,8 +1244,8 @@
           <!-- <div class="form-group"><label class="form-label" for="calc-cost">Cost per event (£)</label><input
               class="form-input" type="number" placeholder="e.g. 1000" id="calc-cost" value="1000"
               oninput="updateCalc()" min="0"></div> -->
-             <div class="form-group"><label class="form-label" for="calc-cost">Region</label><select
-              class="form-select" id="calc-cost" onchange="updateCalc()">
+          <div class="form-group"><label class="form-label" for="calc-cost">Region</label><select class="form-select"
+              id="calc-cost" onchange="updateCalc()">
               <option value="Region 1">Region 1 (£1000)</option>
               <option value="Region 2">Region 2 (£1100)</option>
               <option value="Region 3">Region 3 (£1200)</option>
@@ -1247,11 +1274,21 @@
           <button class="calc-submit" onclick="updateCalc()">Calculate</button>
           <div class="calc-download-row">
             <button class="calc-download" onclick="downloadCalc('pdf')" type="button">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
               Download PDF
             </button>
             <button class="calc-download" onclick="downloadCalc('csv')" type="button">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
               Download CSV
             </button>
           </div>
@@ -1305,13 +1342,19 @@
       <div class="pg-hdr">
         <nav class="pg-subnav">
           <button class="pg-subnav-toggle" onclick="openToolkitMenu()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
             In this Toolkit
           </button>
           <div class="pg-subnav-links">
             <h3>In this Toolkit: </h3>
             <button class="snl" data-page="p-kc" onclick="showPage('p-kc')">Key Service Components</button>
-            <button class="snl" data-page="p-change" onclick="showPage('p-change')">Assess and Prioritise Change</button>
+            <button class="snl" data-page="p-change" onclick="showPage('p-change')">Assess and Prioritise
+              Change</button>
             <button class="snl" data-page="p-calc" onclick="showPage('p-calc')">Cost Calculator</button>
             <button class="snl" data-page="p-atys" onclick="showPage('p-atys')">Adapt to your Service</button>
             <button class="snl" data-page="p-res" onclick="showPage('p-res')">Resources</button>
@@ -1531,7 +1574,7 @@
                           </ul>
                         </div>
 
-                        <div  class="atys-kc-grid-item target-audience">
+                        <div class="atys-kc-grid-item target-audience">
                           <h3>Target Audience Adaptations: </h3>
                           <ul>
                             <li>The main audience initially may be Trust/medical director level (rather than heads of
@@ -1544,16 +1587,16 @@
                         </div>
 
                         <div class="atys-kc-grid-item mode-of-delivery">
-                           <h3>Mode of Delivery Adaptations: </h3>
-                            <ul>
-                              <li>Who can order relevant tests and review the results </li>
-                              <li>How index of clinical suspicion is demonstrated and linked to turnaround speed of
-                                results </li>
-                              <li>How the result in the context of the clinical picture allows the patient to get into the
-                                urgent pathway quickly</li>
-                              <li>What safety netting is provided for patients where there is a high index of clinical
-                                suspicion, but results are inconclusive, or their significance is unclear </li>
-                            </ul>
+                          <h3>Mode of Delivery Adaptations: </h3>
+                          <ul>
+                            <li>Who can order relevant tests and review the results </li>
+                            <li>How index of clinical suspicion is demonstrated and linked to turnaround speed of
+                              results </li>
+                            <li>How the result in the context of the clinical picture allows the patient to get into the
+                              urgent pathway quickly</li>
+                            <li>What safety netting is provided for patients where there is a high index of clinical
+                              suspicion, but results are inconclusive, or their significance is unclear </li>
+                          </ul>
 
                         </div>
 
@@ -1570,14 +1613,15 @@
 
                       <div>
                         <!-- <h2 style="text-align: center">What this looks like and feels like in practice</h2> -->
-                         <div>
-                            <h3>How do some healthcare providers reduce the time to diagnosis? </h3>
-                            <p class="quote">“The ANCA test was such a gamechanger for improving vasculitis care but the test on its
-                              own isn’t enough – you’ve got to know when to use it, have a good relationship with the
-                              labs, and be in a position to act urgently when there’s a positive result. I’ve managed to
-                              get it so that every positive ANCA locally is copied to me. I can then get in touch
-                              proactively with the doctor who made the request and offer my input”</p>
-                          </div>
+                        <div>
+                          <h3>How do some healthcare providers reduce the time to diagnosis? </h3>
+                          <p class="quote">“The ANCA test was such a gamechanger for improving vasculitis care but the
+                            test on its
+                            own isn’t enough – you’ve got to know when to use it, have a good relationship with the
+                            labs, and be in a position to act urgently when there’s a positive result. I’ve managed to
+                            get it so that every positive ANCA locally is copied to me. I can then get in touch
+                            proactively with the doctor who made the request and offer my input”</p>
+                        </div>
 
                       </div>
                     </div>
@@ -1710,7 +1754,8 @@
                       <div>
                         <div>
                           <h3>How can the need for cohorted clinics look for healthcare providers? </h3>
-                          <p class="quote">”We’re a well-known centre of excellence for vasculitis, which is great, but it’s not
+                          <p class="quote">”We’re a well-known centre of excellence for vasculitis, which is great, but
+                            it’s not
                             right that patients travel for hours to see us, or that they get so dependent on emailing
                             us with their queries. I worry that they miss out of developing he local relationships
                             that will help keep them safe when they need things we can’t provide, like unscheduled
@@ -1775,7 +1820,8 @@
                       <div>
                         <div>
                           <h3>From a vasculitis specialist nurse... </h3>
-                          <p class="quote">”There’s so much that specialist nurses could be doing to improve vasculitis patients’
+                          <p class="quote">”There’s so much that specialist nurses could be doing to improve vasculitis
+                            patients’
                             experiences of care and outcomes, but there’s no blueprint for the role. How it develops
                             in a service seems to depend as much on the vision of consultants and nurse managers as
                             the nurse themselves, and it takes time to integrate your role and figure out what it
@@ -1847,7 +1893,8 @@
                       <div>
                         <div>
                           <h3>What does this look like for healthcare providers?</h3>
-                          <p class="quote">”What we’ve found is that meeting regularly as Team Vasculitis doctors, nurses and
+                          <p class="quote">”What we’ve found is that meeting regularly as Team Vasculitis doctors,
+                            nurses and
                             pharmacists allows us to troubleshoot practical issues around patient safety and focus on
                             service improvement in response to patient feedback.” </p>
                         </div>
@@ -1880,13 +1927,19 @@
       <div class="pg-hdr">
         <nav class="pg-subnav">
           <button class="pg-subnav-toggle" onclick="openToolkitMenu()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
             In this Toolkit
           </button>
           <div class="pg-subnav-links">
             <h3>In this Toolkit: </h3>
             <button class="snl" data-page="p-kc" onclick="showPage('p-kc')">Key Service Components</button>
-            <button class="snl" data-page="p-change" onclick="showPage('p-change')">Assess and Prioritise Change</button>
+            <button class="snl" data-page="p-change" onclick="showPage('p-change')">Assess and Prioritise
+              Change</button>
             <button class="snl" data-page="p-calc" onclick="showPage('p-calc')">Cost Calculator</button>
             <button class="snl" data-page="p-atys" onclick="showPage('p-atys')">Adapt to your Service</button>
             <button class="snl" data-page="p-res" onclick="showPage('p-res')">Resources</button>
@@ -1984,19 +2037,28 @@
       <div class="content-layout">
         <h2>Funding and Acknowledgements</h2>
         <p>
-          This toolkit is based on findings from the VOICES study <i>- Vasculitis Outcomes In relation to Care ExperienceS -</i> a programme of research funded by Arthritis UK to understand how the organisation and delivery of vasculitis care relate to patient outcomes and experiences. The VOICES study was funded under grant reference 22088 (Chief Investigator, Dr Rosemary Hollick).
+          This toolkit is based on findings from the VOICES study <i>- Vasculitis Outcomes In relation to Care
+            ExperienceS -</i> a programme of research funded by Arthritis UK to understand how the organisation and
+          delivery of vasculitis care relate to patient outcomes and experiences. The VOICES study was funded under
+          grant reference 22088 (Chief Investigator, Dr Rosemary Hollick).
         </p>
         <p>
-          Development of the toolkit content was supported by the University of Aberdeen. Development of the toolkit website and cost calculator was funded by CSL Vifor. CSL Vifor had no input into the content of the toolkit.
+          Development of the toolkit content was supported by the University of Aberdeen. Development of the toolkit
+          website and cost calculator was funded by CSL Vifor. CSL Vifor had no input into the content of the toolkit.
         </p>
         <p>
-          We are very grateful to all patient contributors with lived experience of systemic vasculitis who have been involved in the VOICES study.
+          We are very grateful to all patient contributors with lived experience of systemic vasculitis who have been
+          involved in the VOICES study.
         </p>
         <p>
-          We also wish to acknowledge our collaborators, the UK and Ireland Vasculitis Society and the Scottish Systemic Vasculitis Managed Clinical Network, for their support in the conceptualisation and delivery of the study. This included development and distribution of the vasculitis provider survey, recruitment of case study sites, and hosting workshops to discuss study findings and inform recommendations.
+          We also wish to acknowledge our collaborators, the UK and Ireland Vasculitis Society and the Scottish Systemic
+          Vasculitis Managed Clinical Network, for their support in the conceptualisation and delivery of the study.
+          This included development and distribution of the vasculitis provider survey, recruitment of case study sites,
+          and hosting workshops to discuss study findings and inform recommendations.
         </p>
         <p>
-          We are also grateful to the European Reference Network for rare immune disorders for supporting the development and distribution of the survey to its members.
+          We are also grateful to the European Reference Network for rare immune disorders for supporting the
+          development and distribution of the survey to its members.
         </p>
 
       </div>
@@ -2007,8 +2069,20 @@
   <!-- FOOTER -->
   <footer>
     <div class="foot-inner">
-      <span>&copy; 2026 Footer text &middot; Toolkit name</span>
-      <nav><a href="#">Link one</a><a href="#">Link two</a><a href="#">Link three</a></nav>
+      <div class="content-layout">
+        <a href="https://www.thelancet.com/journals/lanrhe/article/PIIS2665-9913(24)00082-1/fulltext" target="_blank">
+          <img src="Figures/VOICES-logo.png" alt="VOICES logo" class="footer-logo" style="height: 50px;
+  object-fit: contain">
+        </a>
+        <span>&copy; 
+        &middot; VOICES</span>
+      </div>
+      
+      <nav>
+        <a class="" target="_blank" style="text-decoration:underline; text-underline-offset: 2px;"
+          href="https://www.thelancet.com/journals/lanrhe/article/PIIS2665-9913(24)00082-1/fulltext">VOICES study.
+        </a>
+      </nav>
     </div>
   </footer>
 

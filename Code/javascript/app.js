@@ -338,12 +338,12 @@ window.addEventListener('scroll',()=>{
 
 window.addEventListener('popstate',()=>_routeHash(location.hash,false));
 
-/* ── DARK MODE ── */
-const tbtn=document.getElementById('tbtn');
-tbtn.addEventListener('click',()=>{
-  const dark=document.documentElement.dataset.theme==='dark';
-  document.documentElement.dataset.theme=dark?'light':'dark';
-});
+/* ── DARK MODE (disabled) ── */
+// const tbtn=document.getElementById('tbtn');
+// tbtn.addEventListener('click',()=>{
+//   const dark=document.documentElement.dataset.theme==='dark';
+//   document.documentElement.dataset.theme=dark?'light':'dark';
+// });
 
 /* ── HAMBURGER MENU ── */
 const hamburger=document.getElementById('hamburger');
@@ -548,8 +548,8 @@ function selectRegion(id){
   });
 })();
 
-// Re-render map on dark mode toggle
-tbtn.addEventListener('click',()=>{ setTimeout(renderMap,50); });
+// Re-render map on dark mode toggle (disabled with dark mode)
+// tbtn.addEventListener('click',()=>{ setTimeout(renderMap,50); });
 
 // Initial render
 renderMap();
@@ -748,32 +748,58 @@ updateCalc();
   }
 
   // ── dept dropdown ──────────────────────────────────────────────────────────
+  function getUsedNames(excludeId){
+    return new Set(state.cols.filter(c=>c.id!==excludeId&&c.name.trim()).map(c=>c.name));
+  }
+
   function showDeptDD(trigger,id){
     closeAll();
     const dd=document.getElementById('etblDeptDropdown');
-    const inp=dd.querySelector('input');
-    inp.value='';
-    renderDeptList(dd.querySelector('.etbl-dd-list'),id,'');
+    renderDeptList(dd.querySelector('.etbl-dd-list'),id);
     positionDD(dd,trigger);
     dd.classList.add('open');
-    inp.oninput=()=>renderDeptList(dd.querySelector('.etbl-dd-list'),id,inp.value);
-    requestAnimationFrame(()=>inp.focus());
   }
 
-  function renderDeptList(list,id,q){
-    const lq=q.toLowerCase().trim();
-    const matches=DEPT_SUGGESTIONS.filter(d=>d.toLowerCase().includes(lq));
-    const custom=lq&&!DEPT_SUGGESTIONS.some(d=>d.toLowerCase()===lq);
-    const opts=custom?[{label:'"'+q+'" (custom)',value:q},...matches.map(d=>({label:d,value:d}))]
-                      :matches.map(d=>({label:d,value:d}));
+  function renderDeptList(list,id){
+    const usedNames=getUsedNames(id);
+    // show all standard suggestions plus any custom names in use by other cols
+    const customUsed=[...usedNames].filter(n=>!DEPT_SUGGESTIONS.includes(n));
+    const allOpts=[...DEPT_SUGGESTIONS,...customUsed];
     list.innerHTML='';
-    if(!opts.length){list.innerHTML='<div style="padding:6px 10px;color:var(--t3);font-size:var(--fs-base-md)">Type a custom name above</div>';return;}
-    opts.forEach(o=>{
+    allOpts.forEach(name=>{
+      const isOther=name==='Other';
+      const isUsed=usedNames.has(name);
       const div=document.createElement('div');
-      div.className='etbl-dd-opt'; div.textContent=o.label;
-      div.addEventListener('mousedown',e=>{e.preventDefault();setDeptName(id,o.value);closeAll();});
+      div.className='etbl-dd-opt'+(isUsed?' disabled':'');
+      div.textContent=name;
+      if(!isUsed){
+        if(isOther){
+          div.addEventListener('mousedown',e=>{e.preventDefault();showCustomDeptInput(list,id);});
+        } else {
+          div.addEventListener('mousedown',e=>{e.preventDefault();setDeptName(id,name);closeAll();});
+        }
+      }
       list.appendChild(div);
     });
+  }
+
+  function showCustomDeptInput(list,id){
+    list.innerHTML='';
+    const wrap=document.createElement('div');
+    wrap.className='etbl-custom-input-wrap';
+    const inp=document.createElement('input');
+    inp.type='text'; inp.placeholder='Enter department name…'; inp.className='etbl-custom-input';
+    const btn=document.createElement('button');
+    btn.textContent='Add'; btn.className='etbl-custom-confirm'; btn.type='button';
+    function confirm(){
+      const val=inp.value.trim();
+      if(val){setDeptName(id,val);closeAll();}
+    }
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter')confirm();if(e.key==='Escape')closeAll();});
+    btn.addEventListener('mousedown',e=>{e.preventDefault();confirm();});
+    wrap.appendChild(inp); wrap.appendChild(btn);
+    list.appendChild(wrap);
+    requestAnimationFrame(()=>inp.focus());
   }
 
   // ── status dropdown ────────────────────────────────────────────────────────
