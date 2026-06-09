@@ -838,8 +838,8 @@ function downloadCalc(type){
 
   // ── header events ──────────────────────────────────────────────────────────
   function bindHeaderEvents(th,id){
-    th.querySelector('.dept-name-btn').addEventListener('click',e=>{e.stopPropagation();showDeptDD(th.querySelector('.dept-name-btn'),id);});
-    th.querySelector('.dept-delete-btn').addEventListener('click',e=>{e.stopPropagation();deleteColumn(id);});
+    th.addEventListener('click',e=>{if(!e.target.closest('.dept-delete-btn')){e.stopPropagation();showDeptDD(th.querySelector('.dept-name-btn'),id);}});
+    th.querySelector('.dept-delete-btn').addEventListener('click',e=>{e.stopPropagation();closeAll();deleteColumn(id);});
     // drag
     th.addEventListener('dragstart',e=>{dragColId=id;e.dataTransfer.effectAllowed='move';th.style.opacity='.5';});
     th.addEventListener('dragend',()=>{th.style.opacity='';document.querySelectorAll('.dept-col').forEach(t=>t.classList.remove('drag-over'));});
@@ -1029,7 +1029,33 @@ function downloadCalc(type){
     updateDL();
   }
   function updateDL(){
-    document.getElementById('dlBtn').disabled=!state.cols.some(c=>c.name.trim());
+    const hasName=state.cols.some(c=>c.name.trim());
+    document.getElementById('dlBtn').disabled=!hasName;
+    if(hasName) hideNameTooltip();
+  }
+
+  function showNameTooltip(){
+    const unnamedBtn=document.querySelector('th.dept-col .dept-name-btn.empty');
+    if(!unnamedBtn) return;
+    let tip=document.getElementById('etblNameTooltip');
+    if(!tip){
+      tip=document.createElement('div');
+      tip.id='etblNameTooltip';
+      tip.className='etbl-name-tooltip';
+      tip.textContent='Name at least one column to download';
+      document.body.appendChild(tip);
+    }
+    const r=unnamedBtn.getBoundingClientRect();
+    tip.style.left=(r.left+r.width/2+window.scrollX)+'px';
+    tip.style.top=(r.top+window.scrollY-10)+'px';
+    tip.classList.add('visible');
+    clearTimeout(tip._t);
+    tip._t=setTimeout(hideNameTooltip,3000);
+  }
+
+  function hideNameTooltip(){
+    const tip=document.getElementById('etblNameTooltip');
+    if(tip) tip.classList.remove('visible');
   }
 
 
@@ -1039,6 +1065,7 @@ function downloadCalc(type){
   const dlBtn=document.getElementById('dlBtn');
   const dlDD=document.getElementById('dlDropdown');
   dlBtn.addEventListener('click',e=>{e.stopPropagation();if(!dlBtn.disabled)dlDD.classList.toggle('open');});
+  dlBtn.closest('.dl-wrap').addEventListener('click',()=>{if(dlBtn.disabled)showNameTooltip();});
   document.addEventListener('click',e=>{if(!e.target.closest('.dl-wrap'))dlDD.classList.remove('open');});
   dlDD.querySelectorAll('.dl-opt').forEach(opt=>{
     opt.addEventListener('click',e=>{

@@ -4253,7 +4253,7 @@ footer a:hover {
 }
 
 .etbl-table th.dept-col[draggable] {
-  cursor: grab
+  cursor: pointer
 }
 
 .etbl-table th.dept-col.drag-over {
@@ -4331,6 +4331,10 @@ footer a:hover {
 }
 
 .dept-name-btn:hover {
+  background: none
+}
+
+.dept-col:hover {
   background: rgba(255, 255, 255, .18)
 }
 
@@ -4601,6 +4605,37 @@ footer a:hover {
   opacity: 0.85
 }
 
+.etbl-name-tooltip {
+  position: absolute;
+  background: var(--error);
+  color: #fff;
+  font-family: var(--fb);
+  font-size: var(--fs-base-md);
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -100%);
+  opacity: 0;
+  transition: opacity .2s ease
+}
+
+.etbl-name-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--error)
+}
+
+.etbl-name-tooltip.visible {
+  opacity: 1
+}
+
 .status-dot {
   width: 18px;
   height: 18px;
@@ -4673,7 +4708,7 @@ footer a:hover {
 }
 
 .dl-wrap:has(#dlBtn:disabled)::after {
-  content: 'Needs a valid chart';
+  content: 'The table needs to have at least 1 named column. All empty cells are marked as Unkkown.';
   position: absolute;
   bottom: calc(100% + 8px);
   right: 0;
