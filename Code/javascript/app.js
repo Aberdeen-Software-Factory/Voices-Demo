@@ -566,51 +566,212 @@ const CALC_COEFS={
 };
 const CALC_COMP_IDS=['cc1','cc4','cc5','cc7'];
 
-// replace key values with actual region and corresponding cost 
-const CALC_REGIONS_COSTS={
-  'Region 1': 1000,
-  'Region 2': 1100,
-  'Region 3': 1200,
-  'Region 4': 1300,
-  'Region 5': 1400
+/* Univariate (single-component) model — each component analysed in isolation.
+   {Absent, Present} log-rates per outcome per component (see CostCalculator docs).
+   NB: Mortality is not modelled univariately, so it is excluded here.
+   Component keys match the multivariate kept set: Cohorted, MDT, Nurse-Led, WaitTimes<7d. */
+const CALC_UNI_COEFS={
+  'Serious Infection':{
+    'Cohorted clinic':              {A:-1.6132891, P:-0.1500589},
+    'MDT meetings':                 {A:-1.7306023, P: 0.0031041},
+    'Nurse-led care':               {A:-1.7440964, P: 0.0509999},
+    'Wait times < 7 days':          {A:-1.6333569, P:-0.1220811}
+  },
+  'CVD':{
+    'Cohorted clinic':              {A:-3.4272577, P: 0.0597348},
+    'MDT meetings':                 {A:-3.4444744, P: 0.1249594},
+    'Nurse-led care':               {A:-3.4919337, P: 0.2985533},
+    'Wait times < 7 days':          {A:-3.4134936, P: 0.0462310}
+  },
+  'Cancer':{
+    'Cohorted clinic':              {A:-3.5560366, P: 0.1542858},
+    'MDT meetings':                 {A:-3.3593053, P:-0.2157640},
+    'Nurse-led care':               {A:-3.3827702, P:-0.2169062},
+    'Wait times < 7 days':          {A:-3.6175440, P: 0.2067612}
+  },
+  'Emergency Hospital Admissions':{
+    'Cohorted clinic':              {A:-0.4595458, P:-0.1283519},
+    'MDT meetings':                 {A:-0.5577008, P: 0.0059440},
+    'Nurse-led care':               {A:-0.5608165, P: 0.0205327},
+    'Wait times < 7 days':          {A:-0.4698607, P:-0.1081951}
+  }
 };
+
+// Placeholder unit costs per nation — replace with real cost-book figures when available.
+const CALC_REGIONS_COSTS={
+  'England':  1000,
+  'Scotland': 1100,
+  'Wales':    1200,
+  'Northern Ireland': 1300
+};
+
+let calcMode='combined'; // 'combined' | 'single'
+let calcSnapshot=null;   // latest computed result, for PDF/CSV export
+
+function setCalcMode(mode){
+  calcMode=mode;
+  document.querySelectorAll('.calc-tab').forEach(t=>{
+    t.classList.toggle('active', t.dataset.mode===mode);
+  });
+  document.getElementById('calc-combined-inputs').style.display = mode==='combined' ? '' : 'none';
+  document.getElementById('calc-single-inputs').style.display   = mode==='single'   ? '' : 'none';
+  document.getElementById('impact-bar-wrap').style.display      = mode==='combined' ? '' : 'none';
+  updateCalc();
+}
+
+// Colour a signed value: negative (saving / fewer events) = green, positive = red.
+function applySignColor(el,value){
+  el.classList.remove('val-good','val-bad');
+  if(value<0) el.classList.add('val-good');
+  else if(value>0) el.classList.add('val-bad');
+}
 
 function updateCalc(){
   const vol=parseInt(document.getElementById('calc-patients').value)||0;
   const cost=CALC_REGIONS_COSTS[document.getElementById('calc-cost').value]||0;
-  const outcome=document.getElementById('calc-outcome').value;
-  const checks=CALC_COMP_IDS.map(id=>document.getElementById(id).checked);
-  const count=checks.filter(Boolean).length;
-  const total=CALC_COMP_IDS.length;
-  document.getElementById('impact-count').textContent=`${count} / ${total}`;
-  document.getElementById('impact-bar').style.width=`${(count/total)*100}%`;
 
+  const nation=document.getElementById('calc-cost').value;
+  const valEl=id=>document.getElementById(id);
   if(!vol){
+    calcSnapshot=null;
     ['out-infect','out-avoided','out-hosp','out-saving','out-total','out-impl'].forEach(id=>{
-      document.getElementById(id).textContent='—';
+      valEl(id).textContent='—';
+      valEl(id).classList.remove('val-good','val-bad');
     });
-    document.getElementById('out-impl').classList.remove('positive','negative');
     return;
   }
 
-  const co=CALC_COEFS[outcome];
-  const sumWith=co.Intercept + co.c.reduce((a,b,i)=>a+(checks[i]?b:0),0);
-  const baseEvents=Math.round(Math.exp(co.Intercept)*vol);
-  const compEvents=Math.round(Math.exp(sumWith)*vol);
-  const baseCost=baseEvents*cost;
-  const compCost=compEvents*cost;
+  // baseEvents/compEvents are the raw expected events per year.
+  // Rounding deliberately differs by model to match the VOICES reference:
+  //  - combined (multivariate): round events to whole numbers, then × unit cost
+  //  - single (univariate):     keep fractional events, round only the final cost to 2dp
+  let baseEvents, compEvents, baseCost, compCost, money, outcomeLabel, componentsLabel;
+  if(calcMode==='combined'){
+    const outcome=document.getElementById('calc-outcome').value;
+    outcomeLabel=document.getElementById('calc-outcome').selectedOptions[0].text;
+    const checks=CALC_COMP_IDS.map(id=>document.getElementById(id).checked);
+    componentsLabel=CALC_COMP_IDS.filter((_,i)=>checks[i])
+      .map(id=>document.querySelector(`label[for="${id}"]`).textContent.trim().replace(/\s+/g,' '))
+      .join(', ') || 'None selected';
+    const count=checks.filter(Boolean).length;
+    const total=CALC_COMP_IDS.length;
+    document.getElementById('impact-count').textContent=`${count} / ${total}`;
+    document.getElementById('impact-bar').style.width=`${(count/total)*100}%`;
+
+    const co=CALC_COEFS[outcome];
+    const sumWith=co.Intercept + co.c.reduce((a,b,i)=>a+(checks[i]?b:0),0);
+    baseEvents=Math.round(Math.exp(co.Intercept)*vol);
+    compEvents=Math.round(Math.exp(sumWith)*vol);
+    baseCost=baseEvents*cost;
+    compCost=compEvents*cost;
+    money=v=>`£${Math.round(v).toLocaleString()}`;
+  }else{
+    const outcome=document.getElementById('calc-outcome-single').value;
+    outcomeLabel=document.getElementById('calc-outcome-single').selectedOptions[0].text;
+    const comp=document.getElementById('calc-component-single').value;
+    componentsLabel=document.getElementById('calc-component-single').selectedOptions[0].text;
+    const co=CALC_UNI_COEFS[outcome][comp];
+    baseEvents=Math.exp(co.A)*vol;
+    compEvents=Math.exp(co.A+co.P)*vol;
+    baseCost=Math.round(baseEvents*cost*100)/100;
+    compCost=Math.round(compEvents*cost*100)/100;
+    money=v=>`£${v.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}`;
+  }
+
   const diff=compCost-baseCost;
   const pct=baseEvents?((compEvents-baseEvents)/baseEvents)*100:0;
+  const evtDiff=compEvents-baseEvents;
+  const evtFmt=v=>calcMode==='combined'
+    ? `${v.toLocaleString()} events`
+    : `${v.toLocaleString(undefined,{minimumFractionDigits:1,maximumFractionDigits:1})} events`;
 
-  document.getElementById('out-infect').textContent=`${baseEvents.toLocaleString()} events`;
-  document.getElementById('out-avoided').textContent=`${compEvents.toLocaleString()} events`;
-  document.getElementById('out-hosp').textContent=`${pct>=0?'+':''}${pct.toFixed(1)}%`;
-  document.getElementById('out-saving').textContent=`£${baseCost.toLocaleString()}`;
-  document.getElementById('out-total').textContent=`£${compCost.toLocaleString()}`;
+  valEl('out-infect').textContent=evtFmt(baseEvents);
+  valEl('out-avoided').textContent=evtFmt(compEvents);
+  valEl('out-hosp').textContent=`${pct>=0?'+':''}${pct.toFixed(1)}%`;
+  valEl('out-saving').textContent=money(baseCost);
+  valEl('out-total').textContent=money(compCost);
   const sign=diff<0?'−':(diff>0?'+':'');
-  document.getElementById('out-impl').textContent=`${sign}£${Math.abs(diff).toLocaleString()}`;
+  valEl('out-impl').textContent=`${sign}${money(Math.abs(diff))}`;
+
+  applySignColor(valEl('out-hosp'), evtDiff);
+  applySignColor(valEl('out-impl'), diff);
+
+  calcSnapshot={
+    mode: calcMode==='combined' ? 'Combined components (multivariate)' : 'Single component (univariate)',
+    patients: vol,
+    nation,
+    outcome: outcomeLabel,
+    components: componentsLabel,
+    baselineEvents: evtFmt(baseEvents),
+    withEvents: evtFmt(compEvents),
+    changeRate: valEl('out-hosp').textContent,
+    baselineCost: money(baseCost),
+    withCost: money(compCost),
+    difference: valEl('out-impl').textContent
+  };
 }
 updateCalc();
+
+// ── Calculator export (PDF / CSV) ────────────────────────────────────────────
+function downloadCalc(type){
+  if(!calcSnapshot){
+    alert('Enter the number of patients to generate an estimate before downloading.');
+    return;
+  }
+  const s=calcSnapshot;
+  const stamp=new Date().toISOString().slice(0,10);
+  const rows=[
+    ['Model', s.mode],
+    ['Number of patients', s.patients.toLocaleString()],
+    ['Nation (unit cost basis)', s.nation],
+    ['Outcome', s.outcome],
+    [calcMode==='combined'?'Components in place':'Component', s.components],
+    ['Baseline events / year', s.baselineEvents],
+    ['Events with component(s) / year', s.withEvents],
+    ['Change in event rate', s.changeRate],
+    ['Baseline cost / year', s.baselineCost],
+    ['Cost with component(s) / year', s.withCost],
+    ['Projected annual change (− = saving)', s.difference]
+  ];
+
+  if(type==='csv'){
+    const esc=v=>`"${String(v).replace(/"/g,'""')}"`;
+    const csv=[['Field','Value'],...rows].map(r=>r.map(esc).join(',')).join('\r\n');
+    const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8;'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url; a.download=`voices-cost-estimate-${stamp}.csv`;
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+    return;
+  }
+
+  // PDF via jsPDF (UMD build exposes window.jspdf.jsPDF)
+  const jsPDF=(window.jspdf||{}).jsPDF;
+  if(!jsPDF){ alert('PDF library failed to load. Please try again.'); return; }
+  const doc=new jsPDF({unit:'pt',format:'a4'});
+  const M=48; let y=64;
+  doc.setFont('helvetica','bold'); doc.setFontSize(18);
+  doc.text('VOICES Cost Estimate', M, y); y+=10;
+  doc.setDrawColor(139,107,154); doc.setLineWidth(1.5); doc.line(M, y, 547, y); y+=28;
+  doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(120);
+  doc.text(`Generated ${stamp}`, M, y); y+=22;
+  doc.setTextColor(34);
+  rows.forEach(([label,val])=>{
+    doc.setFont('helvetica','bold'); doc.setFontSize(10.5);
+    doc.text(String(label), M, y);
+    doc.setFont('helvetica','normal');
+    const lines=doc.splitTextToSize(String(val), 250);
+    doc.text(lines, 547, y, {align:'right'});
+    y+=Math.max(20, lines.length*14);
+    doc.setDrawColor(225); doc.setLineWidth(0.5); doc.line(M, y-12, 547, y-12);
+  });
+  y+=14;
+  doc.setFont('helvetica','italic'); doc.setFontSize(8); doc.setTextColor(120);
+  const note='Estimates use coefficients from the VOICES modelling work. Unit costs are placeholder values pending national cost-book figures. Single-component (univariate) estimates are produced in isolation and should not be combined.';
+  doc.text(doc.splitTextToSize(note, 499), M, y);
+  doc.save(`voices-cost-estimate-${stamp}.pdf`);
+}
 
 // ── Editable Table ──────────────────────────────────────────────────────────
 (function(){

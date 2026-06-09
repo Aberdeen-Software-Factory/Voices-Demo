@@ -1235,43 +1235,91 @@
 
         </p>
       </div>
+      <div class="kc-accordion calc-howto">
+        <div class="kc-acc-item">
+          <button class="kc-acc-trigger">How this is calculated <svg class="kc-acc-icon" viewBox="0 0 24 24">
+              <polyline points="6 9 12 15 18 9" />
+            </svg></button>
+          <div class="kc-acc-panel">
+            <div class="kc-acc-panel-inner">
+              <p id="out-recommendation"><strong>Combined components</strong> uses the multivariate model: the expected
+                event rate is <strong>exp(intercept + Σ active coefficients)</strong>, multiplied by the number of
+                patients to get yearly events and by the unit cost to get annual cost. <strong>Single
+                  component</strong> uses the univariate model, comparing services with a component present
+                (<strong>exp(absent + present)</strong>) against those without it (<strong>exp(absent)</strong>); each
+                component is estimated in isolation and values should not be combined. The difference between the
+                with-components and baseline values is the projected annual change in cost — negative numbers (in
+                green) are savings.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="calc-tabs">
+        <button class="calc-tab active" data-mode="combined" onclick="setCalcMode('combined')">Combined
+          components</button>
+        <button class="calc-tab" data-mode="single" onclick="setCalcMode('single')">Single component</button>
+      </div>
       <div class="calc-body">
         <div class="calc-form">
-          <div class="calc-section-title">Population &amp; outcome</div>
+          <div class="calc-section-title">Population &amp; cost</div>
           <div class="form-group"><label class="form-label" for="calc-patients">Number of patients</label><input
               class="form-input" type="number" placeholder="e.g. 1000" id="calc-patients" oninput="updateCalc()"
               min="0"></div>
-          <!-- <div class="form-group"><label class="form-label" for="calc-cost">Cost per event (£)</label><input
-              class="form-input" type="number" placeholder="e.g. 1000" id="calc-cost" value="1000"
-              oninput="updateCalc()" min="0"></div> -->
-          <div class="form-group"><label class="form-label" for="calc-cost">Region</label><select class="form-select"
+          <div class="form-group"><label class="form-label" for="calc-cost">Nation</label><select class="form-select"
               id="calc-cost" onchange="updateCalc()">
-              <option value="Region 1">Region 1 (£1000)</option>
-              <option value="Region 2">Region 2 (£1100)</option>
-              <option value="Region 3">Region 3 (£1200)</option>
-              <option value="Region 4">Region 4 (£1300)</option>
-              <option value="Region 5">Region 5 (£1400)</option>
-            </select></div>
-          <div class="form-group"><label class="form-label" for="calc-outcome">Outcome</label><select
-              class="form-select" id="calc-outcome" onchange="updateCalc()">
-              <option value="Serious Infection">Serious infection</option>
-              <option value="CVD">Cardiovascular disease</option>
-              <option value="Cancer">Cancer</option>
-              <option value="Mortality">Mortality</option>
-              <option value="Emergency Hospital Admissions">Emergency hospital admissions</option>
-            </select></div>
-          <div class="calc-section-title" style="margin-top:20px">Service components in place</div>
-          <div class="comp-checks">
-            <label class="comp-check"><input type="checkbox" id="cc1" onchange="updateCalc()"><label for="cc1">Cohorted
-                clinic</label></label>
-            <label class="comp-check"><input type="checkbox" id="cc4" onchange="updateCalc()"><label for="cc4">MDT
-                meetings</label></label>
-            <label class="comp-check"><input type="checkbox" id="cc5" onchange="updateCalc()"><label for="cc5">Nurse-led
-                care</label></label>
-            <label class="comp-check"><input type="checkbox" id="cc7" onchange="updateCalc()"><label for="cc7">Wait
-                times &lt; 7 days for new patients</label></label>
+              <option value="England">England (£1000)</option>
+              <option value="Scotland">Scotland (£1100)</option>
+              <option value="Wales">Wales (£1200)</option>
+              <option value="Northern Ireland">Northern Ireland (£1300)</option>
+            </select>
+            <p class="form-hint">Placeholder unit costs — to be replaced with national cost-book figures.</p>
           </div>
-          <button class="calc-submit" onclick="updateCalc()">Calculate</button>
+
+          <!-- Combined (multivariate) inputs -->
+          <div id="calc-combined-inputs">
+            <div class="form-group"><label class="form-label" for="calc-outcome">Outcome</label><select
+                class="form-select" id="calc-outcome" onchange="updateCalc()">
+                <option value="Serious Infection">Serious infection</option>
+                <option value="CVD">Cardiovascular disease</option>
+                <option value="Cancer">Cancer</option>
+                <option value="Mortality">Mortality</option>
+                <option value="Emergency Hospital Admissions">Emergency hospital admissions</option>
+              </select></div>
+            <div class="calc-section-title" style="margin-top:20px">Service components in place</div>
+            <div class="comp-checks">
+              <label class="comp-check"><input type="checkbox" id="cc1" onchange="updateCalc()"><label
+                  for="cc1">Cohorted clinic</label></label>
+              <label class="comp-check"><input type="checkbox" id="cc4" onchange="updateCalc()"><label for="cc4">MDT
+                  meetings</label></label>
+              <label class="comp-check"><input type="checkbox" id="cc5" onchange="updateCalc()"><label
+                  for="cc5">Nurse-led care</label></label>
+              <label class="comp-check"><input type="checkbox" id="cc7" onchange="updateCalc()"><label for="cc7">Wait
+                  times &lt; 7 days for new patients</label></label>
+            </div>
+          </div>
+
+          <!-- Single component (univariate) inputs -->
+          <div id="calc-single-inputs" style="display:none">
+            <div class="form-group"><label class="form-label" for="calc-outcome-single">Outcome</label><select
+                class="form-select" id="calc-outcome-single" onchange="updateCalc()">
+                <option value="Serious Infection">Serious infection</option>
+                <option value="CVD">Cardiovascular disease</option>
+                <option value="Cancer">Cancer</option>
+                <option value="Emergency Hospital Admissions">Emergency hospital admissions</option>
+              </select>
+              <p class="form-hint">Mortality is not modelled at single-component level.</p>
+            </div>
+            <div class="form-group"><label class="form-label" for="calc-component-single">Service component</label><select
+                class="form-select" id="calc-component-single" onchange="updateCalc()">
+                <option value="Cohorted clinic">Cohorted clinic</option>
+                <option value="MDT meetings">MDT meetings</option>
+                <option value="Nurse-led care">Nurse-led care</option>
+                <option value="Wait times < 7 days">Wait times &lt; 7 days for new patients</option>
+              </select>
+              <p class="form-hint">Each component estimated in isolation; values should not be combined.</p>
+            </div>
+          </div>
+
           <div class="calc-download-row">
             <button class="calc-download" onclick="downloadCalc('pdf')" type="button">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -1302,7 +1350,7 @@
                 class="output-stat-val" id="out-avoided">—</span></div>
             <div class="output-stat"><span class="output-stat-label">Change in event rate</span><span
                 class="output-stat-val" id="out-hosp">—</span></div>
-            <div class="impact-bar-wrap">
+            <div class="impact-bar-wrap" id="impact-bar-wrap">
               <div class="impact-label"><span>Components active</span><span id="impact-count">0 / 4</span></div>
               <div class="impact-track">
                 <div class="impact-fill" id="impact-bar" style="width:0%"></div>
@@ -1316,16 +1364,7 @@
             <div class="output-stat"><span class="output-stat-label">Cost with components</span><span
                 class="output-stat-val" id="out-total">—</span></div>
             <div class="output-stat"><span class="output-stat-label">Difference (− = saving)</span><span
-                class="output-stat-val saving" id="out-impl">—</span></div>
-          </div>
-          <div class="output-card">
-            <div class="output-title">How this is calculated</div>
-            <p id="out-recommendation" style="font-size:var(--fs-base-lg);color:var(--t2);line-height:1.7">Each
-              outcome has an intercept (the baseline log-rate per person per year) and a coefficient for each of the
-              seven service components. The expected event rate is computed as <strong>exp(intercept + Σ active
-                coefficients)</strong>, then multiplied by the number of patients to get yearly events and by the unit
-              cost to get annual cost. The difference between the with-components and baseline values is the projected
-              annual change in cost — negative numbers are savings.</p>
+                class="output-stat-val" id="out-impl">—</span></div>
           </div>
         </div>
       </div>
