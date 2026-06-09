@@ -1,5 +1,17 @@
 /* ── PAGE ROUTING ── */
 const TOOLKIT_PAGES = new Set(['p-kc','p-change','p-calc','p-atys','p-res']);
+let lastToolkitHash = '#p-kc';
+let lastResHash = null; // tracks resources state independently
+
+function goToToolkit(){
+  if(lastToolkitHash.startsWith('#p-res')){
+    // DOM state of the resources page is already correct — just re-show it
+    showPage('p-res', false);
+    history.pushState(null,'',lastToolkitHash);
+  } else {
+    _routeHash(lastToolkitHash, true);
+  }
+}
 
 function closeMobile(){
   document.getElementById('mobile-menu').classList.remove('open');
@@ -41,11 +53,12 @@ function showPage(id, _push=true){
     b.classList.toggle('active', b.dataset.page===id);
   });
 
+  if(isToolkit && id !== 'p-res') lastToolkitHash = '#'+id;
   closeToolkitMenu();
   document.getElementById(id).classList.add('active');
   window.scrollTo({top:0,behavior:'instant'});
   if(id==='p-home') setTimeout(animateCards, 100);
-  if(id==='p-res') showResView('res-home');
+  if(id==='p-res' && (!lastResHash || !lastResHash.startsWith('#p-res/'))) showResView('res-home');
   document.getElementById('nav').classList.remove('scrolled');
   if(_push) history.pushState(null,'','#'+id);
 }
@@ -236,6 +249,8 @@ function filterResCategory(cat, _push=true){
   applyResFilters();
   showResView('res-detail');
   if(_push) history.pushState(null,'','#p-res/'+cat);
+  lastResHash = '#p-res/'+cat;
+  lastToolkitHash = lastResHash;
 }
 
 function applyResFilters(){
@@ -297,17 +312,23 @@ function openResource(card, _push=true){
     bc.append(catBtn,sep,titleSpan);
   }
   if(_push) history.pushState(null,'','#p-res/'+cardCat+'/'+card.dataset.resIdx);
+  lastResHash = '#p-res/'+cardCat+'/'+card.dataset.resIdx;
+  lastToolkitHash = lastResHash;
   showResView('res-resource-detail');
 }
 
 function closeResource(){
   document.querySelectorAll('.res-sidebar-item').forEach(a=>a.classList.remove('active'));
   history.pushState(null,'','#p-res/'+_resCat);
+  lastResHash = '#p-res/'+_resCat;
+  lastToolkitHash = lastResHash;
   showResView('res-detail');
 }
 
 function goResHome(){
   history.pushState(null,'','#p-res');
+  lastResHash = '#p-res';
+  lastToolkitHash = '#p-res';
   showResView('res-home');
 }
 
@@ -316,14 +337,19 @@ function _routeHash(hash, _push){
   const parts=raw.split('/');
   const page=parts[0]||'p-home';
   if(page==='p-res'){
-    showPage('p-res', _push);
+    showPage('p-res', false);
     if(parts[1]){
-      filterResCategory(parts[1], _push);
-      const idx=parts[2]!==undefined&&parts[2]!==''?parseInt(parts[2]):-1;
-      if(idx>=0){
-        const cards=[...document.querySelectorAll(`#res-grid .res-card[data-cat="${parts[1]}"]`)];
-        if(cards[idx]) openResource(cards[idx], _push);
+      filterResCategory(parts[1], false);
+      const resIdx=parts[2]!==undefined&&parts[2]!==''?parseInt(parts[2]):-1;
+      if(resIdx>=0){
+        const card=document.querySelector(`#res-grid .res-card[data-res-idx="${resIdx}"]`);
+        if(card) openResource(card, _push);
+        else if(_push) history.pushState(null,'','#p-res/'+parts[1]);
+      } else {
+        if(_push) history.pushState(null,'','#p-res/'+parts[1]);
       }
+    } else {
+      if(_push) history.pushState(null,'','#p-res');
     }
   } else {
     const valid=['p-home','p-kc','p-change','p-calc','p-atys','p-abt','p-res'];

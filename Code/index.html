@@ -24,7 +24,7 @@
       <ul class="nlinks">
         <li><button class="nl active" data-page="p-home" onclick="showPage('p-home')">Home</button></li>
         <li class="nl-toolkit-wrap">
-          <button class="nl nl-toolkit" id="nl-toolkit" onclick="showPage('p-kc')">
+          <button class="nl nl-toolkit" id="nl-toolkit" onclick="goToToolkit()">
             Toolkit
             <!-- <svg class="nl-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="12" height="12"><polyline points="6 9 12 15 18 9"/></svg> -->
           </button>
@@ -63,7 +63,7 @@
           <h2>Home</h2>
         </button></li>
       <li>
-        <button data-page="p-kc" onclick="showPage('p-kc');closeMobile()">
+        <button data-page="p-kc" onclick="goToToolkit();closeMobile()">
           <h2>Toolkit</h2>
           <div class="grid">
             <div class="grid-item" tabindex="0" onclick="event.stopPropagation();showPage('p-kc');closeMobile()">
