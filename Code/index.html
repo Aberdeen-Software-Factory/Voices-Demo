@@ -1261,7 +1261,7 @@
       </div>
       <div class="calc-body">
         <div class="calc-form">
-          <div class="calc-section-title">Population &amp; cost</div>
+          <h3>Population &amp; cost</h3>
           <div class="form-group"><label class="form-label" for="calc-patients">Number of patients</label><input
               class="form-input" type="number" placeholder="e.g. 1000" id="calc-patients" oninput="updateCalc()"
               min="0"></div>
@@ -1284,17 +1284,14 @@
                 <option value="Cancer">Cancer</option>
                 <option value="Mortality">Mortality</option>
                 <option value="Emergency Hospital Admissions">Emergency hospital admissions</option>
-              </select></div>
-            <div class="calc-section-title" style="margin-top:20px">Service components in place</div>
+              </select>
+            </div>
+            <h3 style="margin-top:20px">Service components in place</h3>
             <div class="comp-checks">
-              <label class="comp-check"><input type="checkbox" id="cc1" onchange="updateCalc()"><label
-                  for="cc1">Cohorted clinic</label></label>
-              <label class="comp-check"><input type="checkbox" id="cc4" onchange="updateCalc()"><label for="cc4">MDT
-                  meetings</label></label>
-              <label class="comp-check"><input type="checkbox" id="cc5" onchange="updateCalc()"><label
-                  for="cc5">Nurse-led care</label></label>
-              <label class="comp-check"><input type="checkbox" id="cc7" onchange="updateCalc()"><label for="cc7">Wait
-                  times &lt; 7 days for new patients</label></label>
+              <label class="comp-check"><input type="checkbox" id="cc1" onchange="updateCalc()"><label for="cc1">Cohorted clinic</label><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup ui-tooltip ui-tooltip--default ui-tooltip--arrow-left">Patients with systemic vasculitis are grouped together and seen in a dedicated clinic.</span></span></label>
+              <label class="comp-check"><input type="checkbox" id="cc4" onchange="updateCalc()"><label for="cc4">MDT meetings</label><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup ui-tooltip ui-tooltip--default ui-tooltip--arrow-left">Structured gathering of healthcare professionals from different specialties who come together to discuss and plan the care of patients</span></span></label>
+              <label class="comp-check"><input type="checkbox" id="cc5" onchange="updateCalc()"><label for="cc5">Nurse-led care</label><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup ui-tooltip ui-tooltip--default ui-tooltip--arrow-left"><strong>nurse-led advice line:</strong> nurse advice line to offer patient support and rapid access to advice in between clinic appointments providing a single point of access for rapid advice within a supportive service infrastructure <br><br><strong>nurse-led clinics:</strong> to compliment care provided through cohorted clinics </span></span></label>
+              <label class="comp-check"><input type="checkbox" id="cc7" onchange="updateCalc()"><label for="cc7">Wait times &lt; 7 days for new patients</label><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup ui-tooltip ui-tooltip--default ui-tooltip--arrow-left">Waiting times for individuals with new symptoms and with a high index of clinical suspicion for active AAV to be reviewed by a vasculitis expert within 7 days from initial referral </span></span></label>
             </div>
           </div>
 
@@ -1314,7 +1311,7 @@
                 <option value="Cohorted clinic">Cohorted clinic</option>
                 <option value="MDT meetings">MDT meetings</option>
                 <option value="Nurse-led care">Nurse-led care</option>
-                <option value="Wait times < 7 days">Wait times &lt; 7 days for new patients</option>
+                <option value="Wait times &lt; 7 days">Wait times &lt; 7 days for new patients</option>
               </select>
               <p class="form-hint">Each component estimated in isolation; values should not be combined.</p>
             </div>
@@ -1343,7 +1340,7 @@
         </div>
         <div class="calc-output">
           <div class="output-card">
-            <div class="output-title">Expected events per year</div>
+            <h3>Expected events per year</h3>
             <div class="output-stat"><span class="output-stat-label">Baseline (no components)</span><span
                 class="output-stat-val" id="out-infect">—</span></div>
             <div class="output-stat"><span class="output-stat-label">With selected components</span><span
@@ -1358,7 +1355,7 @@
             </div>
           </div>
           <div class="output-card">
-            <div class="output-title">Cost impact</div>
+            <h3>Cost impact</h3>
             <div class="output-stat"><span class="output-stat-label">Baseline cost</span><span class="output-stat-val"
                 id="out-saving">—</span></div>
             <div class="output-stat"><span class="output-stat-label">Cost with components</span><span

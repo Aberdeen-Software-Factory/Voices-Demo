@@ -1067,7 +1067,7 @@ function downloadCalc(type){
     if(!tip){
       tip=document.createElement('div');
       tip.id='etblNameTooltip';
-      tip.className='etbl-name-tooltip';
+      tip.className='etbl-name-tooltip ui-tooltip ui-tooltip--error ui-tooltip--arrow-down';
       tip.textContent='Name at least one column to download';
       document.body.appendChild(tip);
     }

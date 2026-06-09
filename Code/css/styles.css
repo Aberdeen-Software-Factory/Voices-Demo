@@ -2631,7 +2631,7 @@ p, ul, ol {
   box-shadow: var(--sh1)
 }
 
-.calc-section-title {
+/* .calc-section-title {
   font-family: var(--fd);
   font-size: var(--fs-base-md);
   font-weight: 700;
@@ -2640,8 +2640,7 @@ p, ul, ol {
   letter-spacing: 1px;
   margin-bottom: 16px;
   padding-bottom: 8px;
-  border-bottom: 1px solid var(--s3)
-}
+} */
 
 .form-group {
   margin-bottom: 16px
@@ -2696,9 +2695,9 @@ p, ul, ol {
   align-items: center;
   gap: 10px;
   padding: 9px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--s3);
-  background: var(--bg);
+  border-radius: 4px;
+  /*border: 1px solid var(--s3);
+  background: var(--bg); */
   cursor: pointer;
   transition: all .18s
 }
@@ -2727,6 +2726,174 @@ p, ul, ol {
   pointer-events: none;
 }
 
+.comp-info-wrap {
+  position: relative;
+  flex-shrink: 0
+}
+
+.comp-info-btn {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--t3);
+  background: none;
+  color: var(--t3);
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: border-color .15s, color .15s;
+  flex-shrink: 0
+}
+
+.comp-info-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent)
+}
+
+/* ── Shared tooltip ───────────────────────────────────────────────────────── */
+.ui-tooltip {
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: var(--fb);
+  font-size: var(--fs-base-md);
+  line-height: 1.5;
+  pointer-events: none;
+  z-index: 10000;
+  box-shadow: var(--sh2)
+}
+
+.ui-tooltip::after {
+  content: '';
+  position: absolute;
+  border: 6px solid transparent
+}
+
+.ui-tooltip--default::before {
+  content: '';
+  position: absolute;
+  border: 5px solid transparent
+}
+
+/* Error (red) */
+.ui-tooltip--error {
+  background: var(--error);
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap
+}
+
+/* Default (surface, bordered) */
+.ui-tooltip--default {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--s3);
+  width: 220px
+}
+
+/* Arrow down — tooltip above, arrow points down at element below */
+.ui-tooltip--arrow-down::after {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%)
+}
+
+.ui-tooltip--error.ui-tooltip--arrow-down::after {
+  border-top-color: var(--error)
+}
+
+.ui-tooltip--default.ui-tooltip--arrow-down::after {
+  border-top-color: var(--s3)
+}
+
+.ui-tooltip--default.ui-tooltip--arrow-down::before {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 1px;
+  border-top-color: var(--surface)
+}
+
+/* Arrow right — tooltip to the left, arrow points right at element */
+.ui-tooltip--arrow-right::after {
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%)
+}
+
+.ui-tooltip--error.ui-tooltip--arrow-right::after {
+  border-left-color: var(--error)
+}
+
+.ui-tooltip--default.ui-tooltip--arrow-right::after {
+  border-left-color: var(--s3)
+}
+
+.ui-tooltip--default.ui-tooltip--arrow-right::before {
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+  margin-left: 1px;
+  border-left-color: var(--surface)
+}
+
+/* Arrow left — tooltip to the right, arrow points left at element */
+.ui-tooltip--arrow-left::after {
+  top: 50%;
+  right: 100%;
+  transform: translateY(-50%)
+}
+
+.ui-tooltip--error.ui-tooltip--arrow-left::after {
+  border-right-color: var(--error)
+}
+
+.ui-tooltip--default.ui-tooltip--arrow-left::after {
+  border-right-color: var(--s3)
+}
+
+.ui-tooltip--default.ui-tooltip--arrow-left::before {
+  top: 50%;
+  right: 100%;
+  transform: translateY(-50%);
+  margin-right: 1px;
+  border-right-color: var(--surface)
+}
+
+/* ── comp-info-popup specific positioning ── */
+.comp-info-popup {
+  display: none;
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 220px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--s3);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: var(--fb);
+  font-size: var(--fs-base-md);
+  font-weight: 400;
+  line-height: 1.5;
+  box-shadow: var(--sh2);
+  pointer-events: none;
+  z-index: 10000;
+  white-space: normal
+}
+
+.comp-info-btn:hover + .comp-info-popup,
+.comp-info-btn:focus + .comp-info-popup {
+  display: block
+}
+
 .calc-submit {
   width: 100%;
   padding: 11px;
@@ -2751,7 +2918,6 @@ p, ul, ol {
   gap: 10px;
   margin-top: 20px;
   padding-top: 18px;
-  border-top: 1px solid var(--s3)
 }
 
 .calc-download {
@@ -2897,7 +3063,6 @@ p, ul, ol {
   justify-content: space-between;
   align-items: baseline;
   padding: 10px 0;
-  border-bottom: 1px solid var(--s3)
 }
 
 .output-stat:last-child {
@@ -4607,29 +4772,9 @@ footer a:hover {
 
 .etbl-name-tooltip {
   position: absolute;
-  background: var(--error);
-  color: #fff;
-  font-family: var(--fb);
-  font-size: var(--fs-base-md);
-  font-weight: 600;
-  padding: 8px 12px;
-  border-radius: 6px;
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: 10000;
   transform: translate(-50%, -100%);
   opacity: 0;
   transition: opacity .2s ease
-}
-
-.etbl-name-tooltip::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 6px solid transparent;
-  border-top-color: var(--error)
 }
 
 .etbl-name-tooltip.visible {
