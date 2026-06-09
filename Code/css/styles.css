@@ -3887,6 +3887,100 @@ p, ul, ol {
   stroke-linejoin: round
 }
 
+/* ── Survey float button ───────────────────────────────────────────────── */
+.survey-float {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 9998
+}
+
+.survey-float-btn {
+  display: flex;
+  align-items: center;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 28px;
+  text-decoration: none;
+  overflow: hidden;
+  white-space: nowrap;
+  height: 48px;
+  width: 48px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.18);
+  transition: width .35s cubic-bezier(.4,0,.2,1), box-shadow .2s
+}
+
+.survey-float-btn:hover {
+  width: 188px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.22)
+}
+
+.survey-float-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0
+}
+
+.survey-float-label {
+  font-family: var(--fb);
+  font-size: var(--fs-base-md);
+  font-weight: 600;
+  padding-right: 18px;
+  opacity: 0;
+  transition: opacity .15s ease .18s
+}
+
+.survey-float-btn:hover .survey-float-label {
+  opacity: 1
+}
+
+@keyframes survey-nudge {
+  0%   { transform: translateY(0);    box-shadow: 0 4px 16px rgba(0,0,0,.18), 0 0 0 0   rgba(139,107,154,.8) }
+  25%  { transform: translateY(-8px); box-shadow: 0 8px 24px rgba(0,0,0,.22), 0 0 0 8px rgba(139,107,154,.4) }
+  50%  { transform: translateY(0);    box-shadow: 0 4px 16px rgba(0,0,0,.18), 0 0 0 16px rgba(139,107,154,0) }
+  75%  { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,.2),  0 0 0 0   rgba(139,107,154,0) }
+  100% { transform: translateY(0);    box-shadow: 0 4px 16px rgba(0,0,0,.18), 0 0 0 0   rgba(139,107,154,0) }
+}
+
+.survey-float-btn--nudge {
+  animation: survey-nudge .9s ease-in-out 3
+}
+
+/* ── Survey inline CTA (p-atys) ─────────────────────────────────────────── */
+.survey-inline-cta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+  margin: 32px 0;
+  color: var(--accent)
+}
+
+.survey-inline-cta > svg {
+  flex-shrink: 0;
+  stroke: var(--accent)
+}
+
+.survey-inline-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px
+}
+
+.survey-inline-text {
+  font-size: var(--fs-base-lg);
+  color: var(--text);
+  margin: 0
+}
+
+.survey-inline-link {
+  align-self: flex-start;
+  text-decoration: none
+}
+
 /* FOOTER */
 footer {
   border-top: 1px solid var(--s3);

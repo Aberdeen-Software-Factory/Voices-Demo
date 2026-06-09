@@ -3,6 +3,28 @@ const TOOLKIT_PAGES = new Set(['p-kc','p-change','p-calc','p-atys','p-res']);
 let lastToolkitHash = '#p-kc';
 let lastResHash = null; // tracks resources state independently
 
+/* ── Survey nudge timer ── */
+let _surveyNudged=false, _surveyTimer=null, _calcAccum=0, _calcEnter=null;
+let _currentPage='p-home';
+
+function _calcStart(){
+  if(_surveyNudged) return;
+  _calcEnter=Date.now();
+  const remaining=Math.max(0,120000-_calcAccum);
+  _surveyTimer=setTimeout(()=>{
+    _surveyNudged=true;
+    const btn=document.getElementById('surveyFloatBtn');
+    if(!btn) return;
+    btn.classList.add('survey-float-btn--nudge');
+    btn.addEventListener('animationend',()=>btn.classList.remove('survey-float-btn--nudge'),{once:true});
+  },remaining);
+}
+
+function _calcStop(){
+  if(_calcEnter){_calcAccum+=Date.now()-_calcEnter;_calcEnter=null;}
+  clearTimeout(_surveyTimer);
+}
+
 function goToToolkit(){
   if(lastToolkitHash.startsWith('#p-res')){
     // DOM state of the resources page is already correct — just re-show it
@@ -53,6 +75,9 @@ function showPage(id, _push=true){
     b.classList.toggle('active', b.dataset.page===id);
   });
 
+  if(_currentPage==='p-calc' && id!=='p-calc') _calcStop();
+  if(id==='p-calc' && _currentPage!=='p-calc') _calcStart();
+  _currentPage=id;
   if(isToolkit && id !== 'p-res') lastToolkitHash = '#'+id;
   closeToolkitMenu();
   document.getElementById(id).classList.add('active');
