@@ -1610,6 +1610,34 @@ p, ul, ol {
   background: var(--bg)
 }
 
+.kc-diagram-wrap {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 28px
+}
+
+.kc-diagram-img {
+  display: block;
+  max-width: 100%;
+  height: auto
+}
+
+/* Highlight box — position/size are percentages of the SVG's rendered dimensions.
+   Edit --ox (left), --oy (top), --ow (width), --oh (height) per section. */
+.kc-diagram-overlay {
+  position: absolute;
+  left: var(--ox, 10%);
+  top: var(--oy, 10%);
+  width: var(--ow, 25%);
+  height: var(--oh, 30%);
+  border: 4px solid #e53e3e;
+  border-radius: 8px;
+  background: rgba(229, 62, 62, 0.06);
+  pointer-events: none;
+  box-sizing: border-box
+}
+
 
 .kcsec-head {
   display: flex;
