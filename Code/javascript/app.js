@@ -661,12 +661,15 @@ let calcSnapshot=null;   // latest computed result, for PDF/CSV export
 
 function setCalcMode(mode){
   calcMode=mode;
-  document.querySelectorAll('.calc-tab').forEach(t=>{
-    t.classList.toggle('active', t.dataset.mode===mode);
-  });
-  document.getElementById('calc-combined-inputs').style.display = mode==='combined' ? '' : 'none';
-  document.getElementById('calc-single-inputs').style.display   = mode==='single'   ? '' : 'none';
-  document.getElementById('impact-bar-wrap').style.display      = mode==='combined' ? '' : 'none';
+  const combined = mode==='combined';
+  document.getElementById('calc-combined-inputs').style.display = combined ? '' : 'none';
+  document.getElementById('calc-single-inputs').style.display   = combined ? 'none' : '';
+  document.getElementById('impact-bar-wrap').style.display      = combined ? '' : 'none';
+
+  const title=document.getElementById('calc-model-title');
+  const btn=document.getElementById('calc-altmode-btn');
+  if(title) title.textContent = combined ? 'Combined multivariate estimate' : 'Single component estimate';
+  if(btn)   btn.textContent   = combined ? '← Back to single-component estimate' : 'Show combined multivariate estimate';
   updateCalc();
 }
 

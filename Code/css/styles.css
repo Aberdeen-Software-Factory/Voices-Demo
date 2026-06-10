@@ -3018,34 +3018,43 @@ p, ul, ol {
   line-height: 1.7
 }
 
-.calc-tabs {
-  display: flex;
-  gap: 6px;
+.calc-model-title {
   margin-top: 28px;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--s3)
 }
 
-.calc-tab {
+.calc-altmode {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--s3);
+  text-align: center
+}
+
+.calc-altmode-btn {
   font-family: var(--fd);
-  font-size: var(--fs-base-md);
-  font-weight: 700;
+  font-size: var(--fs-md);
+  font-weight: 600;
   color: var(--t2);
   background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  padding: 10px 18px;
-  margin-bottom: -1px;
+  border: 1px solid var(--s3);
+  border-radius: 8px;
+  padding: 8px 16px;
   cursor: pointer;
-  transition: color .18s, border-color .18s
+  transition: color .18s, border-color .18s, background .18s
 }
 
-.calc-tab:hover {
-  color: var(--text)
-}
-
-.calc-tab.active {
+.calc-altmode-btn:hover {
   color: var(--accent);
-  border-bottom-color: var(--accent)
+  border-color: var(--accent);
+  background: var(--al)
+}
+
+.calc-altmode-note {
+  font-size: var(--fs-md);
+  color: var(--t3);
+  line-height: 1.5;
+  margin-top: 10px
 }
 
 .form-hint {

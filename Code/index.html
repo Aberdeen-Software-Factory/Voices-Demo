@@ -1289,11 +1289,7 @@
           </div>
         </div>
       </div>
-      <div class="calc-tabs">
-        <button class="calc-tab active" data-mode="single" onclick="setCalcMode('single')">Single component</button>
-        <button class="calc-tab" data-mode="combined" onclick="setCalcMode('combined')">Combined
-          components</button>
-      </div>
+      <h3 class="calc-model-title" id="calc-model-title">Single component estimate</h3>
       <div class="calc-body">
         <div class="calc-form">
           <h3>Population &amp; cost</h3>
@@ -1366,6 +1362,12 @@
               </svg>
               Download CSV
             </button>
+          </div>
+
+          <div class="calc-altmode">
+            <button type="button" class="calc-altmode-btn" id="calc-altmode-btn"
+              onclick="setCalcMode(calcMode==='single'?'combined':'single')">Show combined multivariate estimate</button>
+            <p class="calc-altmode-note" id="calc-altmode-note">*add advisory text here*</p>
           </div>
         </div>
         <div class="calc-output">
