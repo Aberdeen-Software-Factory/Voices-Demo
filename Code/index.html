@@ -1290,9 +1290,9 @@
         </div>
       </div>
       <div class="calc-tabs">
-        <button class="calc-tab active" data-mode="combined" onclick="setCalcMode('combined')">Combined
+        <button class="calc-tab active" data-mode="single" onclick="setCalcMode('single')">Single component</button>
+        <button class="calc-tab" data-mode="combined" onclick="setCalcMode('combined')">Combined
           components</button>
-        <button class="calc-tab" data-mode="single" onclick="setCalcMode('single')">Single component</button>
       </div>
       <div class="calc-body">
         <div class="calc-form">
@@ -1302,25 +1302,22 @@
               min="0"></div>
           <div class="form-group"><label class="form-label" for="calc-cost">Nation</label><select class="form-select"
               id="calc-cost" onchange="updateCalc()">
-              <option value="England">England (£1000)</option>
-              <option value="Scotland">Scotland (£1100)</option>
-              <option value="Wales">Wales (£1200)</option>
-              <option value="Northern Ireland">Northern Ireland (£1300)</option>
+              <option value="England">England</option>
+              <option value="Scotland">Scotland</option>
+              <option value="Wales">Wales</option>
+              <option value="Northern Ireland">Northern Ireland</option>
             </select>
             <p class="form-hint">Placeholder unit costs — to be replaced with national cost-book figures.</p>
           </div>
 
           <!-- Combined (multivariate) inputs -->
-          <div id="calc-combined-inputs">
-            <div class="form-group"><label class="form-label" for="calc-outcome">Outcome</label><select
-                class="form-select" id="calc-outcome" onchange="updateCalc()">
-                <option value="Serious Infection">Serious infection</option>
-                <option value="CVD">Cardiovascular disease</option>
-                <option value="Cancer">Cancer</option>
-                <option value="Mortality">Mortality</option>
-                <option value="Emergency Hospital Admissions">Emergency hospital admissions</option>
-              </select>
-            </div>
+          <div id="calc-combined-inputs" style="display:none">
+            <div class="form-group"><label class="form-label">Outcome</label>
+              <div class="comp-checks" id="calc-outcome">
+                <label class="comp-check"><input type="radio" name="calc-outcome" value="Serious Infection" checked onchange="updateCalc()"><label>Serious infection</label></label>
+                <label class="comp-check"><input type="radio" name="calc-outcome" value="Mortality" onchange="updateCalc()"><label>Mortality</label></label>
+                <label class="comp-check"><input type="radio" name="calc-outcome" value="Emergency Hospital Admissions" onchange="updateCalc()"><label>Emergency hospital admissions</label></label>
+              </div></div>
             <h3 style="margin-top:20px">Service components in place</h3>
             <div class="comp-checks">
               <label class="comp-check"><input type="checkbox" id="cc1" onchange="updateCalc()"><label for="cc1">Cohorted clinic</label><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup ui-tooltip ui-tooltip--default ui-tooltip--arrow-left">Patients with systemic vasculitis are grouped together and seen in a dedicated clinic.</span></span></label>
@@ -1331,23 +1328,21 @@
           </div>
 
           <!-- Single component (univariate) inputs -->
-          <div id="calc-single-inputs" style="display:none">
-            <div class="form-group"><label class="form-label" for="calc-outcome-single">Outcome</label><select
-                class="form-select" id="calc-outcome-single" onchange="updateCalc()">
-                <option value="Serious Infection">Serious infection</option>
-                <option value="CVD">Cardiovascular disease</option>
-                <option value="Cancer">Cancer</option>
-                <option value="Emergency Hospital Admissions">Emergency hospital admissions</option>
-              </select>
+          <div id="calc-single-inputs">
+            <div class="form-group"><label class="form-label">Outcome</label>
+              <div class="comp-checks" id="calc-outcome-single">
+                <label class="comp-check"><input type="radio" name="calc-outcome-single" value="Serious Infection" checked onchange="updateCalc()"><label>Serious infection</label></label>
+                <label class="comp-check"><input type="radio" name="calc-outcome-single" value="Emergency Hospital Admissions" onchange="updateCalc()"><label>Emergency hospital admissions</label></label>
+              </div>
               <p class="form-hint">Mortality is not modelled at single-component level.</p>
             </div>
-            <div class="form-group"><label class="form-label" for="calc-component-single">Service component</label><select
-                class="form-select" id="calc-component-single" onchange="updateCalc()">
-                <option value="Cohorted clinic">Cohorted clinic</option>
-                <option value="MDT meetings">MDT meetings</option>
-                <option value="Nurse-led care">Nurse-led care</option>
-                <option value="Wait times &lt; 7 days">Wait times &lt; 7 days for new patients</option>
-              </select>
+            <div class="form-group"><label class="form-label">Service component</label>
+              <div class="comp-checks" id="calc-component-single">
+                <label class="comp-check"><input type="radio" name="calc-component-single" value="Cohorted clinic" checked onchange="updateCalc()"><label>Cohorted clinic</label></label>
+                <label class="comp-check"><input type="radio" name="calc-component-single" value="MDT meetings" onchange="updateCalc()"><label>MDT meetings</label></label>
+                <label class="comp-check"><input type="radio" name="calc-component-single" value="Nurse-led care" onchange="updateCalc()"><label>Nurse-led care</label></label>
+                <label class="comp-check"><input type="radio" name="calc-component-single" value="Wait times < 7 days" onchange="updateCalc()"><label>Wait times &lt; 7 days for new patients</label></label>
+              </div>
               <p class="form-hint">Each component estimated in isolation; values should not be combined.</p>
             </div>
           </div>
@@ -1382,7 +1377,7 @@
                 class="output-stat-val" id="out-avoided">—</span></div>
             <div class="output-stat"><span class="output-stat-label">Change in event rate</span><span
                 class="output-stat-val" id="out-hosp">—</span></div>
-            <div class="impact-bar-wrap" id="impact-bar-wrap">
+            <div class="impact-bar-wrap" id="impact-bar-wrap" style="display:none">
               <div class="impact-label"><span>Components active</span><span id="impact-count">0 / 4</span></div>
               <div class="impact-track">
                 <div class="impact-fill" id="impact-bar" style="width:0%"></div>

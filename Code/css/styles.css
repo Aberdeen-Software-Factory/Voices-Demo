@@ -2735,7 +2735,8 @@ p, ul, ol {
   background: var(--al)
 }
 
-.comp-check input[type=checkbox] {
+.comp-check input[type=checkbox],
+.comp-check input[type=radio] {
   accent-color: var(--accent);
   width: 15px;
   height: 15px;

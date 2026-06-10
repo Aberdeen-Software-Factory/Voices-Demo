@@ -656,7 +656,7 @@ const CALC_REGIONS_COSTS={
   'Northern Ireland': 1300
 };
 
-let calcMode='combined'; // 'combined' | 'single'
+let calcMode='single'; // 'combined' | 'single'
 let calcSnapshot=null;   // latest computed result, for PDF/CSV export
 
 function setCalcMode(mode){
@@ -698,8 +698,9 @@ function updateCalc(){
   //  - single (univariate):     keep fractional events, round only the final cost to 2dp
   let baseEvents, compEvents, baseCost, compCost, money, outcomeLabel, componentsLabel;
   if(calcMode==='combined'){
-    const outcome=document.getElementById('calc-outcome').value;
-    outcomeLabel=document.getElementById('calc-outcome').selectedOptions[0].text;
+    const outcomeEl=document.querySelector('input[name="calc-outcome"]:checked');
+    const outcome=outcomeEl.value;
+    outcomeLabel=outcomeEl.parentElement.querySelector('label').textContent.trim();
     const checks=CALC_COMP_IDS.map(id=>document.getElementById(id).checked);
     componentsLabel=CALC_COMP_IDS.filter((_,i)=>checks[i])
       .map(id=>document.querySelector(`label[for="${id}"]`).textContent.trim().replace(/\s+/g,' '))
@@ -717,10 +718,12 @@ function updateCalc(){
     compCost=compEvents*cost;
     money=v=>`£${Math.round(v).toLocaleString()}`;
   }else{
-    const outcome=document.getElementById('calc-outcome-single').value;
-    outcomeLabel=document.getElementById('calc-outcome-single').selectedOptions[0].text;
-    const comp=document.getElementById('calc-component-single').value;
-    componentsLabel=document.getElementById('calc-component-single').selectedOptions[0].text;
+    const outcomeEl=document.querySelector('input[name="calc-outcome-single"]:checked');
+    const outcome=outcomeEl.value;
+    outcomeLabel=outcomeEl.parentElement.querySelector('label').textContent.trim();
+    const compEl=document.querySelector('input[name="calc-component-single"]:checked');
+    const comp=compEl.value;
+    componentsLabel=compEl.parentElement.querySelector('label').textContent.trim();
     const co=CALC_UNI_COEFS[outcome][comp];
     baseEvents=Math.exp(co.A)*vol;
     compEvents=Math.exp(co.A+co.P)*vol;
