@@ -76,7 +76,7 @@ function showPage(id, _push=true){
   });
 
   if(_currentPage==='p-calc' && id!=='p-calc') _calcStop();
-  if(id==='p-calc' && _currentPage!=='p-calc') _calcStart();
+  if(id==='p-calc' && _currentPage!=='p-calc') { _calcStart(); requestAnimationFrame(_initModeIndicator); }
   _currentPage=id;
   if(isToolkit && id !== 'p-res') lastToolkitHash = '#'+id;
   closeToolkitMenu();
@@ -660,17 +660,43 @@ let calcMode='single'; // 'combined' | 'single'
 let calcSnapshot=null;   // latest computed result, for PDF/CSV export
 
 function setCalcMode(mode){
+  if(mode===calcMode) return;
   calcMode=mode;
-  const combined = mode==='combined';
-  document.getElementById('calc-combined-inputs').style.display = combined ? '' : 'none';
-  document.getElementById('calc-single-inputs').style.display   = combined ? 'none' : '';
-  document.getElementById('impact-bar-wrap').style.display      = combined ? '' : 'none';
+  const combined=mode==='combined';
 
-  const title=document.getElementById('calc-model-title');
-  const btn=document.getElementById('calc-altmode-btn');
-  if(title) title.textContent = combined ? 'Combined multivariate estimate' : 'Single component estimate';
-  if(btn)   btn.textContent   = combined ? '← Back to single-component estimate' : 'Show combined multivariate estimate';
+  // slide the inputs track
+  const track=document.getElementById('calcInputsTrack');
+  if(track) track.style.transform=combined?'translateX(-50%)':'translateX(0)';
+
+  // update impact bar visibility
+  const ibw=document.getElementById('impact-bar-wrap');
+  if(ibw) ibw.style.display=combined?'':'none';
+
+  // toggle active class on buttons
+  document.getElementById('calc-mode-single').classList.toggle('active',!combined);
+  document.getElementById('calc-mode-combined').classList.toggle('active',combined);
+
+  // slide the indicator to the active button
+  _slideModeIndicator(mode);
+
   updateCalc();
+}
+
+function _slideModeIndicator(mode){
+  const ind=document.getElementById('calcModeIndicator');
+  const btn=document.getElementById(mode==='single'?'calc-mode-single':'calc-mode-combined');
+  if(!ind||!btn) return;
+  ind.style.left=btn.offsetLeft+'px';
+  ind.style.width=btn.offsetWidth+'px';
+  ind.style.height=btn.offsetHeight+'px';
+}
+
+function _initModeIndicator(){
+  const ind=document.getElementById('calcModeIndicator');
+  if(!ind) return;
+  ind.style.transition='none';
+  _slideModeIndicator('single');
+  requestAnimationFrame(()=>{ ind.style.transition=''; });
 }
 
 // Colour a signed value: negative (saving / fewer events) = green, positive = red.
@@ -682,9 +708,9 @@ function applySignColor(el,value){
 
 function updateCalc(){
   const vol=parseInt(document.getElementById('calc-patients').value)||0;
-  const cost=CALC_REGIONS_COSTS[document.getElementById('calc-cost').value]||0;
+  const cost=CALC_REGIONS_COSTS[(document.querySelector('#calc-cost input:checked')||{}).value||'']||0;
 
-  const nation=document.getElementById('calc-cost').value;
+  const nation=(document.querySelector('#calc-cost input:checked')||{}).value||'';
   const valEl=id=>document.getElementById(id);
   if(!vol){
     calcSnapshot=null;
@@ -1149,9 +1175,35 @@ function _initResHome(){
 }
 
 document.addEventListener('DOMContentLoaded',function(){
-  _buildResGrid();          // render cards from _RESOURCES
-  _buildSidebarResources(); // build sidebar from rendered cards
-  _initResHome();           // set resource counts on category tiles
-  _routeHash(location.hash,false); // restore navigation from URL
+  _buildResGrid();
+  _buildSidebarResources();
+  _initResHome();
+  _routeHash(location.hash,false);
+  _initModeIndicator();
+  _initCompInfoPopups();
 });
+
+function _initCompInfoPopups(){
+  const gp=document.getElementById('compInfoGlobalPopup');
+  if(!gp) return;
+  let _t;
+  const _hide=()=>{ _t=setTimeout(()=>gp.style.display='none',80); };
+  gp.addEventListener('mouseenter',()=>clearTimeout(_t));
+  gp.addEventListener('mouseleave',_hide);
+
+  document.querySelectorAll('.comp-info-wrap').forEach(wrap=>{
+    const btn=wrap.querySelector('.comp-info-btn');
+    const content=wrap.querySelector('.comp-info-popup');
+    if(!btn||!content) return;
+    wrap.addEventListener('mouseenter',()=>{
+      clearTimeout(_t);
+      const r=btn.getBoundingClientRect();
+      gp.innerHTML=content.innerHTML;
+      gp.style.top=(r.top+r.height/2)+'px';
+      gp.style.left=(r.right+10)+'px';
+      gp.style.display='block';
+    });
+    wrap.addEventListener('mouseleave',_hide);
+  });
+}
 

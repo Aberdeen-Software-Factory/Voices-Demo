@@ -1289,113 +1289,109 @@
           </div>
         </div>
       </div>
-      <h3 class="calc-model-title" id="calc-model-title">Single component estimate</h3>
+      <div class="calc-mode-toggle">
+        <span class="calc-mode-label">Mode:</span>
+        <div class="calc-mode-btns" id="calcModeBtns">
+          <span class="calc-mode-indicator" id="calcModeIndicator"></span>
+          <button class="calc-mode-btn active" id="calc-mode-single" type="button" onclick="setCalcMode('single')">Single component estimate</button>
+          <button class="calc-mode-btn" id="calc-mode-combined" type="button" onclick="setCalcMode('combined')">Multivariate estimate</button>
+        </div>
+      </div>
+
       <div class="calc-body">
         <div class="calc-form">
           <h3>Population &amp; cost</h3>
-          <div class="form-group"><label class="form-label" for="calc-patients">Number of patients</label><input
-              class="form-input" type="number" placeholder="e.g. 1000" id="calc-patients" oninput="updateCalc()"
-              min="0"></div>
-          <div class="form-group"><label class="form-label" for="calc-cost">Nation</label><select class="form-select"
-              id="calc-cost" onchange="updateCalc()">
-              <option value="England">England</option>
-              <option value="Scotland">Scotland</option>
-              <option value="Wales">Wales</option>
-              <option value="Northern Ireland">Northern Ireland</option>
-            </select>
-            <p class="form-hint">Placeholder unit costs — to be replaced with national cost-book figures.</p>
-          </div>
-
-          <!-- Combined (multivariate) inputs -->
-          <div id="calc-combined-inputs" style="display:none">
-            <div class="form-group"><label class="form-label">Outcome</label>
-              <div class="comp-checks" id="calc-outcome">
-                <label class="comp-check"><input type="radio" name="calc-outcome" value="Serious Infection" checked onchange="updateCalc()"><label>Serious infection</label></label>
-                <label class="comp-check"><input type="radio" name="calc-outcome" value="Mortality" onchange="updateCalc()"><label>Mortality</label></label>
-                <label class="comp-check"><input type="radio" name="calc-outcome" value="Emergency Hospital Admissions" onchange="updateCalc()"><label>Emergency hospital admissions</label></label>
-              </div></div>
-            <h3 style="margin-top:20px">Service components in place</h3>
-            <div class="comp-checks">
-              <label class="comp-check"><input type="checkbox" id="cc1" onchange="updateCalc()"><label for="cc1">Cohorted clinic</label><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup ui-tooltip ui-tooltip--default ui-tooltip--arrow-left">Patients with systemic vasculitis are grouped together and seen in a dedicated clinic.</span></span></label>
-              <label class="comp-check"><input type="checkbox" id="cc4" onchange="updateCalc()"><label for="cc4">MDT meetings</label><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup ui-tooltip ui-tooltip--default ui-tooltip--arrow-left">Structured gathering of healthcare professionals from different specialties who come together to discuss and plan the care of patients</span></span></label>
-              <label class="comp-check"><input type="checkbox" id="cc5" onchange="updateCalc()"><label for="cc5">Nurse-led care</label><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup ui-tooltip ui-tooltip--default ui-tooltip--arrow-left"><strong>nurse-led advice line:</strong> nurse advice line to offer patient support and rapid access to advice in between clinic appointments providing a single point of access for rapid advice within a supportive service infrastructure <br><br><strong>nurse-led clinics:</strong> to compliment care provided through cohorted clinics </span></span></label>
-              <label class="comp-check"><input type="checkbox" id="cc7" onchange="updateCalc()"><label for="cc7">Wait times &lt; 7 days for new patients</label><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup ui-tooltip ui-tooltip--default ui-tooltip--arrow-left">Waiting times for individuals with new symptoms and with a high index of clinical suspicion for active AAV to be reviewed by a vasculitis expert within 7 days from initial referral </span></span></label>
+          <div class="form-group"><label class="form-label" for="calc-patients">Number of patients</label><input class="form-input" type="number" placeholder="e.g. 1000" id="calc-patients" oninput="updateCalc()" min="0"></div>
+          <div class="form-group">
+            <label class="form-label">Nation</label>
+            <div class="comp-checks" id="calc-cost">
+              <label class="comp-check"><input type="radio" name="calc-cost" value="England" checked onchange="updateCalc()"><span>England</span></label>
+              <label class="comp-check"><input type="radio" name="calc-cost" value="Scotland" onchange="updateCalc()"><span>Scotland</span></label>
+              <label class="comp-check"><input type="radio" name="calc-cost" value="Wales" onchange="updateCalc()"><span>Wales</span></label>
+              <label class="comp-check"><input type="radio" name="calc-cost" value="Northern Ireland" onchange="updateCalc()"><span>Northern Ireland</span></label>
             </div>
           </div>
 
-          <!-- Single component (univariate) inputs -->
-          <div id="calc-single-inputs">
-            <div class="form-group"><label class="form-label">Outcome</label>
-              <div class="comp-checks" id="calc-outcome-single">
-                <label class="comp-check"><input type="radio" name="calc-outcome-single" value="Serious Infection" checked onchange="updateCalc()"><label>Serious infection</label></label>
-                <label class="comp-check"><input type="radio" name="calc-outcome-single" value="Emergency Hospital Admissions" onchange="updateCalc()"><label>Emergency hospital admissions</label></label>
+          <div class="calc-inputs-slider">
+            <div class="calc-inputs-track" id="calcInputsTrack">
+
+              <div id="calc-single-inputs" class="calc-inputs-panel">
+                <div class="form-group">
+                  <label class="form-label">Outcome</label>
+                  <div class="comp-checks" id="calc-outcome-single">
+                    <label class="comp-check"><input type="radio" name="calc-outcome-single" value="Serious Infection" checked onchange="updateCalc()"><span>Serious infection</span></label>
+                    <label class="comp-check"><input type="radio" name="calc-outcome-single" value="Emergency Hospital Admissions" onchange="updateCalc()"><span>Emergency hospital admissions</span></label>
+                  </div>
+                  <!-- <p class="form-hint">Mortality is not modelled at single-component level.</p> -->
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Service component</label>
+                  <div class="comp-checks" id="calc-component-single">
+                    <label class="comp-check"><input type="radio" name="calc-component-single" value="Cohorted clinic" checked onchange="updateCalc()"><span>Cohorted clinic</span><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup">Patients with systemic vasculitis are grouped together and seen in a dedicated clinic.</span></span></label>
+                    <label class="comp-check"><input type="radio" name="calc-component-single" value="MDT meetings" onchange="updateCalc()"><span>MDT meetings</span><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup">Structured gathering of healthcare professionals from different specialties who come together to discuss and plan the care of patients</span></span></label>
+                    <label class="comp-check"><input type="radio" name="calc-component-single" value="Nurse-led care" onchange="updateCalc()"><span>Nurse-led care</span><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup"><strong>nurse-led advice line:</strong> nurse advice line to offer patient support and rapid access to advice in between clinic appointments providing a single point of access for rapid advice within a supportive service infrastructure <br><br><strong>nurse-led clinics:</strong> to compliment care provided through cohorted clinics</span></span></label>
+                    <label class="comp-check"><input type="radio" name="calc-component-single" value="Wait times < 7 days" onchange="updateCalc()"><span>Wait times &lt; 7 days for new patients</span><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup">Waiting times for individuals with new symptoms and with a high index of clinical suspicion for active AAV to be reviewed by a vasculitis expert within 7 days from initial referral</span></span></label>
+                  </div>
+                  <!-- <p class="form-hint">Each component estimated in isolation; values should not be combined.</p> -->
+                </div>
               </div>
-              <p class="form-hint">Mortality is not modelled at single-component level.</p>
-            </div>
-            <div class="form-group"><label class="form-label">Service component</label>
-              <div class="comp-checks" id="calc-component-single">
-                <label class="comp-check"><input type="radio" name="calc-component-single" value="Cohorted clinic" checked onchange="updateCalc()"><label>Cohorted clinic</label></label>
-                <label class="comp-check"><input type="radio" name="calc-component-single" value="MDT meetings" onchange="updateCalc()"><label>MDT meetings</label></label>
-                <label class="comp-check"><input type="radio" name="calc-component-single" value="Nurse-led care" onchange="updateCalc()"><label>Nurse-led care</label></label>
-                <label class="comp-check"><input type="radio" name="calc-component-single" value="Wait times < 7 days" onchange="updateCalc()"><label>Wait times &lt; 7 days for new patients</label></label>
+
+              <div id="calc-combined-inputs" class="calc-inputs-panel">
+                <div class="form-group">
+                  <label class="form-label">Outcome</label>
+                  <div class="comp-checks" id="calc-outcome">
+                    <label class="comp-check"><input type="radio" name="calc-outcome" value="Serious Infection" checked onchange="updateCalc()"><span>Serious infection</span></label>
+                    <label class="comp-check"><input type="radio" name="calc-outcome" value="Mortality" onchange="updateCalc()"><span>Mortality</span></label>
+                    <label class="comp-check"><input type="radio" name="calc-outcome" value="Emergency Hospital Admissions" onchange="updateCalc()"><span>Emergency hospital admissions</span></label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Service components in place</label>
+                  <div class="comp-checks">
+                    <label class="comp-check"><input type="checkbox" id="cc1" onchange="updateCalc()"><span>Cohorted clinic</span><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup">Patients with systemic vasculitis are grouped together and seen in a dedicated clinic.</span></span></label>
+                    <label class="comp-check"><input type="checkbox" id="cc4" onchange="updateCalc()"><span>MDT meetings</span><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup">Structured gathering of healthcare professionals from different specialties who come together to discuss and plan the care of patients</span></span></label>
+                    <label class="comp-check"><input type="checkbox" id="cc5" onchange="updateCalc()"><span>Nurse-led care</span><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup"><strong>nurse-led advice line:</strong> nurse advice line to offer patient support and rapid access to advice in between clinic appointments providing a single point of access for rapid advice within a supportive service infrastructure <br><br><strong>nurse-led clinics:</strong> to compliment care provided through cohorted clinics</span></span></label>
+                    <label class="comp-check"><input type="checkbox" id="cc7" onchange="updateCalc()"><span>Wait times &lt; 7 days for new patients</span><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup">Waiting times for individuals with new symptoms and with a high index of clinical suspicion for active AAV to be reviewed by a vasculitis expert within 7 days from initial referral</span></span></label>
+                  </div>
+                </div>
               </div>
-              <p class="form-hint">Each component estimated in isolation; values should not be combined.</p>
+
             </div>
           </div>
 
-          <div class="calc-download-row">
-            <button class="calc-download" onclick="downloadCalc('pdf')" type="button">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-              Download PDF
-            </button>
-            <button class="calc-download" onclick="downloadCalc('csv')" type="button">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-              Download CSV
-            </button>
-          </div>
-
-          <div class="calc-altmode">
-            <button type="button" class="calc-altmode-btn" id="calc-altmode-btn"
-              onclick="setCalcMode(calcMode==='single'?'combined':'single')">Show combined multivariate estimate</button>
-            <p class="calc-altmode-note" id="calc-altmode-note">*add advisory text here*</p>
-          </div>
         </div>
         <div class="calc-output">
           <div class="output-card">
             <h3>Expected events per year</h3>
-            <div class="output-stat"><span class="output-stat-label">Baseline (no components)</span><span
-                class="output-stat-val" id="out-infect">—</span></div>
-            <div class="output-stat"><span class="output-stat-label">With selected components</span><span
-                class="output-stat-val" id="out-avoided">—</span></div>
-            <div class="output-stat"><span class="output-stat-label">Change in event rate</span><span
-                class="output-stat-val" id="out-hosp">—</span></div>
+            <div class="output-stat"><span class="output-stat-label">Baseline (no components)</span><span class="output-stat-val" id="out-infect">—</span></div>
+            <div class="output-stat"><span class="output-stat-label">With selected components</span><span class="output-stat-val" id="out-avoided">—</span></div>
+            <div class="output-stat"><span class="output-stat-label">Change in event rate</span><span class="output-stat-val" id="out-hosp">—</span></div>
             <div class="impact-bar-wrap" id="impact-bar-wrap" style="display:none">
               <div class="impact-label"><span>Components active</span><span id="impact-count">0 / 4</span></div>
-              <div class="impact-track">
-                <div class="impact-fill" id="impact-bar" style="width:0%"></div>
-              </div>
+              <div class="impact-track"><div class="impact-fill" id="impact-bar" style="width:0%"></div></div>
             </div>
           </div>
           <div class="output-card">
             <h3>Cost impact</h3>
-            <div class="output-stat"><span class="output-stat-label">Baseline cost</span><span class="output-stat-val"
-                id="out-saving">—</span></div>
-            <div class="output-stat"><span class="output-stat-label">Cost with components</span><span
-                class="output-stat-val" id="out-total">—</span></div>
-            <div class="output-stat"><span class="output-stat-label">Difference (− = saving)</span><span
-                class="output-stat-val" id="out-impl">—</span></div>
+            <div class="output-stat"><span class="output-stat-label">Baseline cost</span><span class="output-stat-val" id="out-saving">—</span></div>
+            <div class="output-stat"><span class="output-stat-label">Cost with components</span><span class="output-stat-val" id="out-total">—</span></div>
+            <div class="output-stat"><span class="output-stat-label">Difference (− = saving)</span><span class="output-stat-val" id="out-impl">—</span></div>
           </div>
         </div>
+      </div>
+      <div class="calc-download-row">
+        <button class="calc-download" onclick="downloadCalc('pdf')" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download PDF
+        </button>
+        <button class="calc-download" onclick="downloadCalc('csv')" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download CSV
+        </button>
       </div>
       <div class="next-page-wrap"><button class="next-page-btn" onclick="showPage('p-atys')">Next: Adapt to your
           Service<svg viewBox="0 0 24 24">
@@ -2177,6 +2173,9 @@
       <span class="survey-float-label">Take the survey</span>
     </a>
   </div>
+
+  <!-- Shared info popup — appended to body so it is never inside a transformed ancestor -->
+  <div id="compInfoGlobalPopup" class="comp-info-popup-global"></div>
 
   <script src="javascript/app.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>

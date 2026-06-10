@@ -2648,7 +2648,6 @@ p, ul, ol {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
-  padding-top: 40px
 }
 
 .calc-form {
@@ -2669,6 +2668,20 @@ p, ul, ol {
   margin-bottom: 16px;
   padding-bottom: 8px;
 } */
+
+.calc-alt-container {
+  max-width: 1440px;
+  margin: 16px auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.calc-alt-container h3 {
+  margin: 0;
+  white-space: nowrap;
+}
 
 .form-group {
   margin-bottom: 16px
@@ -2895,12 +2908,13 @@ p, ul, ol {
   border-right-color: var(--surface)
 }
 
-/* ── comp-info-popup specific positioning ── */
-.comp-info-popup {
+/* content holder only — never visible */
+.comp-info-popup { display: none !important }
+
+/* ── shared info popup rendered at body level ── */
+.comp-info-popup-global {
   display: none;
-  position: absolute;
-  left: calc(100% + 10px);
-  top: 50%;
+  position: fixed;
   transform: translateY(-50%);
   width: 220px;
   background: var(--surface);
@@ -2913,14 +2927,29 @@ p, ul, ol {
   font-weight: 400;
   line-height: 1.5;
   box-shadow: var(--sh2);
-  pointer-events: none;
+  pointer-events: auto;
   z-index: 10000;
   white-space: normal
 }
 
-.comp-info-btn:hover + .comp-info-popup,
-.comp-info-btn:focus + .comp-info-popup {
-  display: block
+.comp-info-popup-global::before,
+.comp-info-popup-global::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  transform: translateY(-50%);
+  border: 6px solid transparent
+}
+
+.comp-info-popup-global::after {
+  border-right-color: var(--s3)
+}
+
+.comp-info-popup-global::before {
+  border-width: 5px;
+  border-right-color: var(--surface);
+  margin-right: -1px
 }
 
 .calc-submit {
@@ -2942,15 +2971,91 @@ p, ul, ol {
   filter: brightness(1.1)
 }
 
+.calc-mode-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.calc-mode-label {
+  font-family: var(--fb);
+  font-size: var(--fs-base-md);
+  font-weight: 600;
+  color: var(--t2)
+}
+
+.calc-mode-btns {
+  position: relative;
+  display: flex;
+  background: var(--s2);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 2px
+}
+
+.calc-mode-indicator {
+  position: absolute;
+  top: 3px;
+  border-radius: 6px;
+  background: var(--surface);
+  box-shadow: var(--sh1);
+  transition: left .28s cubic-bezier(.4,0,.2,1), width .28s cubic-bezier(.4,0,.2,1);
+  pointer-events: none;
+  z-index: 0
+}
+
+.calc-mode-btn {
+  position: relative;
+  z-index: 1;
+  padding: 7px 16px;
+  border-radius: 6px;
+  border: none;
+  background: none;
+  font-family: var(--fb);
+  font-size: var(--fs-base-md);
+  font-weight: 500;
+  color: var(--t2);
+  cursor: pointer;
+  transition: color .2s, font-weight .2s
+}
+
+.calc-mode-btn.active {
+  color: var(--text);
+  font-weight: 600
+}
+
+.calc-inputs-slider {
+  width: 100%;
+  overflow: hidden
+}
+
+.calc-inputs-track {
+  display: flex;
+  width: 200%;
+  transition: transform .32s cubic-bezier(.4,0,.2,1)
+}
+
+.calc-inputs-panel {
+  width: 50%;
+  flex-shrink: 0;
+  box-sizing: border-box
+}
+
+.calc-body {
+  transition: none
+}
+
 .calc-download-row {
   display: flex;
+  justify-content: center;
   gap: 10px;
-  margin-top: 20px;
-  padding-top: 18px;
+  margin-top: 24px
 }
 
 .calc-download {
-  flex: 1;
+  /* flex: 1; */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -3018,44 +3123,6 @@ p, ul, ol {
   line-height: 1.7
 }
 
-.calc-model-title {
-  margin-top: 28px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--s3)
-}
-
-.calc-altmode {
-  margin-top: 22px;
-  padding-top: 18px;
-  border-top: 1px solid var(--s3);
-  text-align: center
-}
-
-.calc-altmode-btn {
-  font-family: var(--fd);
-  font-size: var(--fs-md);
-  font-weight: 600;
-  color: var(--t2);
-  background: none;
-  border: 1px solid var(--s3);
-  border-radius: 8px;
-  padding: 8px 16px;
-  cursor: pointer;
-  transition: color .18s, border-color .18s, background .18s
-}
-
-.calc-altmode-btn:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-  background: var(--al)
-}
-
-.calc-altmode-note {
-  font-size: var(--fs-md);
-  color: var(--t3);
-  line-height: 1.5;
-  margin-top: 10px
-}
 
 .form-hint {
   font-size: var(--fs-md);
