@@ -850,7 +850,10 @@ p, ul, ol {
   font-size: var(--fs-2xl);
   color: var(--t2);
   line-height: 1.68;
-  margin-bottom: 16px
+  /* margin-bottom: 16px; */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .blurb strong {
