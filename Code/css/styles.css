@@ -4157,13 +4157,12 @@ padding: 28px 28px;
   overflow: hidden;
   white-space: nowrap;
   height: 48px;
-  width: 48px;
+  width: 160px;
   box-shadow: 0 4px 16px rgba(0,0,0,.18);
-  transition: width .35s cubic-bezier(.4,0,.2,1), box-shadow .2s
+  transition: box-shadow .2s
 }
 
 .survey-float-btn:hover {
-  width: 188px;
   box-shadow: 0 6px 20px rgba(0,0,0,.22)
 }
 
@@ -4181,11 +4180,6 @@ padding: 28px 28px;
   font-size: var(--fs-base-md);
   font-weight: 600;
   padding-right: 18px;
-  opacity: 0;
-  transition: opacity .15s ease .18s
-}
-
-.survey-float-btn:hover .survey-float-label {
   opacity: 1
 }
 
