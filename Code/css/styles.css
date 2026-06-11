@@ -4305,6 +4305,16 @@ footer a:hover {
   .kc-split-panel, .kc-split-panel-2, .kc-split-panel-3 {
     grid-template-columns: 1fr;
   }
+
+  .cs-explorer {
+    flex-direction: column;
+  }
+  .cs-region-col {
+    flex: none;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
 }
 
 @media(max-width:1000px) {}
@@ -5383,4 +5393,155 @@ footer a:hover {
 
 .next-page-btn:hover svg {
   transform: translateX(3px)
+}
+
+/* ── CASE STUDY EXPLORER ── */
+.cs-explorer {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+
+.cs-region-col {
+  /* flex: 0 0 200px; */
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+  border-radius: 10px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cs-region-heading {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin: 0 0 10px 0;
+  align-self: flex-start;
+}
+
+.cs-map-container {
+  width: 100%;
+}
+
+.cs-map-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.cs-map-region {
+  fill: #d8cce2;
+  stroke: #fff;
+  stroke-width: 0.5;
+  transition: fill 0.15s;
+}
+
+.cs-map-region[data-region="Scotland"],
+.cs-map-region[data-region="England"] {
+  fill: color-mix(in srgb, var(--accent) 30%, white);
+}
+
+.cs-map-region[data-region="Scotland"]:hover,
+.cs-map-region[data-region="England"]:hover {
+  fill: color-mix(in srgb, var(--accent) 55%, white);
+}
+
+.cs-map-region.cs-map-active {
+  fill: var(--accent);
+}
+
+.cs-region-label-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 8px 0 0 0;
+  text-align: center;
+}
+
+.cs-detail-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.cs-site-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.cs-site-tab {
+  padding: 5px 16px;
+  border: 1.5px solid var(--accent);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--accent);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.cs-site-tab:hover {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.cs-site-tab.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.cs-site-dl {
+  margin: 0;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cs-site-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+.cs-site-row:last-child {
+  border-bottom: none;
+}
+
+.cs-site-row dt {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  font-weight: 600;
+  font-size: 0.825rem;
+  color: var(--accent);
+  padding: 11px 14px;
+  border-right: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+.cs-site-row dd {
+  margin: 0;
+  padding: 11px 14px;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 640px) {
+  .cs-explorer {
+    flex-direction: column;
+  }
+  .cs-region-col {
+    flex: none;
+    width: 100%;
+    max-width: 260px;
+    margin: 0 auto;
+  }
+  .cs-site-row {
+    grid-template-columns: 1fr;
+  }
+  .cs-site-row dt {
+    border-right: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
+  }
 }

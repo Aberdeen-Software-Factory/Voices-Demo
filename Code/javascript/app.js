@@ -94,14 +94,14 @@ let _resCat='patient';
 /* ================================================================
    RESOURCE DATA — edit each object to customise an individual resource.
    Fields:
-     cat   : ‘patient’ | ‘primary’ | ‘nurse’
+     cat   : 'patient' | 'primary' | 'nurse'
      title : title shown on the card and in the detail panel
      desc  : description (HTML allowed) shown on card and in detail
      img   : path to thumbnail image
      links : array of { label, href } — one button per link in the detail panel
              e.g. links: [
-               { label: ‘Visit website’, href: ‘https://...’ },
-               { label: ‘Download PDF’,  href: ‘https://...’ }
+               { label: 'Visit website', href: 'https://...' },
+               { label: 'Download PDF',  href: 'https://...' }
              ]
    ================================================================ */
 const _RESOURCES=[
@@ -130,7 +130,7 @@ const _RESOURCES=[
     cat  : 'patient',
     title: 'Health Experiences Insight (HEXI) – catalyst film to support local service improvements',
     img  : 'Figures/VOICES-logo.PNG',
-    desc : `As part of the same work, we developed a 20-minute film to be used in imaginative ways as a ‘catalyst’ to get local patients, families and NHS staff talking together about your service and how you can jointly improve people’s experiences.`,
+    desc : `As part of the same work, we developed a 20-minute film to be used in imaginative ways as a 'catalyst' to get local patients, families and NHS staff talking together about your service and how you can jointly improve people's experiences.`,
     links: [
       { label: 'Systemic Vasculitis catalyst film', 
         href: 'https://www.hexi.ox.ac.uk/Systemic-Vasculitis-catalyst-film' }
@@ -189,7 +189,7 @@ const _RESOURCES=[
     links: [
       { label: 'Vasculitis Nurse Training | Cambridge VLRT', 
         href: 'https://eur03.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.cambridge-vasculitislupuscentre.nhs.uk%2Fcourses%2Fvasculitis-nurse-training%2F&data=05%7C02%7Cavril.nicoll%40abdn.ac.uk%7Caa6cebef854d41341f6608deb0273825%7C8c2b19ad5f9c49d490773ec3cfc52b3f%7C0%7C0%7C639141879642363351%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=m9YUSxvZa0DI0M5m7AZFxPY2sSqaTnNc9bI7Sgd%2Bbps%3D&reserved=0' },
-      { label: 'Psychological and self-management support for people with vasculitis or connective tissue diseases: UK health professionals’ perspectives | Rheumatology Advances in Practice | Oxford Academic ', 
+      { label: 'Psychological and self-management support for people with vasculitis or connective tissue diseases: UK health professionals\' perspectives | Rheumatology Advances in Practice | Oxford Academic ', 
         href: 'https://academic.oup.com/rheumap/article/4/2/rkaa016/5847602' },
     ]
   },
@@ -1206,4 +1206,190 @@ function _initCompInfoPopups(){
     wrap.addEventListener('mouseleave',_hide);
   });
 }
+
+/* ── CASE STUDY EXPLORER ── */
+(function() {
+  const CS_DATA = {
+    'Site 1': {
+      region: 'Scotland',
+      'Location': 'Scotland',
+      'Service context': 'Single-site, joint renal-rheumatology vasculitis service',
+      'Overall service model': 'All vasculitis patients are seen through a joint vasculitis service run by renal and rheumatology',
+      'Renal-rheumatology relationship': 'Connected joint service',
+      'Leadership model': 'Joint renal and rheumatology leadership',
+      'Leadership background': 'Clinical',
+      'Service focus and patient cohort': 'Joint vasculitis service seeing systemic vasculitis, complex LVV and complex lupus',
+      'Specialist nursing provision': 'Vasculitis specialist nurse, including clinic and advice line',
+      'Reflections on service development': '"we will deal with it" – but is this sustainable?'
+    },
+    'Site 2': {
+      region: 'Scotland',
+      'Location': 'Scotland',
+      'Service context': 'Renal and rheumatology services based on separate sites',
+      'Overall service model': 'Renal sees most vasculitis patients; rheumatology sees some patients separately',
+      'Renal-rheumatology relationship': 'Separate services, not formally connected',
+      'Leadership model': 'Separate renal and rheumatology leadership',
+      'Leadership background': 'Clinical academic',
+      'Service focus and patient cohort': 'Vasculitis service seeing most vasculitis patients, except LVV without renal involvement',
+      'Specialist nursing provision': 'Research nurse',
+      'Reflections on service development': '"uni-service speciality for a multi-systemic disease"'
+    },
+    'Site 3': {
+      region: 'Scotland',
+      'Location': 'Scotland',
+      'Service context': 'Single-site rheumatology service with renal hub-and-spoke input from another Board',
+      'Overall service model': 'Rheumatology and renal see vasculitis patients separately, with no formal connection',
+      'Renal-rheumatology relationship': 'Separate services, not formally connected',
+      'Leadership model': 'Separate renal and rheumatology leadership',
+      'Leadership background': 'Clinical',
+      'Service focus and patient cohort': 'Rheumatology-led vasculitis and CTD service; renal-only patients managed separately',
+      'Specialist nursing provision': 'Rheumatology nurses',
+      'Reflections on service development': '"aspirational"; still "finding the connection with renal here"'
+    },
+    'Site 4': {
+      region: 'England',
+      'Location': 'England',
+      'Service context': 'Renal and rheumatology services based on separate sites',
+      'Overall service model': 'Rheumatology and renal see vasculitis patients separately, with no formal connection',
+      'Renal-rheumatology relationship': 'Separate services, not formally connected',
+      'Leadership model': 'Separate renal and rheumatology leadership',
+      'Leadership background': 'Clinical for CTD service; clinical academic for LVV and GCA services',
+      'Service focus and patient cohort': 'Rheumatology-led vasculitis/CTD, LVV and GCA services; renal-only patients managed separately',
+      'Specialist nursing provision': 'Rheumatology nurse advice line',
+      'Reflections on service development': '"a very different set up from anywhere I\'ve ever seen"'
+    },
+    'Site 5': {
+      region: 'England',
+      'Location': 'England',
+      'Service context': 'Single-site multidisciplinary vasculitis-plus service',
+      'Overall service model': 'Renal sees most vasculitis patients, with some rheumatology input into the vasculitis clinic',
+      'Renal-rheumatology relationship': 'Some connection between renal and rheumatology',
+      'Leadership model': 'Renal-led, with multidisciplinary input',
+      'Leadership background': 'Clinical academic',
+      'Service focus and patient cohort': 'Multidisciplinary vasculitis-plus service for multisystem autoimmune/autoinflammatory disease, excluding uncomplicated GCA',
+      'Specialist nursing provision': 'Vasculitis specialist nurses, including clinic and advice line',
+      'Reflections on service development': '"organ-agnostic"; "changing from a vasculitis service to a severe inflammatory disease service"'
+    },
+    'Site 6': {
+      region: 'England',
+      'Location': 'England',
+      'Service context': 'Renal and rheumatology services based on separate sites',
+      'Overall service model': 'Rheumatology and renal see vasculitis patients separately, with no formal connection',
+      'Renal-rheumatology relationship': 'Separate services, not formally connected',
+      'Leadership model': 'Collective responsibility for vasculitis care, with renal and rheumatology services managed separately',
+      'Leadership background': 'Mixed leadership in renal; clinical leadership in rheumatology',
+      'Service focus and patient cohort': 'Parallel renal vasculitis and rheumatology CTD/vasculitis services, with patients largely distributed by renal or non-renal involvement',
+      'Specialist nursing provision': 'Vasculitis specialist/research nurse in renal; vasculitis specialist nurse, including clinic, in rheumatology',
+      'Reflections on service development': '"a little bit of tension between services … settled down to a very equitable level"'
+    }
+  };
+
+  const CS_REGION_MAP = {
+    Scotland: ['GBSCB','GBDGY','GBCLK','GBSTG','GBFAL','GBWLN','GBEDH','GBMLN','GBELN',
+               'GBSAY','GBNAY','GBIVC','GBRFW','GBWDU','GBAGB','GBHLD','GBMRY','GBABD',
+               'GBABE','GBANS','GBDND','GBPKN','GBFIF','GBELS','GBORK','GBZET','GBNLK',
+               'GBEDU','GBGLG','GBERW','GBEAY','GBSLK'],
+    England:  ['GBCHW','GBSHR','GBHEF','GBGLS','GBNBL','GBCMA','GBNTY','GBSTY','GBSND',
+               'GBDUR','GBHPL','GBRCC','GBNYK','GBERY','GBKHL','GBNLN','GBNEL','GBLIN',
+               'GBNFK','GBSFK','GBESS','GBSOS','GBTHR','GBKEN','GBMDW','GBESX','GBBNH',
+               'GBWSX','GBHAM','GBPOR','GBSTH','GBDOR','GBBMH','GBPOL','GBDEV','GBTOB',
+               'GBPLY','GBCON','GBSOM','GBNSM','GBBST','GBSGC','GBWRL','GBHAL','GBKWL',
+               'GBLIV','GBSFT','GBLAN','GBBPL','GBSTT','GBDAL','GBMDB','GBRIC','GBLND',
+               'GBTWH','GBGAT','GBNET','GBYOR','GBSHN','GBENF','GBHRT','GBBNE','GBWFT',
+               'GBRDB','GBHAV','GBCAM','GBBEX','GBSTN','GBMIK','GBBKM','GBHIL','GBBEN',
+               'GBLUT','GBHRW','GBCBF','GBBDF','GBRUT','GBNTT','GBNTH','GBCMD','GBISL',
+               'GBPTE','GBLBH','GBSWK','GBDNC','GBCRY','GBLEW','GBHRY','GBKTT','GBNWM',
+               'GBGRE','GBHCK','GBBDG','GBLEC','GBCHE','GBDBY','GBROT','GBSHF','GBSTE',
+               'GBTFW','GBSTS','GBBRY','GBWOR','GBWAR','GBOXF','GBWGN','GBSKP','GBWRT',
+               'GBWBK','GBWOK','GBBRC','GBWNM','GBSLG','GBRDG','GBSRY','GBBBD','GBSWD',
+               'GBBAS','GBWIL','GBCLD','GBKIR','GBNGM','GBLCE','GBDER','GBLDS','GBBRD',
+               'GBWKF','GBBNS','GBSLF','GBBOL','GBTRF','GBMAN','GBOLD','GBRCH','GBTAM',
+               'GBBUR','GBSOL','GBCOV','GBBIR','GBSAW','GBDUD','GBWLL','GBWLV','GBWND',
+               'GBMRT','GBWSM','GBKEC','GBHNS','GBEAL','GBHMF','GBIOW','GBIOS'],
+    Wales:    ['GBFLN','GBWRX','GBPOW','GBMON','GBNWP','GBCRF','GBVGL','GBBGE','GBNTL',
+               'GBSWA','GBCMN','GBPEM','GBCGN','GBGWN','GBCWY','GBDEN','GBAGY','GBCAY',
+               'GBRCT','GBBGW','GBTOF','GBMTY'],
+    NorthernIreland: ['GBDRY','GBSTB','GBFER','GBDGN','GBARM','GBNYM','GBLMV','GBCLR',
+                      'GBMYL','GBLRN','GBCKF','GBNTA','GBBFS','GBNDN','GBARD','GBDOW',
+                      'GBMFT','GBOMH','GBCKT','GBCGV','GBBNB','GBANT','GBLSB','GBBLY',
+                      'GBBLA','GBCSR']
+  };
+
+  // build reverse lookup: id -> region
+  const CS_ID_TO_REGION = {};
+  Object.entries(CS_REGION_MAP).forEach(([region, ids]) => {
+    ids.forEach(id => { CS_ID_TO_REGION[id] = region; });
+  });
+
+  let currentRegion = 'Scotland';
+  let currentSite = 'Site 1';
+
+  function sitesForRegion(region) {
+    return Object.keys(CS_DATA).filter(s => CS_DATA[s].region === region);
+  }
+
+  function renderTabs(sites) {
+    const tabs = document.getElementById('cs-site-tabs');
+    if (!tabs) return;
+    tabs.innerHTML = sites.map(s =>
+      `<button class="cs-site-tab${s === currentSite ? ' active' : ''}" onclick="csSelectSite('${s}')">${s}</button>`
+    ).join('');
+  }
+
+  function renderSiteData(site) {
+    const dl = document.getElementById('cs-site-dl');
+    if (!dl) return;
+    const data = CS_DATA[site];
+    dl.innerHTML = Object.entries(data)
+      .filter(([k]) => k !== 'region')
+      .map(([k, v]) => `<div class="cs-site-row"><dt>${k}</dt><dd>${v}</dd></div>`)
+      .join('');
+  }
+
+  function updateMapHighlight(region) {
+    const svg = document.querySelector('#cs-map-container svg');
+    if (!svg) return;
+    svg.querySelectorAll('path[data-region]').forEach(p => {
+      p.classList.toggle('cs-map-active', p.dataset.region === region);
+    });
+    const label = document.getElementById('cs-region-label');
+    if (label) label.textContent = region;
+  }
+
+  function loadCsMap() {
+    const container = document.getElementById('cs-map-container');
+    if (!container || !window.CS_MAP_SVG) return;
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(window.CS_MAP_SVG, 'image/svg+xml');
+    const svg = doc.querySelector('svg');
+
+    svg.querySelectorAll('path[data-region="Scotland"], path[data-region="England"]').forEach(path => {
+      path.addEventListener('click', () => window.csSelectRegion(path.dataset.region));
+    });
+
+    container.innerHTML = '';
+    container.appendChild(svg);
+    updateMapHighlight(currentRegion);
+  }
+
+  window.csSelectRegion = function(region) {
+    currentRegion = region;
+    updateMapHighlight(region);
+    const sites = sitesForRegion(region);
+    currentSite = sites[0];
+    renderTabs(sites);
+    renderSiteData(currentSite);
+  };
+
+  window.csSelectSite = function(site) {
+    currentSite = site;
+    renderTabs(sitesForRegion(currentRegion));
+    renderSiteData(site);
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    loadCsMap();
+    window.csSelectRegion('Scotland');
+  });
+})();
 
