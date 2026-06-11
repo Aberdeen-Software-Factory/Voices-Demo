@@ -1738,31 +1738,31 @@ p, ul, ol {
   position: relative;
   z-index: 1;
   overflow: hidden;
-  transition: all .25s ease
+  /* transition: all .25s ease */
 }
 
 .kc-acc-trigger::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, .1);
+  /* background: rgba(255, 255, 255, .1); */
   opacity: 0;
-  transition: opacity .25s;
+  /* transition: opacity .25s; */
   border-radius: 4px
 }
 
 .kc-acc-trigger:hover {
   filter: brightness(1.15);
-  transform: translateY(-2px)
+  /* transform: translateY(-2px) */
 }
 
 .kc-acc-trigger:hover::before {
   opacity: 1
 }
 
-.kc-acc-trigger:active {
+/* .kc-acc-trigger:active {
   transform: translateY(0)
-}
+} */
 
 .kc-acc-icon {
   flex-shrink: 0;
@@ -2011,12 +2011,8 @@ padding: 28px 28px;
 
 .kcsec-1 .kc-acc-trigger {
   background: var(--accent);
-  box-shadow: 0 4px 16px rgba(139, 107, 154, .35)
 }
 
-.kcsec-1 .kc-acc-trigger:hover {
-  box-shadow: 0 8px 24px rgba(139, 107, 154, .45)
-}
 
 .kcsec-1 .kc-acc-icon {
   stroke: #C9AFDC
@@ -2040,11 +2036,9 @@ padding: 28px 28px;
 
 .kcsec-2 .kc-acc-trigger {
   background: var(--accent);
-  box-shadow: 0 4px 16px rgba(139, 107, 154, .35)
 }
 
 .kcsec-2 .kc-acc-trigger:hover {
-  box-shadow: 0 8px 24px rgba(139, 107, 154, .45)
 }
 
 .kcsec-2 .kc-acc-icon {
@@ -2078,12 +2072,8 @@ padding: 28px 28px;
 
 .kcsec-3 .kc-acc-trigger {
   background: var(--accent);
-  box-shadow: 0 4px 16px rgba(139, 107, 154, .35)
 }
 
-.kcsec-3 .kc-acc-trigger:hover {
-  box-shadow: 0 8px 24px rgba(139, 107, 154, .45)
-}
 
 .kcsec-3 .kc-acc-icon {
   stroke: #C9AFDC
@@ -3275,12 +3265,8 @@ padding: 28px 28px;
 
 .calc-howto .kc-acc-trigger {
   background: var(--accent);
-  box-shadow: 0 4px 16px rgba(139, 107, 154, .35)
 }
 
-.calc-howto .kc-acc-trigger:hover {
-  box-shadow: 0 8px 24px rgba(139, 107, 154, .45)
-}
 
 .calc-howto .kc-acc-icon {
   stroke: #C9AFDC
@@ -4159,11 +4145,12 @@ padding: 28px 28px;
   height: 48px;
   width: 160px;
   box-shadow: 0 4px 16px rgba(0,0,0,.18);
-  transition: box-shadow .2s
+  transition: box-shadow .2s, transform .2s;
 }
 
 .survey-float-btn:hover {
-  box-shadow: 0 6px 20px rgba(0,0,0,.22)
+  box-shadow: 0 6px 20px rgba(0,0,0,.22);
+  transform: scale(1.1);
 }
 
 .survey-float-icon {
@@ -4180,7 +4167,7 @@ padding: 28px 28px;
   font-size: var(--fs-base-md);
   font-weight: 600;
   padding-right: 18px;
-  opacity: 1
+  opacity: 1;
 }
 
 @keyframes survey-nudge {
@@ -5401,12 +5388,12 @@ footer a:hover {
   stroke-width: 2.5;
   stroke-linecap: round;
   stroke-linejoin: round;
-  transition: transform .15s
+  transition: transform .2s
 }
 
-.next-page-btn:hover svg {
+/* .next-page-btn:hover svg {
   transform: translateX(3px)
-}
+} */
 
 /* ── CASE STUDY EXPLORER ── */
 .cs-explorer {
