@@ -3870,14 +3870,13 @@ padding: 28px 28px;
   flex-shrink: 0;
   border-radius: 8px;
   overflow: hidden;
-  background: var(--s2);
-  margin-bottom: 12px
+  margin-bottom: 12px;
 }
 
 .res-card-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block
 }
 
@@ -3894,7 +3893,6 @@ padding: 28px 28px;
   border-radius: 16px;
   overflow: hidden;
   aspect-ratio: 4/3;
-  background: var(--s2);
   position: sticky;
   top: calc(var(--nh) + 24px)
 }
@@ -3902,7 +3900,7 @@ padding: 28px 28px;
 .res-res-img-wrap img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block
 }
 
