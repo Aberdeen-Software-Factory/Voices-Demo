@@ -1224,7 +1224,7 @@ function _initCompInfoPopups(){
 /* ── CASE STUDY EXPLORER ── */
 (function() {
   const CS_DATA = {
-    'Site 1': {
+    'Case Study 1': {
       region: 'Scotland',
       'Location': 'Scotland',
       'Service context': 'Single-site, joint renal-rheumatology vasculitis service',
@@ -1236,7 +1236,7 @@ function _initCompInfoPopups(){
       'Specialist nursing provision': 'Vasculitis specialist nurse, including clinic and advice line',
       'Reflections on service development': '"we will deal with it" – but is this sustainable?'
     },
-    'Site 2': {
+    'Case Study 2': {
       region: 'Scotland',
       'Location': 'Scotland',
       'Service context': 'Renal and rheumatology services based on separate sites',
@@ -1248,7 +1248,7 @@ function _initCompInfoPopups(){
       'Specialist nursing provision': 'Research nurse',
       'Reflections on service development': '"uni-service speciality for a multi-systemic disease"'
     },
-    'Site 3': {
+    'Case Study 3': {
       region: 'Scotland',
       'Location': 'Scotland',
       'Service context': 'Single-site rheumatology service with renal hub-and-spoke input from another Board',
@@ -1260,7 +1260,7 @@ function _initCompInfoPopups(){
       'Specialist nursing provision': 'Rheumatology nurses',
       'Reflections on service development': '"aspirational"; still "finding the connection with renal here"'
     },
-    'Site 4': {
+    'Case Study 4': {
       region: 'England',
       'Location': 'England',
       'Service context': 'Renal and rheumatology services based on separate sites',
@@ -1272,7 +1272,7 @@ function _initCompInfoPopups(){
       'Specialist nursing provision': 'Rheumatology nurse advice line',
       'Reflections on service development': '"a very different set up from anywhere I\'ve ever seen"'
     },
-    'Site 5': {
+    'Case Study 5': {
       region: 'England',
       'Location': 'England',
       'Service context': 'Single-site multidisciplinary vasculitis-plus service',
@@ -1284,7 +1284,7 @@ function _initCompInfoPopups(){
       'Specialist nursing provision': 'Vasculitis specialist nurses, including clinic and advice line',
       'Reflections on service development': '"organ-agnostic"; "changing from a vasculitis service to a severe inflammatory disease service"'
     },
-    'Site 6': {
+    'Case Study 6': {
       region: 'England',
       'Location': 'England',
       'Service context': 'Renal and rheumatology services based on separate sites',

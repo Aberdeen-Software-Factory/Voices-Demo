@@ -2456,7 +2456,11 @@ padding: 28px 28px;
   border-right: none
 }
 
-.cs-table tbody td:nth-child(even) {
+.cs-table tbody tr:nth-child(odd) td:not(:first-child) {
+  background: var(--surface);
+}
+
+.cs-table tbody tr:nth-child(even) td:not(:first-child) {
   background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
@@ -5511,10 +5515,10 @@ footer a:hover {
 }
 
 .cs-site-row dt {
-  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  background: var(--t2);
   font-weight: 600;
   font-size: 0.825rem;
-  color: var(--accent);
+  color: var(--surface);
   padding: 11px 14px;
   border-right: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
 }
@@ -5523,6 +5527,14 @@ footer a:hover {
   margin: 0;
   padding: 11px 14px;
   font-size: 0.875rem;
+}
+
+.cs-site-row:nth-child(odd) dd {
+  background: var(--surface)
+}
+
+.cs-site-row:nth-child(even) dd {
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
 }
 
 @media (max-width: 640px) {
