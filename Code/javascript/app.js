@@ -618,33 +618,40 @@ const CALC_COEFS={
 const CALC_COMP_IDS=['cc1','cc4','cc5','cc7'];
 
 /* Univariate (single-component) model — each component analysed in isolation.
-   {Absent, Present} log-rates per outcome per component (see CostCalculator docs).
-   NB: Mortality is not modelled univariately, so it is excluded here.
-   Component keys match the multivariate kept set: Cohorted, MDT, Nurse-Led, WaitTimes<7d. */
+   {Absent, Present} log-rates per outcome per component.
+   Source: UniCoef 1.csv (latest VOICES univariate run). Nurse-led care is split
+   into 'Nurse-led clinic' (CSV "Nurse led clinic") and 'Nurse-led advice line'
+   (CSV "Nurse Advice Line"). Wait times maps to CSV "Wait time for new patients
+   (<1 week)", MDT meetings to CSV "Vasculitis MDT".
+   NB: keys must match the radio `value` attributes in index.html. */
 const CALC_UNI_COEFS={
   'Serious Infection':{
-    'Cohorted clinic':              {A:-1.6132891, P:-0.1500589},
-    'MDT meetings':                 {A:-1.7306023, P: 0.0031041},
-    'Nurse-led care':               {A:-1.7440964, P: 0.0509999},
-    'Wait times < 7 days':          {A:-1.6333569, P:-0.1220811}
+    'Cohorted clinic':              {A:-1.5382498615421132, P:-0.27298000378535847},
+    'MDT meetings':                 {A:-1.6113328001652973, P:-0.3107674431753781},
+    'Nurse-led clinic':             {A:-1.6929132845702903, P:-0.4983563220301629},
+    'Nurse-led advice line':        {A:-1.655352838746271,  P:-0.29096896532507627},
+    'Wait times < 7 days':          {A:-1.481334096221952,  P:-0.3454847759154589}
   },
   'CVD':{
-    'Cohorted clinic':              {A:-3.4272577, P: 0.0597348},
-    'MDT meetings':                 {A:-3.4444744, P: 0.1249594},
-    'Nurse-led care':               {A:-3.4919337, P: 0.2985533},
-    'Wait times < 7 days':          {A:-3.4134936, P: 0.0462310}
+    'Cohorted clinic':              {A:-3.6847828009373194, P:-0.134043517036335},
+    'MDT meetings':                 {A:-3.643161689998526,  P:-0.34417352013951297},
+    'Nurse-led clinic':             {A:-3.636223016014778,  P:-0.7974844919550333},
+    'Nurse-led advice line':        {A:-3.7102524021728907, P:-0.16581834805440712},
+    'Wait times < 7 days':          {A:-3.771798677225767,  P: 0.011868407083098598}
   },
   'Cancer':{
-    'Cohorted clinic':              {A:-3.5560366, P: 0.1542858},
-    'MDT meetings':                 {A:-3.3593053, P:-0.2157640},
-    'Nurse-led care':               {A:-3.3827702, P:-0.2169062},
-    'Wait times < 7 days':          {A:-3.6175440, P: 0.2067612}
+    'Cohorted clinic':              {A:-3.848753639004325,  P: 0.5109192418447568},
+    'MDT meetings':                 {A:-3.316937525698516,  P:-0.37693998301592924},
+    'Nurse-led clinic':             {A:-3.3784979956588277, P:-0.7138954549904106},
+    'Nurse-led advice line':        {A:-3.336067730161107,  P:-0.40535635502762324},
+    'Wait times < 7 days':          {A:-3.6772194431895353, P: 0.26979398612292455}
   },
   'Emergency Hospital Admissions':{
-    'Cohorted clinic':              {A:-0.4595458, P:-0.1283519},
-    'MDT meetings':                 {A:-0.5577008, P: 0.0059440},
-    'Nurse-led care':               {A:-0.5608165, P: 0.0205327},
-    'Wait times < 7 days':          {A:-0.4698607, P:-0.1081951}
+    'Cohorted clinic':              {A:-0.3901394036829162, P:-0.22000374603852033},
+    'MDT meetings':                 {A:-0.48893683092856555,P:-0.15853856189803295},
+    'Nurse-led clinic':             {A:-0.5312650984101688, P:-0.252259865527625},
+    'Nurse-led advice line':        {A:-0.5070984206644306, P:-0.1661796009618174},
+    'Wait times < 7 days':          {A:-0.3833236271534814, P:-0.23154838532627045}
   }
 };
 
@@ -706,6 +713,13 @@ function applySignColor(el,value){
   else if(value>0) el.classList.add('val-bad');
 }
 
+// Visible text of a radio/checkbox: the first <span> inside its wrapping
+// <label class="comp-check"> (later spans hold the info-popup, so skip them).
+function _inputLabel(el){
+  const sp=el&&el.closest('label')&&el.closest('label').querySelector('span');
+  return sp?sp.textContent.trim().replace(/\s+/g,' '):'';
+}
+
 function updateCalc(){
   const vol=parseInt(document.getElementById('calc-patients').value)||0;
   const cost=CALC_REGIONS_COSTS[(document.querySelector('#calc-cost input:checked')||{}).value||'']||0;
@@ -729,10 +743,10 @@ function updateCalc(){
   if(calcMode==='combined'){
     const outcomeEl=document.querySelector('input[name="calc-outcome"]:checked');
     const outcome=outcomeEl.value;
-    outcomeLabel=outcomeEl.parentElement.querySelector('label').textContent.trim();
+    outcomeLabel=_inputLabel(outcomeEl);
     const checks=CALC_COMP_IDS.map(id=>document.getElementById(id).checked);
     componentsLabel=CALC_COMP_IDS.filter((_,i)=>checks[i])
-      .map(id=>document.querySelector(`label[for="${id}"]`).textContent.trim().replace(/\s+/g,' '))
+      .map(id=>_inputLabel(document.getElementById(id)))
       .join(', ') || 'None selected';
     const count=checks.filter(Boolean).length;
     const total=CALC_COMP_IDS.length;
@@ -749,10 +763,10 @@ function updateCalc(){
   }else{
     const outcomeEl=document.querySelector('input[name="calc-outcome-single"]:checked');
     const outcome=outcomeEl.value;
-    outcomeLabel=outcomeEl.parentElement.querySelector('label').textContent.trim();
+    outcomeLabel=_inputLabel(outcomeEl);
     const compEl=document.querySelector('input[name="calc-component-single"]:checked');
     const comp=compEl.value;
-    componentsLabel=compEl.parentElement.querySelector('label').textContent.trim();
+    componentsLabel=_inputLabel(compEl);
     const co=CALC_UNI_COEFS[outcome][comp];
     baseEvents=Math.exp(co.A)*vol;
     compEvents=Math.exp(co.A+co.P)*vol;
