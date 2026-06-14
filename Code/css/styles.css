@@ -1916,6 +1916,20 @@ padding: 28px 28px;
   margin: auto 0;
 }
 
+.kc-evidence-3 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 28px;
+  margin: 0 auto;
+}
+
+.kc-evidence-3 .item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto 0;
+}
+
 .kc-headliner-2 p {
 padding: 28px 28px;
   text-align: center;
