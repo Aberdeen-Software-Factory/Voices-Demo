@@ -1332,19 +1332,18 @@
             </svg></button>
           <div class="kc-acc-panel">
             <div class="kc-acc-panel-inner">
-              <p id="out-recommendation"><strong>Combined components</strong> uses the multivariate model: the expected
-                event rate is <strong>exp(intercept + Σ active coefficients)</strong>, multiplied by the number of
-                patients to get yearly events and by the unit cost to get annual cost. <strong>Single
-                  component</strong> uses the univariate model, comparing services with a component present
-                (<strong>exp(absent + present)</strong>) against those without it (<strong>exp(absent)</strong>); each
-                component is estimated in isolation and values should not be combined. The difference between the
-                with-components and baseline values is the projected annual change in cost — negative numbers (in
-                green) are savings.</p>
+              <p id="out-recommendation">The calculator uses the univariate model, comparing services with the
+                selected component present (<strong>exp(absent + present)</strong>) against those without it
+                (<strong>exp(absent)</strong>). Each expected event rate is multiplied by the number of patients to get
+                yearly events, and by the unit cost to get annual cost. Each component is estimated in isolation, so
+                values for different components should not be combined. The difference between the with-component and
+                baseline values is the projected annual change in cost — negative numbers (in green) are savings.</p>
             </div>
           </div>
         </div>
       </div>
-      <div class="calc-mode-toggle">
+      <!-- Multivariate (combined) estimate hidden at client's request. Remove the inline display:none below to re-enable the mode toggle and the multivariate calculator. -->
+      <div class="calc-mode-toggle" style="display:none">
         <span class="calc-mode-label">Mode:</span>
         <div class="calc-mode-btns" id="calcModeBtns">
           <span class="calc-mode-indicator" id="calcModeIndicator"></span>
@@ -1419,8 +1418,8 @@
         <div class="calc-output">
           <div class="output-card">
             <h3>Expected events per year</h3>
-            <div class="output-stat"><span class="output-stat-label">Baseline (no components)</span><span class="output-stat-val" id="out-infect">—</span></div>
-            <div class="output-stat"><span class="output-stat-label">With selected components</span><span class="output-stat-val" id="out-avoided">—</span></div>
+            <div class="output-stat"><span class="output-stat-label">Baseline (no component)</span><span class="output-stat-val" id="out-infect">—</span></div>
+            <div class="output-stat"><span class="output-stat-label">With selected component</span><span class="output-stat-val" id="out-avoided">—</span></div>
             <div class="output-stat"><span class="output-stat-label">Change in event rate</span><span class="output-stat-val" id="out-hosp">—</span></div>
             <div class="impact-bar-wrap" id="impact-bar-wrap" style="display:none">
               <div class="impact-label"><span>Components active</span><span id="impact-count">0 / 4</span></div>
@@ -1430,7 +1429,7 @@
           <div class="output-card">
             <h3>Cost impact</h3>
             <div class="output-stat"><span class="output-stat-label">Baseline cost</span><span class="output-stat-val" id="out-saving">—</span></div>
-            <div class="output-stat"><span class="output-stat-label">Cost with components</span><span class="output-stat-val" id="out-total">—</span></div>
+            <div class="output-stat"><span class="output-stat-label">Cost with component</span><span class="output-stat-val" id="out-total">—</span></div>
             <div class="output-stat"><span class="output-stat-label">Difference (− = saving)</span><span class="output-stat-val" id="out-impl">—</span></div>
           </div>
           <p class="form-hint"><i>Estimates are based on the univariable analysis of individual service components reported in the VOICES study*, adjusted for age, sex, local area deprivation and rural or urban location.</i></p>
