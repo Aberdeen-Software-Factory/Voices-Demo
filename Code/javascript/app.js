@@ -883,22 +883,51 @@ function downloadCalc(type){
   const state={cols:[],cells:{}};
   function ck(r,c){return r+'-'+c;}
 
+  // ── instances — both tables share the same state ───────────────────────────
+  const INST_CFGS=[
+    {hdrId:'etblHeaderRow',bodyId:'etblBody',addRightId:'etblAddColRight',emptyThId:'etblEmptyColTh',emptyTdId:'etblEmptyColTd'},
+    {hdrId:'etblHeaderRow2',bodyId:'etblBody2',addRightId:'etblAddColRight2',emptyThId:'etblEmptyColTh2',emptyTdId:'etblEmptyColTd2'},
+  ];
+  function getInstances(){
+    return INST_CFGS.map(c=>Object.assign({},c,{
+      hdr:document.getElementById(c.hdrId),
+      body:document.getElementById(c.bodyId),
+      addRight:document.getElementById(c.addRightId),
+    })).filter(i=>i.hdr&&i.body);
+  }
+
+  // ── cell helpers ───────────────────────────────────────────────────────────
+  function _makeTd(ri,id){
+    const td=document.createElement('td');
+    td.dataset.colId=id; td.dataset.rowIdx=ri; td.className='empty-status'; td.title='Click to set status';
+    td.innerHTML='<div class="es-inner"><span class="es-text">Select status</span><svg class="es-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>';
+    td.addEventListener('click',()=>showStatusDD(td,ri,id));
+    return td;
+  }
+
+  function _applyStatus(td,status){
+    const s=STATUSES.find(x=>x.value===status);
+    if(!s)return;
+    td.className=''; td.dataset.status=status; td.title=s.label;
+    td.innerHTML='<svg viewBox="0 0 24 24">'+s.svg+'</svg>';
+  }
+
   // ── add / delete ───────────────────────────────────────────────────────────
   function addColumn(name){
     const id='ec'+(++colCounter);
     state.cols.push({id,name:name||''});
-    const headerRow=document.getElementById('etblHeaderRow');
-    const th=document.createElement('th');
-    th.className='dept-col'; th.dataset.colId=id; th.draggable=true;
-    th.innerHTML='<div class="dept-header-cell"><button class="dept-name-btn'+(name?'':' empty')+'" data-col-id="'+id+'">'+(name||'Click to name')+'</button><button class="dept-delete-btn" title="Remove column">&#215;</button></div>';
-    headerRow.appendChild(th);
-    bindHeaderEvents(th,id);
-    document.querySelectorAll('#etblBody tr').forEach((tr,ri)=>{
-      const td=document.createElement('td');
-      td.dataset.colId=id; td.dataset.rowIdx=ri; td.className='empty-status'; td.title='Click to set status';
-      td.innerHTML='<div class="es-inner"><span class="es-text">Select status</span><svg class="es-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>';
-      td.addEventListener('click',()=>showStatusDD(td,ri,id));
-      tr.appendChild(td);
+    getInstances().forEach(inst=>{
+      const th=document.createElement('th');
+      th.className='dept-col'; th.dataset.colId=id; th.draggable=true;
+      th.innerHTML='<div class="dept-header-cell"><button class="dept-name-btn'+(name?'':' empty')+'" data-col-id="'+id+'">'+(name||'Click to name')+'</button><button class="dept-delete-btn" title="Remove column">&#215;</button></div>';
+      inst.hdr.appendChild(th);
+      bindHeaderEvents(th,id);
+      inst.body.querySelectorAll('tr').forEach((tr,ri)=>{
+        const td=_makeTd(ri,id);
+        const existing=state.cells[ck(ri,id)];
+        if(existing)_applyStatus(td,existing);
+        tr.appendChild(td);
+      });
     });
     updateUI();
     recalcAngle();
@@ -907,7 +936,7 @@ function downloadCalc(type){
   function deleteColumn(id){
     state.cols=state.cols.filter(c=>c.id!==id);
     Object.keys(state.cells).forEach(k=>{if(k.endsWith('-'+id))delete state.cells[k];});
-    document.querySelector('th[data-col-id="'+id+'"]')?.remove();
+    document.querySelectorAll('th[data-col-id="'+id+'"]').forEach(el=>el.remove());
     document.querySelectorAll('td[data-col-id="'+id+'"]').forEach(el=>el.remove());
     updateUI();
     recalcAngle();
@@ -915,20 +944,24 @@ function downloadCalc(type){
 
   function setCell(ri,id,status){
     state.cells[ck(ri,id)]=status;
-    const s=STATUSES.find(x=>x.value===status);
-    const td=document.querySelector('#etblBody tr:nth-child('+(ri+1)+') td[data-col-id="'+id+'"]');
-    if(!td)return;
-    td.className=''; td.dataset.status=status; td.title=s?.label||status;
-    td.innerHTML='<svg viewBox="0 0 24 24">'+s.svg+'</svg>';
-    td.addEventListener('click',()=>showStatusDD(td,ri,id));
+    getInstances().forEach(inst=>{
+      const rows=inst.body.querySelectorAll('tr');
+      const tr=rows[ri];
+      if(!tr)return;
+      const td=tr.querySelector('td[data-col-id="'+id+'"]');
+      if(!td)return;
+      _applyStatus(td,status);
+      td.addEventListener('click',()=>showStatusDD(td,ri,id));
+    });
     updateDL();
   }
 
   function setDeptName(id,name){
     const col=state.cols.find(c=>c.id===id);
     if(col)col.name=name;
-    const btn=document.querySelector('th[data-col-id="'+id+'"] .dept-name-btn');
-    if(btn){btn.textContent=name;btn.classList.remove('empty');}
+    document.querySelectorAll('th[data-col-id="'+id+'"] .dept-name-btn').forEach(btn=>{
+      btn.textContent=name; btn.classList.remove('empty');
+    });
     updateDL();
     recalcAngle();
   }
@@ -937,7 +970,6 @@ function downloadCalc(type){
   function bindHeaderEvents(th,id){
     th.addEventListener('click',e=>{if(!e.target.closest('.dept-delete-btn')){e.stopPropagation();showDeptDD(th.querySelector('.dept-name-btn'),id);}});
     th.querySelector('.dept-delete-btn').addEventListener('click',e=>{e.stopPropagation();closeAll();deleteColumn(id);});
-    // drag
     th.addEventListener('dragstart',e=>{dragColId=id;e.dataTransfer.effectAllowed='move';th.style.opacity='.5';});
     th.addEventListener('dragend',()=>{th.style.opacity='';document.querySelectorAll('.dept-col').forEach(t=>t.classList.remove('drag-over'));});
     th.addEventListener('dragover',e=>{if(dragColId&&dragColId!==id){e.preventDefault();th.classList.add('drag-over');}});
@@ -950,18 +982,21 @@ function downloadCalc(type){
     const fi=state.cols.findIndex(c=>c.id===fromId);
     const ti=state.cols.findIndex(c=>c.id===toId);
     [state.cols[fi],state.cols[ti]]=[state.cols[ti],state.cols[fi]];
-    const hr=document.getElementById('etblHeaderRow');
-    const fTh=hr.querySelector('th[data-col-id="'+fromId+'"]');
-    const tTh=hr.querySelector('th[data-col-id="'+toId+'"]');
-    const fNext=fTh.nextSibling;
-    if(tTh.nextSibling===fTh){hr.insertBefore(fTh,tTh);}
-    else{hr.insertBefore(tTh,fTh);if(fNext)hr.insertBefore(fTh,fNext);else hr.appendChild(fTh);}
-    document.querySelectorAll('#etblBody tr').forEach(tr=>{
-      const fTd=tr.querySelector('td[data-col-id="'+fromId+'"]');
-      const tTd=tr.querySelector('td[data-col-id="'+toId+'"]');
-      const fNextTd=fTd.nextSibling;
-      if(tTd.nextSibling===fTd){tr.insertBefore(fTd,tTd);}
-      else{tr.insertBefore(tTd,fTd);if(fNextTd)tr.insertBefore(fTd,fNextTd);else tr.appendChild(fTd);}
+    getInstances().forEach(inst=>{
+      const fTh=inst.hdr.querySelector('th[data-col-id="'+fromId+'"]');
+      const tTh=inst.hdr.querySelector('th[data-col-id="'+toId+'"]');
+      if(!fTh||!tTh)return;
+      const fNext=fTh.nextSibling;
+      if(tTh.nextSibling===fTh){inst.hdr.insertBefore(fTh,tTh);}
+      else{inst.hdr.insertBefore(tTh,fTh);if(fNext)inst.hdr.insertBefore(fTh,fNext);else inst.hdr.appendChild(fTh);}
+      inst.body.querySelectorAll('tr').forEach(tr=>{
+        const fTd=tr.querySelector('td[data-col-id="'+fromId+'"]');
+        const tTd=tr.querySelector('td[data-col-id="'+toId+'"]');
+        if(!fTd||!tTd)return;
+        const fNextTd=fTd.nextSibling;
+        if(tTd.nextSibling===fTd){tr.insertBefore(fTd,tTd);}
+        else{tr.insertBefore(tTd,fTd);if(fNextTd)tr.insertBefore(fTd,fNextTd);else tr.appendChild(fTd);}
+      });
     });
   }
 
@@ -969,7 +1004,6 @@ function downloadCalc(type){
   function recalcAngle(){
     const ths=document.querySelectorAll('th.dept-col');
     if(!ths.length)return;
-    // measure text widths using a hidden probe span
     const probe=document.createElement('span');
     probe.style.cssText='position:fixed;visibility:hidden;pointer-events:none;white-space:nowrap;font-family:var(--fb);font-size:var(--fs-base-md);font-weight:600;padding:2px 6px';
     document.body.appendChild(probe);
@@ -996,13 +1030,9 @@ function downloadCalc(type){
     ths.forEach(th=>{
       th.style.height=finalH+'px';
       const btn=th.querySelector('.dept-name-btn');
-      if(btn){
-        btn.style.transform='translateX(-50%) rotate(-'+angle.toFixed(1)+'deg)';
-        btn.style.bottom=bottomPx+'px';
-      }
+      if(btn){btn.style.transform='translateX(-50%) rotate(-'+angle.toFixed(1)+'deg)';btn.style.bottom=bottomPx+'px';}
     });
-    const emptyColInner=document.querySelector('.empty-col-inner');
-    if(emptyColInner)emptyColInner.style.height=finalH+'px';
+    document.querySelectorAll('.empty-col-inner').forEach(el=>el.style.height=finalH+'px');
   }
 
   // ── dept dropdown ──────────────────────────────────────────────────────────
@@ -1020,7 +1050,6 @@ function downloadCalc(type){
 
   function renderDeptList(list,id){
     const usedNames=getUsedNames(id);
-    // show all standard suggestions plus any custom names in use by other cols
     const customUsed=[...usedNames].filter(n=>!DEPT_SUGGESTIONS.includes(n));
     const allOpts=[...DEPT_SUGGESTIONS,...customUsed];
     list.innerHTML='';
@@ -1073,67 +1102,67 @@ function downloadCalc(type){
       div.addEventListener('mousedown',e=>{e.preventDefault();setCell(ri,id,s.value);closeAll();});
       list.appendChild(div);
     });
-    // snap to cell — no gap, min width 140px, right-align if wider than cell
     const r=trigger.getBoundingClientRect();
     const ddW=Math.max(r.width,140);
-    dd.style.top=(r.bottom+window.scrollY)+'px';
-    dd.style.left=Math.max(8,(r.right+window.scrollX)-ddW)+'px';
+    dd.style.top=r.bottom+'px';
+    dd.style.left=Math.max(8,r.right-ddW)+'px';
     dd.style.width=ddW+'px';
     dd.classList.add('open');
   }
 
   function positionDD(dd,trigger){
     const r=trigger.getBoundingClientRect();
-    dd.style.top=(r.bottom+window.scrollY+6)+'px';
-    dd.style.left=Math.max(8,Math.min(r.left+window.scrollX,window.innerWidth-220))+'px';
+    dd.style.top=(r.bottom+6)+'px';
+    dd.style.left=Math.max(8,Math.min(r.left,window.innerWidth-220))+'px';
     dd.style.width='';
   }
   function closeAll(){document.querySelectorAll('.etbl-dropdown.open').forEach(d=>d.classList.remove('open'));}
   document.addEventListener('click',e=>{if(!e.target.closest('.etbl-dropdown')&&!e.target.closest('[data-col-id]')&&!e.target.closest('.dept-delete-btn'))closeAll();});
 
   // ── UI state ───────────────────────────────────────────────────────────────
-  function addEmptyCol(){
-    if(document.getElementById('etblEmptyColTh'))return;
-    const hr=document.getElementById('etblHeaderRow');
+  function addEmptyCol(inst){
+    if(document.getElementById(inst.emptyThId))return;
     const th=document.createElement('th');
-    th.className='empty-col'; th.id='etblEmptyColTh';
+    th.className='empty-col'; th.id=inst.emptyThId;
     th.innerHTML='<div class="empty-col-inner"></div>';
     th.addEventListener('click',()=>addColumn(''));
-    hr.appendChild(th);
-    const rows=document.querySelectorAll('#etblBody tr');
+    inst.hdr.appendChild(th);
+    const rows=inst.body.querySelectorAll('tr');
     if(rows.length){
       const td=document.createElement('td');
-      td.className='empty-col'; td.id='etblEmptyColTd';
+      td.className='empty-col'; td.id=inst.emptyTdId;
       td.rowSpan=rows.length;
       td.innerHTML='<div class="empty-col-body"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span>Add department</span></div>';
       td.addEventListener('click',()=>addColumn(''));
-      rows[0].appendChild(td);
       function setHover(on){th.classList.toggle('empty-col-hover',on);td.classList.toggle('empty-col-hover',on);}
       th.addEventListener('mouseenter',()=>setHover(true));
       th.addEventListener('mouseleave',()=>setHover(false));
       td.addEventListener('mouseenter',()=>setHover(true));
       td.addEventListener('mouseleave',()=>setHover(false));
+      rows[0].appendChild(td);
     }
   }
-  function removeEmptyCol(){
-    document.getElementById('etblEmptyColTh')?.remove();
-    document.querySelectorAll('#etblBody td.empty-col').forEach(el=>el.remove());
+  function removeEmptyCol(inst){
+    document.getElementById(inst.emptyThId)?.remove();
+    inst.body.querySelectorAll('td.empty-col').forEach(el=>el.remove());
   }
   function updateUI(){
     const empty=state.cols.length===0;
-    if(empty)addEmptyCol(); else removeEmptyCol();
-    document.getElementById('etblAddColRight').style.display=empty?'none':'';
+    getInstances().forEach(inst=>{
+      if(empty)addEmptyCol(inst);else removeEmptyCol(inst);
+      if(inst.addRight)inst.addRight.style.display=empty?'none':'';
+    });
     updateDL();
   }
   function updateDL(){
     const hasName=state.cols.some(c=>c.name.trim());
-    document.getElementById('dlBtn').disabled=!hasName;
-    if(hasName) hideNameTooltip();
+    document.querySelectorAll('.dl-btn').forEach(btn=>btn.disabled=!hasName);
+    if(hasName)hideNameTooltip();
   }
 
   function showNameTooltip(){
     const unnamedBtn=document.querySelector('th.dept-col .dept-name-btn.empty');
-    if(!unnamedBtn) return;
+    if(!unnamedBtn)return;
     let tip=document.getElementById('etblNameTooltip');
     if(!tip){
       tip=document.createElement('div');
@@ -1152,27 +1181,29 @@ function downloadCalc(type){
 
   function hideNameTooltip(){
     const tip=document.getElementById('etblNameTooltip');
-    if(tip) tip.classList.remove('visible');
+    if(tip)tip.classList.remove('visible');
   }
 
+  function doDownload(){alert('Feature not implemented yet.');}
 
-  function doDownload(){ alert('Feature not implemented yet.'); }
-
-  // ── download button ────────────────────────────────────────────────────────
-  const dlBtn=document.getElementById('dlBtn');
-  const dlDD=document.getElementById('dlDropdown');
-  dlBtn.addEventListener('click',e=>{e.stopPropagation();if(!dlBtn.disabled)dlDD.classList.toggle('open');});
-  dlBtn.closest('.dl-wrap').addEventListener('click',()=>{if(dlBtn.disabled)showNameTooltip();});
-  document.addEventListener('click',e=>{if(!e.target.closest('.dl-wrap'))dlDD.classList.remove('open');});
-  dlDD.querySelectorAll('.dl-opt').forEach(opt=>{
-    opt.addEventListener('click',e=>{
-      e.stopPropagation(); dlDD.classList.remove('open');
-      doDownload(opt.dataset.fmt);
+  // ── download buttons ───────────────────────────────────────────────────────
+  [['dlBtn','dlDropdown'],['dlBtn2','dlDropdown2']].forEach(([btnId,ddId])=>{
+    const dlBtn=document.getElementById(btnId);
+    const dlDD=document.getElementById(ddId);
+    if(!dlBtn||!dlDD)return;
+    dlBtn.addEventListener('click',e=>{e.stopPropagation();if(!dlBtn.disabled)dlDD.classList.toggle('open');});
+    dlBtn.closest('.dl-wrap')?.addEventListener('click',()=>{if(dlBtn.disabled)showNameTooltip();});
+    dlDD.querySelectorAll('.dl-opt').forEach(opt=>{
+      opt.addEventListener('click',e=>{e.stopPropagation();dlDD.classList.remove('open');doDownload(opt.dataset.fmt);});
     });
   });
+  document.addEventListener('click',e=>{if(!e.target.closest('.dl-wrap'))document.querySelectorAll('.dl-dropdown').forEach(d=>d.classList.remove('open'));});
 
-  // ── add col trigger ────────────────────────────────────────────────────────
-  document.getElementById('etblAddCol').addEventListener('click',e=>{e.stopPropagation();addColumn('');});
+  // ── add col triggers ───────────────────────────────────────────────────────
+  ['etblAddCol','etblAddCol2'].forEach(id=>{
+    const btn=document.getElementById(id);
+    if(btn)btn.addEventListener('click',e=>{e.stopPropagation();addColumn('');});
+  });
 
   // ── init ───────────────────────────────────────────────────────────────────
   updateUI();

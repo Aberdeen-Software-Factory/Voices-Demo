@@ -1040,11 +1040,10 @@
             developing, or not in place? It’s okay if you don’t know – now is a great time to look into it and find
             out. Opportunity to discuss with other specialities. </p>
           <div class="etbl-section">
+            
             <div class="etbl-toolbar">
               <span class="etbl-section-title"></span>
-              <!-- <span class="etbl-section-desc">Consider your own service. Which of the key components are established,
-              developing, or not in place? It’s okay if you don’t know – now is a great time to look into it and find
-              out. Opportunity to discuss with other specialities. </span> -->
+              Edit this table:
             </div>
             <div class="etbl-table-row">
               <div class="etbl-scroll">
@@ -1154,12 +1153,6 @@
                     </svg>TXT (.txt)</div> -->
                 </div>
               </div>
-            </div>
-            <div class="etbl-dropdown" id="etblDeptDropdown">
-              <div class="etbl-dd-list"></div>
-            </div>
-            <div class="etbl-dropdown" id="etblStatusDropdown">
-              <div class="etbl-dd-list"></div>
             </div>
           </div>
         </div>
@@ -1276,40 +1269,6 @@
                 <div class="legend-item"><div class="comp-dot unknown"><svg viewBox="0 0 24 24"><line x1="5" y1="19" x2="19" y2="5"/></svg></div> Unknown</div>
               </div>
             </div>
-            <div class="etbl-section">
-              <div class="etbl-toolbar">
-                <span class="etbl-section-title"></span>
-                <span class="etbl-section-desc">Consider your own service. Which of the key components are established, developing, or not in place? It’s okay if you don’t know – now is a great time to look into it and find out. Opportunity to discuss with other specialities. </span>
-              </div>
-              <div class="etbl-table-row">
-                <div class="etbl-scroll">
-                  <table class="etbl-table" id="etblTable">
-                    <thead>
-                      <tr id="etblHeaderRow">
-                        <th class="kc-col"><span style="font-size:var(--fs-xs);text-transform:uppercase;letter-spacing:1.5px;font-weight:700">Key Component</span></th>
-                      </tr>
-                    </thead>
-                    <tbody id="etblBody">
-                      <tr><td>Wait times new &lt;7 days</td></tr>
-                      <tr><td>Access IV therapy &lt;7 days</td></tr>
-                      <tr><td>Care via cohorted clinics</td></tr>
-                      <tr><td>Nurse-led components of care</td></tr>
-                      <tr><td>Access to MDT meeting</td></tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="etbl-add-col-right" id="etblAddColRight" style="display:none">
-                  <button title="Add department" id="etblAddCol">+</button>
-                </div>
-              </div>
-              <div class="etbl-dropdown" id="etblDeptDropdown">
-                <input type="text" placeholder="Search or type department…">
-                <div class="etbl-dd-list"></div>
-              </div>
-              <div class="etbl-dropdown" id="etblStatusDropdown">
-                <div class="etbl-dd-list"></div>
-              </div>
-            </div>
           </div></div></div>
         </div>
             <div class="kc-acc-item">
@@ -1408,6 +1367,105 @@
           local discussions, service planning and business cases for change
 
         </p>
+      </div>
+            <!-- Service mapping table (linked with Assess & Prioritise Change) -->
+      <div class="etbl-section" style="margin-top:40px">
+        <div class="etbl-toolbar">
+              <span class="etbl-section-title"></span>
+              Edit this table:
+            </div>
+        <div class="etbl-table-row">
+          <div class="etbl-scroll">
+            <table class="etbl-table" id="etblTable2">
+              <thead>
+                <tr id="etblHeaderRow2">
+                  <th class="kc-col"><span>Key Component</span></th>
+                </tr>
+              </thead>
+              <tbody id="etblBody2">
+                <tr>
+                  <td>
+                    <strong>Wait times new &lt;7 days</strong>
+                    <div>Serious infections ⬇30%</div>
+                    <div>Emergency hospital </div>
+                    <div>admissions ⬇22%</div>
+                    <div>Mortality ⬇41%</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Access IV therapy &lt;7 days</strong></td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Care via cohorted clinics</strong>
+                    <div>Serious infections ⬇25%</div>
+                    <div>Emergency hospital </div>
+                    <div>admissions ⬇19%</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Nurse-led clinics</strong>
+                    <div>Serious infections ⬇35%</div>
+                    <div>Emergency hospital </div>
+                    <div>admissions ⬇25%</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Nurse advice line</strong>
+                    <div>Serious infections ⬇24%</div>
+                    <div>Emergency hospital </div>
+                    <div>admissions ⬇15%</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Access to MDT meeting</strong>
+                    <div>Serious infections ⬇24%</div>
+                    <div>Emergency hospital </div>
+                    <div>admissions ⬇15%</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="etbl-add-col-right" id="etblAddColRight2" style="display:none">
+            <button title="Add department" id="etblAddCol2">+</button>
+          </div>
+        </div>
+        <div style="display:flex;justify-content: space-between;;padding-top:12px;">
+
+          <button class="btn-ghost"  onclick="showPage('p-change')">
+            <svg viewBox="0 0 24 24">
+                    <polyline points="15 18 9 12 15 6" />
+                  </svg>
+            Go to example
+          </button>
+
+          <div class="dl-wrap">
+            <button class="dl-btn" id="dlBtn2" disabled>
+              <svg viewBox="0 0 24 24">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Download <svg viewBox="0 0 24 24">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+            <div class="dl-dropdown" id="dlDropdown2">
+              <div class="dl-opt" data-fmt="csv"><svg viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                </svg>CSV (.csv)</div>
+              <div class="dl-opt" data-fmt="pdf"><svg viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                </svg>PDF (.pdf)</div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="kc-accordion calc-howto">
         <div class="kc-acc-item">
@@ -1533,6 +1591,8 @@
           Download CSV
         </button>
       </div>
+
+
       <div class="next-page-wrap"><button class="next-page-btn" onclick="showPage('p-atys')">Next: Adapt to your
           Service<svg viewBox="0 0 24 24">
             <polyline points="9 18 15 12 9 6" />
@@ -2237,6 +2297,14 @@
 
   <!-- Shared info popup — appended to body so it is never inside a transformed ancestor -->
   <div id="compInfoGlobalPopup" class="comp-info-popup-global"></div>
+
+  <!-- Global etbl dropdowns — shared by both service mapping tables -->
+  <div class="etbl-dropdown" id="etblDeptDropdown">
+    <div class="etbl-dd-list"></div>
+  </div>
+  <div class="etbl-dropdown" id="etblStatusDropdown">
+    <div class="etbl-dd-list"></div>
+  </div>
 
   <script src="javascript/cs-map.js"></script>
   <script src="javascript/app.js"></script>
