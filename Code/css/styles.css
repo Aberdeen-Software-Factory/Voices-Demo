@@ -1995,6 +1995,11 @@ padding: 28px 28px;
   padding-left: 20px
 }
 
+.kc-acc-content ul,
+.kc-acc-content ol {
+  padding-left: 20px
+}
+
 .kc-acc-content li {
   margin-bottom: 6px
 }
@@ -3388,8 +3393,9 @@ padding: 28px 28px;
   min-height: 100svh;
 }
 
-.atys-considerations-header {
-  text-align: center;
+.atys-kc-grid-item h3.considerations-header {
+  text-align: start;
+  color: var(--t2);
 }
 
 .atys-kc-grid {
