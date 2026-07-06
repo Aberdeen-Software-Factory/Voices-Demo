@@ -3,6 +3,8 @@ const TOOLKIT_PAGES = new Set(['p-kc','p-change','p-calc','p-atys','p-res']);
 let lastToolkitHash = '#p-kc';
 let lastResHash = null; // tracks resources state independently
 
+const SURVEY_LINK = "https://forms.microsoft.com/Pages/ResponsePage.aspx?id=rRkrjJxf1EmQdz7Dz8UrPz6elmDLCO9MlKQxuxbQCT5UNDNLWE0wR0dPNENONTBDUzNESFlZUFJTTS4u"
+
 /* ── Survey nudge timer ── */
 let _surveyNudged=false, _surveyTimer=null, _calcAccum=0, _calcEnter=null;
 let _currentPage='p-home';
@@ -1226,6 +1228,10 @@ document.addEventListener('DOMContentLoaded',function(){
   _routeHash(location.hash,false);
   _initModeIndicator();
   _initCompInfoPopups();
+  ['surveyFloatBtn','surveyInlineLink'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.href=SURVEY_LINK;
+  });
 });
 
 function _initCompInfoPopups(){
