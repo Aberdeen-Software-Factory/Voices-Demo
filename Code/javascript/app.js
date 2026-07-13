@@ -9,6 +9,15 @@ const SURVEY_LINK = "https://forms.microsoft.com/Pages/ResponsePage.aspx?id=rRkr
 let _surveyNudged=false, _surveyTimer=null, _calcAccum=0, _calcEnter=null;
 let _currentPage='p-home';
 
+function trackVirtualPageView(){
+  if(typeof window.gtag !== 'function') return;
+  window.gtag('event','page_view',{
+    page_title: document.title,
+    page_location: window.location.href,
+    page_path: window.location.pathname + window.location.hash
+  });
+}
+
 function _calcStart(){
   if(_surveyNudged) return;
   _calcEnter=Date.now();
@@ -32,6 +41,7 @@ function goToToolkit(){
     // DOM state of the resources page is already correct — just re-show it
     showPage('p-res', false);
     history.pushState(null,'',lastToolkitHash);
+    trackVirtualPageView();
   } else {
     _routeHash(lastToolkitHash, true);
   }
@@ -87,7 +97,10 @@ function showPage(id, _push=true){
   if(id==='p-home') setTimeout(animateCards, 100);
   if(id==='p-res' && (!lastResHash || !lastResHash.startsWith('#p-res/'))) showResView('res-home');
   document.getElementById('nav').classList.remove('scrolled');
-  if(_push) history.pushState(null,'','#'+id);
+  if(_push){
+    history.pushState(null,'','#'+id);
+    trackVirtualPageView();
+  }
 }
 
 /* ── RESOURCES VIEW SYSTEM ── */
@@ -275,7 +288,10 @@ function filterResCategory(cat, _push=true){
   if(descEl) descEl.textContent=_RES_CATS.find(c=>c.cat===cat)?.desc||'';
   applyResFilters();
   showResView('res-detail');
-  if(_push) history.pushState(null,'','#p-res/'+cat);
+  if(_push){
+    history.pushState(null,'','#p-res/'+cat);
+    trackVirtualPageView();
+  }
   lastResHash = '#p-res/'+cat;
   lastToolkitHash = lastResHash;
 }
@@ -338,7 +354,10 @@ function openResource(card, _push=true){
     titleSpan.textContent=r.title;
     bc.append(catBtn,sep,titleSpan);
   }
-  if(_push) history.pushState(null,'','#p-res/'+cardCat+'/'+card.dataset.resIdx);
+  if(_push){
+    history.pushState(null,'','#p-res/'+cardCat+'/'+card.dataset.resIdx);
+    trackVirtualPageView();
+  }
   lastResHash = '#p-res/'+cardCat+'/'+card.dataset.resIdx;
   lastToolkitHash = lastResHash;
   showResView('res-resource-detail');
@@ -347,6 +366,7 @@ function openResource(card, _push=true){
 function closeResource(){
   document.querySelectorAll('.res-sidebar-item').forEach(a=>a.classList.remove('active'));
   history.pushState(null,'','#p-res/'+_resCat);
+  trackVirtualPageView();
   lastResHash = '#p-res/'+_resCat;
   lastToolkitHash = lastResHash;
   showResView('res-detail');
@@ -354,6 +374,7 @@ function closeResource(){
 
 function goResHome(){
   history.pushState(null,'','#p-res');
+  trackVirtualPageView();
   lastResHash = '#p-res';
   lastToolkitHash = '#p-res';
   showResView('res-home');
@@ -371,12 +392,21 @@ function _routeHash(hash, _push){
       if(resIdx>=0){
         const card=document.querySelector(`#res-grid .res-card[data-res-idx="${resIdx}"]`);
         if(card) openResource(card, _push);
-        else if(_push) history.pushState(null,'','#p-res/'+parts[1]);
+        else if(_push){
+          history.pushState(null,'','#p-res/'+parts[1]);
+          trackVirtualPageView();
+        }
       } else {
-        if(_push) history.pushState(null,'','#p-res/'+parts[1]);
+        if(_push){
+          history.pushState(null,'','#p-res/'+parts[1]);
+          trackVirtualPageView();
+        }
       }
     } else {
-      if(_push) history.pushState(null,'','#p-res');
+      if(_push){
+        history.pushState(null,'','#p-res');
+        trackVirtualPageView();
+      }
     }
   } else {
     const valid=['p-home','p-kc','p-change','p-calc','p-atys','p-abt','p-res'];
@@ -657,33 +687,49 @@ const CALC_UNI_COEFS={
   }
 };
 
-// Placeholder unit costs per nation — replace with real cost-book figures when available.
-const CALC_REGIONS_COSTS={
-  'England':  1000,
-  'Scotland': 1100,
-  'Wales':    1200,
-  'Northern Ireland': 1300
-};
+// Scottish average gross cost of a non-elective inpatient hospital admission.
+const CALC_EVENT_COST=4851;
 
 let calcMode='single'; // 'combined' | 'single'
 let calcSnapshot=null;   // latest computed result, for PDF/CSV export
+
+// Every slider below (inputs + the three output cards) is a fixed single/combined
+// panel pair inside a 200%-wide flex track; switching mode just slides the track,
+// it never rewrites panel content. updateCalc() keeps BOTH panels' numbers current
+// on every call, so whichever panel slides into view is already up to date.
+const CALC_SLIDER_TRACKS=['calcInputsTrack','calcEventsTrack','calcCostTrack','calcModelTrack'];
+const CALC_SLIDER_PANEL_PAIRS=[
+  ['calc-single-inputs','calc-combined-inputs'],
+  ['calc-events-single','calc-events-combined'],
+  ['calc-cost-single','calc-cost-combined'],
+  ['calc-model-single','calc-model-combined']
+];
 
 function setCalcMode(mode){
   if(mode===calcMode) return;
   calcMode=mode;
   const combined=mode==='combined';
 
-  // slide the inputs track
-  const track=document.getElementById('calcInputsTrack');
-  if(track) track.style.transform=combined?'translateX(-50%)':'translateX(0)';
-
-  // update impact bar visibility
-  const ibw=document.getElementById('impact-bar-wrap');
-  if(ibw) ibw.style.display=combined?'':'none';
+  // slide every track (inputs + the three output cards) in lockstep
+  CALC_SLIDER_TRACKS.forEach(id=>{
+    const track=document.getElementById(id);
+    if(track) track.style.transform=combined?'translateX(-50%)':'translateX(0)';
+  });
+  CALC_SLIDER_PANEL_PAIRS.forEach(([singleId,combinedId])=>{
+    const singlePanel=document.getElementById(singleId);
+    const combinedPanel=document.getElementById(combinedId);
+    if(!singlePanel||!combinedPanel) return;
+    singlePanel.setAttribute('aria-hidden',String(combined));
+    combinedPanel.setAttribute('aria-hidden',String(!combined));
+    singlePanel.inert=combined;
+    combinedPanel.inert=!combined;
+  });
 
   // toggle active class on buttons
   document.getElementById('calc-mode-single').classList.toggle('active',!combined);
   document.getElementById('calc-mode-combined').classList.toggle('active',combined);
+  document.getElementById('calc-mode-single').setAttribute('aria-pressed',String(!combined));
+  document.getElementById('calc-mode-combined').setAttribute('aria-pressed',String(combined));
 
   // slide the indicator to the active button
   _slideModeIndicator(mode);
@@ -704,9 +750,11 @@ function _initModeIndicator(){
   const ind=document.getElementById('calcModeIndicator');
   if(!ind) return;
   ind.style.transition='none';
-  _slideModeIndicator('single');
+  _slideModeIndicator(calcMode);
   requestAnimationFrame(()=>{ ind.style.transition=''; });
 }
+
+window.addEventListener('resize',()=>_slideModeIndicator(calcMode));
 
 // Colour a signed value: negative (saving / fewer events) = green, positive = red.
 function applySignColor(el,value){
@@ -722,65 +770,17 @@ function _inputLabel(el){
   return sp?sp.textContent.trim().replace(/\s+/g,' '):'';
 }
 
-function updateCalc(){
-  const vol=parseInt(document.getElementById('calc-patients').value)||0;
-  const cost=CALC_REGIONS_COSTS[(document.querySelector('#calc-cost input:checked')||{}).value||'']||0;
-
-  const nation=(document.querySelector('#calc-cost input:checked')||{}).value||'';
-  const valEl=id=>document.getElementById(id);
-  if(!vol){
-    calcSnapshot=null;
-    ['out-infect','out-avoided','out-hosp','out-saving','out-total','out-impl'].forEach(id=>{
-      valEl(id).textContent='—';
-      valEl(id).classList.remove('val-good','val-bad');
-    });
-    return;
-  }
-
-  // baseEvents/compEvents are the raw expected events per year.
-  // Rounding deliberately differs by model to match the VOICES reference:
-  //  - combined (multivariate): round events to whole numbers, then × unit cost
-  //  - single (univariate):     keep fractional events, round only the final cost to 2dp
-  let baseEvents, compEvents, baseCost, compCost, money, outcomeLabel, componentsLabel;
-  if(calcMode==='combined'){
-    const outcomeEl=document.querySelector('input[name="calc-outcome"]:checked');
-    const outcome=outcomeEl.value;
-    outcomeLabel=_inputLabel(outcomeEl);
-    const checks=CALC_COMP_IDS.map(id=>document.getElementById(id).checked);
-    componentsLabel=CALC_COMP_IDS.filter((_,i)=>checks[i])
-      .map(id=>_inputLabel(document.getElementById(id)))
-      .join(', ') || 'None selected';
-    const count=checks.filter(Boolean).length;
-    const total=CALC_COMP_IDS.length;
-    document.getElementById('impact-count').textContent=`${count} / ${total}`;
-    document.getElementById('impact-bar').style.width=`${(count/total)*100}%`;
-
-    const co=CALC_COEFS[outcome];
-    const sumWith=co.Intercept + co.c.reduce((a,b,i)=>a+(checks[i]?b:0),0);
-    baseEvents=Math.round(Math.exp(co.Intercept)*vol);
-    compEvents=Math.round(Math.exp(sumWith)*vol);
-    baseCost=baseEvents*cost;
-    compCost=compEvents*cost;
-    money=v=>`£${Math.round(v).toLocaleString()}`;
-  }else{
-    const outcomeEl=document.querySelector('input[name="calc-outcome-single"]:checked');
-    const outcome=outcomeEl.value;
-    outcomeLabel=_inputLabel(outcomeEl);
-    const compEl=document.querySelector('input[name="calc-component-single"]:checked');
-    const comp=compEl.value;
-    componentsLabel=_inputLabel(compEl);
-    const co=CALC_UNI_COEFS[outcome][comp];
-    baseEvents=Math.exp(co.A)*vol;
-    compEvents=Math.exp(co.A+co.P)*vol;
-    baseCost=Math.round(baseEvents*cost*100)/100;
-    compCost=Math.round(compEvents*cost*100)/100;
-    money=v=>`£${v.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}`;
-  }
-
+// Computes one model's results and writes them into the `${idSuffix}`-tagged
+// output-card panel (e.g. out-infect-single / out-infect-combined). Both models
+// are always computed and written together (see updateCalc below) so whichever
+// panel the slider reveals next is already showing current numbers, not stale
+// ones from the last time that panel was on screen.
+function _writeCalcResults(idSuffix,baseEvents,compEvents,baseCost,compCost,money,mode){
+  const valEl=id=>document.getElementById(`${id}-${idSuffix}`);
   const diff=compCost-baseCost;
   const pct=baseEvents?((compEvents-baseEvents)/baseEvents)*100:0;
   const evtDiff=compEvents-baseEvents;
-  const evtFmt=v=>calcMode==='combined'
+  const evtFmt=v=>mode==='combined'
     ? `${v.toLocaleString()} events`
     : `${v.toLocaleString(undefined,{minimumFractionDigits:1,maximumFractionDigits:1})} events`;
 
@@ -795,18 +795,80 @@ function updateCalc(){
   applySignColor(valEl('out-hosp'), evtDiff);
   applySignColor(valEl('out-impl'), diff);
 
-  calcSnapshot={
-    mode: calcMode==='combined' ? 'Combined components (multivariate)' : 'Single component (univariate)',
-    patients: vol,
-    nation,
-    outcome: outcomeLabel,
-    components: componentsLabel,
-    baselineEvents: evtFmt(baseEvents),
-    withEvents: evtFmt(compEvents),
+  return {
+    baselineEvents: valEl('out-infect').textContent,
+    withEvents: valEl('out-avoided').textContent,
     changeRate: valEl('out-hosp').textContent,
-    baselineCost: money(baseCost),
-    withCost: money(compCost),
+    baselineCost: valEl('out-saving').textContent,
+    withCost: valEl('out-total').textContent,
     difference: valEl('out-impl').textContent
+  };
+}
+
+function updateCalc(){
+  const vol=parseInt(document.getElementById('calc-patients').value)||0;
+  const cost=CALC_EVENT_COST;
+  if(!vol){
+    calcSnapshot=null;
+    ['single','combined'].forEach(suffix=>{
+      ['out-infect','out-avoided','out-hosp','out-saving','out-total','out-impl'].forEach(id=>{
+        const el=document.getElementById(`${id}-${suffix}`);
+        el.textContent='—';
+        el.classList.remove('val-good','val-bad');
+      });
+    });
+    return;
+  }
+
+  // baseEvents/compEvents are the raw expected events per year.
+  // Rounding deliberately differs by model to match the VOICES reference:
+  //  - combined (multivariate): round events to whole numbers, then × unit cost
+  //  - single (univariate):     keep fractional events, round only the final cost to 2dp
+
+  // ---- combined (multivariable) ----
+  const outcomeElC=document.querySelector('input[name="calc-outcome"]:checked');
+  const outcomeC=outcomeElC.value;
+  const outcomeLabelC=_inputLabel(outcomeElC);
+  const checks=CALC_COMP_IDS.map(id=>document.getElementById(id).checked);
+  const componentsLabelC=CALC_COMP_IDS.filter((_,i)=>checks[i])
+    .map(id=>_inputLabel(document.getElementById(id)))
+    .join(', ') || 'None selected';
+  const count=checks.filter(Boolean).length;
+  const total=CALC_COMP_IDS.length;
+  document.getElementById('impact-count').textContent=`${count} / ${total}`;
+  document.getElementById('impact-bar').style.width=`${(count/total)*100}%`;
+
+  const coC=CALC_COEFS[outcomeC];
+  const sumWithC=coC.Intercept + coC.c.reduce((a,b,i)=>a+(checks[i]?b:0),0);
+  const baseEventsC=Math.round(Math.exp(coC.Intercept)*vol);
+  const compEventsC=Math.round(Math.exp(sumWithC)*vol);
+  const moneyC=v=>`£${Math.round(v).toLocaleString()}`;
+  const resultsC=_writeCalcResults('combined',baseEventsC,compEventsC,baseEventsC*cost,compEventsC*cost,moneyC,'combined');
+
+  // ---- single (univariable) ----
+  const outcomeElS=document.querySelector('input[name="calc-outcome-single"]:checked');
+  const outcomeS=outcomeElS.value;
+  const outcomeLabelS=_inputLabel(outcomeElS);
+  const compElS=document.querySelector('input[name="calc-component-single"]:checked');
+  const compS=compElS.value;
+  const componentsLabelS=_inputLabel(compElS);
+  const coS=CALC_UNI_COEFS[outcomeS][compS];
+  const baseEventsS=Math.exp(coS.A)*vol;
+  const compEventsS=Math.exp(coS.A+coS.P)*vol;
+  const baseCostS=Math.round(baseEventsS*cost*100)/100;
+  const compCostS=Math.round(compEventsS*cost*100)/100;
+  const moneyS=v=>`£${v.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}`;
+  const resultsS=_writeCalcResults('single',baseEventsS,compEventsS,baseCostS,compCostS,moneyS,'single');
+
+  // Snapshot (for PDF/CSV export) reflects whichever mode is currently on screen.
+  const combined=calcMode==='combined';
+  calcSnapshot={
+    mode: combined ? 'Multivariable' : 'Univariable',
+    patients: vol,
+    unitCost: `£${CALC_EVENT_COST.toLocaleString()} (gross)`,
+    outcome: combined ? outcomeLabelC : outcomeLabelS,
+    components: combined ? componentsLabelC : componentsLabelS,
+    ...(combined ? resultsC : resultsS)
   };
 }
 updateCalc();
@@ -821,9 +883,9 @@ function downloadCalc(type){
   const stamp=new Date().toISOString().slice(0,10);
   const rows=[
     ['Model', s.mode],
-    ['Number of patients', s.patients.toLocaleString()],
-    ['Nation (unit cost basis)', s.nation],
-    ['Outcome', s.outcome],
+    ['Total vasculitis patients seen per year', s.patients.toLocaleString()],
+    ['Cost per event', s.unitCost],
+    ['Event of interest', s.outcome],
     [calcMode==='combined'?'Components in place':'Component', s.components],
     ['Baseline events / year', s.baselineEvents],
     ['Events with component(s) / year', s.withEvents],
@@ -848,6 +910,9 @@ function downloadCalc(type){
   // PDF via jsPDF (UMD build exposes window.jspdf.jsPDF)
   const jsPDF=(window.jspdf||{}).jsPDF;
   if(!jsPDF){ alert('PDF library failed to load. Please try again.'); return; }
+  // jsPDF's built-in Helvetica font does not reliably encode the Unicode
+  // minus sign or pound sign. Use explicit ASCII equivalents in PDF output.
+  const pdfText=value=>String(value).replace(/\u2212/g,'-').replace(/\u00a3/g,'GBP ');
   const doc=new jsPDF({unit:'pt',format:'a4'});
   const M=48; let y=64;
   doc.setFont('helvetica','bold'); doc.setFontSize(18);
@@ -858,16 +923,16 @@ function downloadCalc(type){
   doc.setTextColor(34);
   rows.forEach(([label,val])=>{
     doc.setFont('helvetica','bold'); doc.setFontSize(10.5);
-    doc.text(String(label), M, y);
+    doc.text(pdfText(label), M, y);
     doc.setFont('helvetica','normal');
-    const lines=doc.splitTextToSize(String(val), 250);
+    const lines=doc.splitTextToSize(pdfText(val), 250);
     doc.text(lines, 547, y, {align:'right'});
     y+=Math.max(20, lines.length*14);
     doc.setDrawColor(225); doc.setLineWidth(0.5); doc.line(M, y-12, 547, y-12);
   });
   y+=14;
   doc.setFont('helvetica','italic'); doc.setFontSize(8); doc.setTextColor(120);
-  const note='Estimates use coefficients from the VOICES modelling work. Unit costs are placeholder values pending national cost-book figures. Single-component (univariate) estimates are produced in isolation and should not be combined.';
+  const note='Estimates use coefficients from the VOICES modelling work and a gross cost of GBP 4,851 per event. Univariable estimates are produced in isolation and should not be combined.';
   doc.text(doc.splitTextToSize(note, 499), M, y);
   doc.save(`voices-cost-estimate-${stamp}.pdf`);
 }
@@ -1186,7 +1251,132 @@ function downloadCalc(type){
     if(tip)tip.classList.remove('visible');
   }
 
-  function doDownload(){alert('Feature not implemented yet.');}
+  function exportData(){
+    const cols=state.cols.filter(c=>c.name.trim());
+    const sourceRows=(getInstances()[0]?.body.querySelectorAll('tr'))||[];
+    return Array.from(sourceRows).map((tr,i)=>{
+      const labelCell=tr.querySelector('td:first-child');
+      const kc=labelCell?.querySelector('strong')?.textContent.trim()||labelCell?.textContent.trim()||'';
+      const row={'Key Component':kc};
+      cols.forEach(col=>{
+        const status=state.cells[ck(i,col.id)]||'unknown';
+        row[col.name]=(STATUSES.find(s=>s.value===status)||STATUSES[3]).label;
+      });
+      return row;
+    });
+  }
+
+  function triggerBlob(content,type,name){
+    const url=URL.createObjectURL(new Blob([content],{type}));
+    const a=document.createElement('a');
+    a.href=url; a.download=name;
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function downloadPdf(data,departmentNames){
+    const jsPDF=(window.jspdf||{}).jsPDF;
+    if(!jsPDF){alert('PDF library failed to load. Please try again.');return;}
+
+    // Portrait remains more readable for a small heatmap. Wider heatmaps use
+    // landscape, with two six-department sections stacked on each page.
+    const landscape=departmentNames.length>3;
+    const departmentsPerSection=landscape?6:3;
+    const sectionsPerPage=landscape?2:1;
+    const orientation=landscape?'landscape':'portrait';
+    const doc=new jsPDF({orientation,unit:'mm',format:'a4'});
+    const pageW=doc.internal.pageSize.getWidth();
+    const margin=12;
+    const firstColW=landscape?82:72;
+    const statusColours={
+      Established:[55,126,82], Developing:[205,139,42],
+      'Not in Place':[180,65,65], Unknown:[120,120,128]
+    };
+    const groups=[];
+    for(let i=0;i<departmentNames.length;i+=departmentsPerSection){
+      groups.push(departmentNames.slice(i,i+departmentsPerSection));
+    }
+
+    let y=20;
+    groups.forEach((departments,groupIndex)=>{
+      const sectionOnPage=groupIndex%sectionsPerPage;
+      if(groupIndex&&sectionOnPage===0){
+        doc.addPage('a4',orientation);
+        y=20;
+      }
+      if(sectionOnPage===0){
+        doc.setTextColor(34); doc.setFont('helvetica','bold'); doc.setFontSize(14);
+        doc.text('Vasculitis Service Mapping',margin,y);
+        y+=7;
+      }else{
+        y+=8;
+      }
+      const tableW=pageW-margin*2;
+      const deptW=(tableW-firstColW)/departments.length;
+      const headerH=15;
+      if(groups.length>1){
+        doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(100);
+        const firstDepartment=groupIndex*departmentsPerSection+1;
+        doc.text(`Departments ${firstDepartment}-${firstDepartment+departments.length-1} of ${departmentNames.length}`,pageW-margin,y,{align:'right'});
+        y+=3;
+      }
+      doc.setFillColor(139,107,154); doc.rect(margin,y,tableW,headerH,'F');
+      doc.setTextColor(255); doc.setFont('helvetica','bold'); doc.setFontSize(7.5);
+      doc.text('Key Component',margin+2,y+9);
+      departments.forEach((name,i)=>{
+        const lines=doc.splitTextToSize(name,deptW-3).slice(0,2);
+        doc.text(lines,margin+firstColW+i*deptW+deptW/2,y+6,{align:'center'});
+      });
+      y+=headerH;
+
+      data.forEach((row,rowIndex)=>{
+        const componentLines=doc.splitTextToSize(row['Key Component'],firstColW-4);
+        const rowH=Math.max(9,componentLines.length*3.5+3);
+        doc.setFillColor(rowIndex%2===0?245:255,rowIndex%2===0?243:255,rowIndex%2===0?248:255);
+        doc.rect(margin,y,firstColW,rowH,'F');
+        doc.setTextColor(34); doc.setFont('helvetica','normal'); doc.setFontSize(7);
+        doc.text(componentLines,margin+2,y+4);
+        departments.forEach((name,i)=>{
+          const status=row[name]||'Unknown';
+          const colour=statusColours[status]||statusColours.Unknown;
+          const x=margin+firstColW+i*deptW;
+          doc.setFillColor(...colour); doc.rect(x,y,deptW,rowH,'F');
+          doc.setTextColor(255); doc.setFontSize(6.5);
+          doc.text(doc.splitTextToSize(status,deptW-2).slice(0,2),x+deptW/2,y+rowH/2,{align:'center',baseline:'middle'});
+        });
+        doc.setDrawColor(225); doc.rect(margin,y,tableW,rowH,'S');
+        y+=rowH;
+      });
+    });
+    doc.save('vasculitis-mapping.pdf');
+  }
+
+  function doDownload(fmt){
+    const data=exportData();
+    const cols=['Key Component',...state.cols.filter(c=>c.name.trim()).map(c=>c.name)];
+    if(fmt==='csv'){
+      const esc=value=>'"'+String(value??'').replace(/"/g,'""')+'"';
+      triggerBlob('\ufeff'+[cols.map(esc).join(','),...data.map(row=>cols.map(c=>esc(row[c])).join(','))].join('\r\n'),'text/csv;charset=utf-8','vasculitis-mapping.csv');
+    }else if(fmt==='txt'){
+      triggerBlob([cols.join('\t'),...data.map(row=>cols.map(c=>row[c]||'').join('\t'))].join('\r\n'),'text/plain;charset=utf-8','vasculitis-mapping.txt');
+    }else if(fmt==='json'){
+      triggerBlob(JSON.stringify(data,null,2),'application/json','vasculitis-mapping.json');
+    }else if(fmt==='xlsx'){
+      if(!window.XLSX){alert('Excel library failed to load. Please try again.');return;}
+      const ws=XLSX.utils.json_to_sheet(data,{header:cols});
+      const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,'Mapping');
+      XLSX.writeFile(wb,'vasculitis-mapping.xlsx');
+    }else if(fmt==='pdf'){
+      downloadPdf(data,cols.slice(1));
+    }else if(fmt==='png'||fmt==='jpeg'){
+      if(!window.html2canvas){alert('Image library failed to load. Please try again.');return;}
+      const table=document.getElementById('etblTable2')||document.getElementById('etblTable');
+      html2canvas(table,{backgroundColor:'#fff',scale:2}).then(canvas=>{
+        const a=document.createElement('a'); a.download=`vasculitis-mapping.${fmt==='jpeg'?'jpg':'png'}`;
+        a.href=canvas.toDataURL(`image/${fmt}`,0.92); a.click();
+      });
+    }
+  }
 
   // ── download buttons ───────────────────────────────────────────────────────
   [['dlBtn','dlDropdown'],['dlBtn2','dlDropdown2']].forEach(([btnId,ddId])=>{
