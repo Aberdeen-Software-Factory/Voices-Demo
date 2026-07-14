@@ -3259,11 +3259,13 @@ padding: 28px 28px;
 }
 
 .calc-model-intro {
-  max-width: 1000px;
-  margin: 28px auto 0;
+  max-width: none;
+  margin: 28px 0 0;
   color: var(--t2);
   font-size: var(--fs-base-lg);
+  font-weight: 700;
   line-height: 1.7;
+  text-align: left;
 }
 
 .calc-mode-label {
@@ -5561,11 +5563,14 @@ footer a:hover {
 
 .next-page-wrap {
   display: flex;
+  align-items: center;
+  gap: 16px;
   justify-content: flex-end;
   padding: 48px 0 24px
 }
 
-.next-page-btn {
+.next-page-btn,
+.back-page-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -5588,15 +5593,50 @@ footer a:hover {
   box-shadow: 0 6px 22px rgba(139, 107, 154, .4)
 }
 
-.next-page-btn svg {
+.back-page-btn {
+  margin-right: auto;
+  background: var(--surface);
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  box-shadow: none
+}
+
+.back-page-btn:hover {
+  background: var(--al);
+  transform: translateX(-3px)
+}
+
+.next-page-btn svg,
+.back-page-btn svg {
   width: 18px;
   height: 18px;
-  stroke: #fff;
   fill: none;
   stroke-width: 2.5;
   stroke-linecap: round;
   stroke-linejoin: round;
   transition: transform .2s
+}
+
+.next-page-btn svg {
+  stroke: #fff
+}
+
+.back-page-btn svg {
+  stroke: currentColor
+}
+
+@media (max-width: 640px) {
+  .next-page-wrap {
+    align-items: stretch;
+    flex-direction: column-reverse
+  }
+
+  .next-page-btn,
+  .back-page-btn {
+    justify-content: center;
+    margin: 0;
+    width: 100%
+  }
 }
 
 /* .next-page-btn:hover svg {

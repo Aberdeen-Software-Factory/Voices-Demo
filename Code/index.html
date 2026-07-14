@@ -33,7 +33,7 @@
       send_page_view: true
     });
   </script>
-  <link rel="stylesheet" href="css/styles.css?v=20260710-cost-calculator" />
+  <link rel="stylesheet" href="css/styles.css?v=20260714-page-navigation" />
 </head>
 
 <body>
@@ -820,7 +820,7 @@
               including where key components are present, absent or delivered through joint arrangements.
             </li>
           </ul>
-          <h2 class="subheader center-text">Vasculitis services examples </h2>
+          <h2 class="subheader center-text">Vasculitis services examples across an organization</h2>
           <div class="hm-wrap">
             <div class="hm-table-scroll">
               <table class="hm-table">
@@ -1252,10 +1252,15 @@
           </div>
         </div>
       </div>
-      <div class="next-page-wrap"><button class="next-page-btn" onclick="showPage('p-calc')">Next: Cost Calculator<svg
+      <div class="next-page-wrap">
+        <button class="back-page-btn" onclick="showPage('p-kc')"><svg viewBox="0 0 24 24">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>Back: Key Service Components</button>
+        <button class="next-page-btn" onclick="showPage('p-calc')">Next: Cost Calculator<svg
             viewBox="0 0 24 24">
             <polyline points="9 18 15 12 9 6" />
-          </svg></button></div>
+          </svg></button>
+      </div>
     </div>
 
 
@@ -1290,7 +1295,7 @@
                 <strong>Map vasculitis care across other relevant specialties in your health board or trust,</strong> including where key components are present, absent or delivered through joint arrangements.
               </li>
             </ul>
-            <p>Vasculitis services examples </p>
+            <p>Vasculitis services examples across an organization</p>
             <div class="hm-wrap">
               <div class="hm-table-scroll">
                 <table class="hm-table">
@@ -1416,11 +1421,11 @@
           service. It then uses data from the VOICES study to estimate the potential cost savings associated with
           introducing specific service components.
           <br><br>
-          Consider the key components and the heat map you generated in the previous step of this toolkit when you use the cost calculator. You can model the cost savings of introducing several service components and download a PDF summary to support
-          local discussions, service planning and business cases for change.
-          <br><br>
           Recognising that some service components are interdependent and often co-exist within care delivery systems,
           they should be considered as a holistic package to improve the whole care pathway.
+          <br><br>
+          Consider the key components and the heat map you generated in the previous step of this toolkit when you use the cost calculator (if you have not completed this step you can do so now below). You can model the cost savings of introducing several service components and download a PDF summary to support
+          local discussions, service planning and business cases for change.
         </p>
       </div>
       <!-- Service mapping table (linked with Assess & Prioritise Change) -->
@@ -1592,7 +1597,6 @@
                   <label class="form-label">Event of interest</label>
                   <div class="comp-checks" id="calc-outcome">
                     <label class="comp-check"><input type="radio" name="calc-outcome" value="Serious Infection" checked onchange="updateCalc()"><span>Serious infection</span></label>
-                    <label class="comp-check"><input type="radio" name="calc-outcome" value="Mortality" onchange="updateCalc()"><span>Mortality</span></label>
                     <label class="comp-check"><input type="radio" name="calc-outcome" value="Emergency Hospital Admissions" onchange="updateCalc()"><span>Emergency hospital admissions</span></label>
                   </div>
                 </div>
@@ -1600,7 +1604,7 @@
                   <label class="form-label">Service components in place</label>
                   <div class="comp-checks">
                     <label class="comp-check"><input type="checkbox" id="cc1" onchange="updateCalc()"><span>Cohorted clinic</span><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup">Patients with systemic vasculitis are grouped together and seen in a dedicated clinic.</span></span></label>
-                    <label class="comp-check"><input type="checkbox" id="cc4" onchange="updateCalc()"><span>MDT meetings</span><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup">Structured gathering of healthcare professionals from different specialties who come together to discuss and plan the care of patients</span></span></label>
+                    <label class="comp-check"><input type="checkbox" id="cc4" onchange="updateCalc()"><span>Vasculitis specialist MDT meetings</span><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup">Structured gathering of healthcare professionals from different specialties who come together to discuss and plan the care of patients</span></span></label>
                     <label class="comp-check"><input type="checkbox" id="cc5" onchange="updateCalc()"><span>Nurse-led care</span><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup"><strong>nurse-led advice line:</strong> nurse advice line to offer patient support and rapid access to advice in between clinic appointments providing a single point of access for rapid advice within a supportive service infrastructure <br><br><strong>nurse-led clinics:</strong> to compliment care provided through cohorted clinics</span></span></label>
                     <label class="comp-check"><input type="checkbox" id="cc7" onchange="updateCalc()"><span>Wait times &lt; 7 days for new patients</span><span class="comp-info-wrap"><button class="comp-info-btn" type="button" aria-label="More info" onclick="event.preventDefault()">i</button><span class="comp-info-popup">Waiting times for individuals with new symptoms and with a high index of clinical suspicion for active AAV to be reviewed by a vasculitis expert within 7 days from initial referral</span></span></label>
                   </div>
@@ -1683,10 +1687,15 @@
       </div>
 
 
-      <div class="next-page-wrap"><button class="next-page-btn" onclick="showPage('p-atys')">Next: Adapt to your
+      <div class="next-page-wrap">
+        <button class="back-page-btn" onclick="showPage('p-change')"><svg viewBox="0 0 24 24">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>Back: Assess and Prioritise Change</button>
+        <button class="next-page-btn" onclick="showPage('p-atys')">Next: Adapt to your
           Service<svg viewBox="0 0 24 24">
             <polyline points="9 18 15 12 9 6" />
-          </svg></button></div>
+          </svg></button>
+      </div>
     </div>
   </div>
 
@@ -1938,8 +1947,15 @@
                       </div>
                       <div>
                         <div>
-                          <h3>Healthcare provider quote </h3>
-                          <p class="quote">To insert a quote here about reaching a compromise with haematology</p>
+                          <h3>Healthcare provider quote</h3>
+                          <p class="quote">“We discussed with the haematology/oncology day unit how to facilitate them
+                            giving IV cyclophosphamide, and what they need or want from us. They have agreed that they
+                            will give it, but only on a set morning a week. What they wanted was just to administer it.
+                            So, I said, ‘Well, what if we come along,’ — and this may change with time and perhaps with
+                            better relationships — ‘If we come along, answer any questions, make sure they’re fine to
+                            get it, check their bloods and prescribe,’ and they said yes. And they’re happy enough with
+                            that because they give it all the time to their patients. I have changed my clinic so that I
+                            can be available if needs be on a Monday to go and say hello to the patient.”</p>
                         </div>
                       </div>
                     </div>
@@ -2106,14 +2122,14 @@
               </div>
 
               <div class="kc-acc-item">
-                <button class="kc-acc-trigger">Access to multi-disciplinary team meetings<svg class="kc-acc-icon"
+                <button class="kc-acc-trigger">Access to vasculitis specialist MDT meeting<svg class="kc-acc-icon"
                     viewBox="0 0 24 24">
                     <polyline points="6 9 12 15 18 9" />
                   </svg></button>
                 <div class="kc-acc-panel">
                   <div class="kc-acc-panel-inner">
                     <div class="kc-content-layout-2 kc-acc-content">
-                      <p>All services looking after patients should have access to regular specialist multi-disciplinary
+                      <p>All services looking after patients should have access to regular vasculitis specialist multi-disciplinary
                         team (MDT) meetings. There should be protected time and administrative support for leadership
                         and attendance at MDT meetings and recording of outcomes </p>
                       <div class="atys-kc-grid">
@@ -2198,10 +2214,15 @@
           <a href="#" target="_blank" class="btn-p survey-inline-link" id="surveyInlineLink">Take the survey</a>
         </div>
       </div>
-      <div class="next-page-wrap"><button class="next-page-btn" onclick="showPage('p-res')">Next: Resources<svg
+      <div class="next-page-wrap">
+        <button class="back-page-btn" onclick="showPage('p-calc')"><svg viewBox="0 0 24 24">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>Back: Cost Calculator</button>
+        <button class="next-page-btn" onclick="showPage('p-res')">Next: Resources<svg
             viewBox="0 0 24 24">
             <polyline points="9 18 15 12 9 6" />
-          </svg></button></div>
+          </svg></button>
+      </div>
     </div>
 
   </div>
@@ -2309,6 +2330,11 @@
         </div>
 
       </div>
+      <div class="next-page-wrap">
+        <button class="back-page-btn" onclick="showPage('p-atys')"><svg viewBox="0 0 24 24">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>Back: Adapt to your Service</button>
+      </div>
     </div>
 
   </div><!-- /p-res -->
@@ -2329,7 +2355,11 @@
           People with systemic vasculitis often receive care from several specialties and services. Before VOICES, there was limited evidence about which features of service organisation were most important for delivering effective, coordinated care. 
         </p>
 
-        <ul>The mixed-methods study brought together: 
+        <p>
+          The mixed-methods study brought together:
+        </p>
+
+        <ul>
           <li>
             a survey of vasculitis services across the UK and Ireland; 
           </li>
@@ -2437,7 +2467,7 @@
   </div>
 
   <script src="javascript/cs-map.js"></script>
-  <script src="javascript/app.js?v=20260710-cost-calculator"></script>
+  <script src="javascript/app.js?v=20260714-remove-mortality"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
