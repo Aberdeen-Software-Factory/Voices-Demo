@@ -224,10 +224,13 @@ function _buildResGrid(){
 
 const _RES_CATS=[
   {cat:'patient',label:'Patient experience and service improvement',
+   img:'Figures/Primary Care Recognition Icon C2.png',
    desc:'Resources to support use of patient experience data, including the systemic vasculitis experience resource and catalyst film. '},
   {cat:'primary',label:'Primary care recognition and referral',
+   img:'Figures/Professional Culture Icon C2.png',
    desc:'Resources to support earlier recognition of vasculitis and referral into specialist care.'},
   {cat:'nurse',  label:'Specialist Vasculitis Nurse roles',
+   img:'Figures/Survey Icon C2.png',
    desc:'Resources to support earlier recognition of vasculitis and referral into specialist care. '}
 ];
 
@@ -242,7 +245,7 @@ function _animateIn(el){
 function _buildSidebarResources(){
   const nav=document.getElementById('res-sidebar-links');
   if(!nav) return;
-  nav.innerHTML=_RES_CATS.map(({cat,label})=>{
+  nav.innerHTML=_RES_CATS.map(({cat,label,img})=>{
     const cards=[...document.querySelectorAll(`#res-grid .res-card[data-cat="${cat}"]`)];
     const items=cards.map((card,i)=>{
       const title=card.querySelector('.res-card-title')?.textContent.trim()||'';
@@ -251,7 +254,7 @@ function _buildSidebarResources(){
     }).join('');
     return `<div class="res-sidebar-cat">
       <button class="res-cat-sidebar-btn${cat===_resCat?' active':''}" data-cat="${cat}"
-        onclick="filterResCategory('${cat}')">${label}</button>
+        onclick="filterResCategory('${cat}')">${label}<img src="${img}" alt=""></button>
       <div class="res-sidebar-items">${items}</div>
     </div>`;
   }).join('');
@@ -284,8 +287,16 @@ function filterResCategory(cat, _push=true){
     btn.classList.toggle('active',btn.dataset.cat===cat);
   });
   document.querySelectorAll('.res-sidebar-item').forEach(a=>a.classList.remove('active'));
+  const catInfo=_RES_CATS.find(c=>c.cat===cat);
   const descEl=document.getElementById('res-cat-desc');
-  if(descEl) descEl.textContent=_RES_CATS.find(c=>c.cat===cat)?.desc||'';
+  if(descEl) descEl.textContent=catInfo?.desc||'';
+  // Sidebar (with its own name+icon per category) is hidden on narrow screens,
+  // so mirror that here — only visible there via .res-cat-mobile-header's own
+  // media query, but keep it populated unconditionally.
+  const mobileImg=document.getElementById('res-cat-mobile-img');
+  const mobileName=document.getElementById('res-cat-mobile-name');
+  if(mobileImg) mobileImg.src=catInfo?.img||'';
+  if(mobileName) mobileName.textContent=catInfo?.label||'';
   applyResFilters();
   showResView('res-detail');
   if(_push){
@@ -338,22 +349,9 @@ function openResource(card, _push=true){
     const link=document.querySelector(`.res-sidebar-item[data-cat="${cardCat}"][data-idx="${idx}"]`);
     if(link) link.classList.add('active');
   }
-  // Breadcrumb — category part is clickable
   const catLabel=_RES_CATS.find(c=>c.cat===cardCat)?.label||'';
-  const bc=document.getElementById('res-breadcrumb');
-  if(bc){
-    bc.innerHTML='';
-    const catBtn=document.createElement('button');
-    catBtn.className='res-bc-cat-btn';
-    catBtn.textContent=catLabel;
-    catBtn.addEventListener('click',()=>filterResCategory(cardCat));
-    const sep=document.createElement('span');
-    sep.setAttribute('aria-hidden','true');
-    sep.textContent=' / ';
-    const titleSpan=document.createElement('span');
-    titleSpan.textContent=r.title;
-    bc.append(catBtn,sep,titleSpan);
-  }
+  const backLabel=document.getElementById('res-back-label');
+  if(backLabel) backLabel.textContent=catLabel;
   if(_push){
     history.pushState(null,'','#p-res/'+cardCat+'/'+card.dataset.resIdx);
     trackVirtualPageView();
@@ -1632,4 +1630,3 @@ function _initCompInfoPopups(){
     window.csSelectRegion('Scotland');
   });
 })();
-

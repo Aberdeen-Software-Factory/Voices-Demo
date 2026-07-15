@@ -163,6 +163,11 @@ p, ul, ol {
   align-self: start;
 }
 
+.right-align {
+  text-align: end;
+  align-self: end;
+}
+
 .ni {
   max-width: 1440px;
   margin: 0 auto;
@@ -3603,7 +3608,7 @@ padding: 28px 28px;
 }
 .res-layout {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 300px 1fr;
   gap: 48px;
   padding-top: 32px
 }
@@ -3624,10 +3629,13 @@ padding: 28px 28px;
 }
 
 .res-cat-sidebar-btn {
-  display: block;
+  display: flex;
+  align-items: center;
+  position: relative;
   width: 100%;
+  min-height: 78px;
   text-align: left;
-  padding: 11px 16px;
+  padding: 11px 84px 11px 16px;
   background: var(--s2);
   border: none;
   border-left: 3px solid transparent;
@@ -3642,6 +3650,17 @@ padding: 28px 28px;
   border-radius: 0 8px 8px 0;
 }
 
+.res-cat-sidebar-btn img {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
 .res-cat-sidebar-btn:hover {
   color: var(--text);
   border-left-color: var(--s3);
@@ -3652,7 +3671,7 @@ padding: 28px 28px;
   color: var(--accent);
   font-weight: 700;
   border-left-color: var(--accent);
-  background: var(--surface);
+  background: var(--al);
 }
 
 .res-sidebar-cat {
@@ -3764,6 +3783,39 @@ padding: 28px 28px;
   transform: translateX(4px);
 }
 
+/* Stand-in for the sidebar's category name+icon, shown only when the sidebar
+   itself is hidden (see .res-sidebar / display:flex override in the
+   max-width:900px query below). Styled as a compact eyebrow label, not a
+   heading — it's context ("you are here"), not the content of this view, so
+   it should read well below both the page title and the resource title. */
+.res-cat-mobile-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  width: 80%;
+  align-items: center;
+  align-self: center;
+  gap: 8px;
+  margin: 14px auto ;
+  padding: 8px 12px;
+  /* background-color: var(--cream);
+  border-radius: 8px; */
+}
+
+.res-cat-mobile-header img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  /* flex-shrink: 0; */
+}
+
+.res-cat-mobile-header h2 {
+  
+  /* color: var(--accent); */
+  color: var(--t2);
+  text-align: center;
+  
+}
+
 .res-cat-page-desc {
   font-family: var(--fb);
   font-size: var(--fs-xl);
@@ -3772,40 +3824,20 @@ padding: 28px 28px;
   margin: 0 0 20px;
 }
 
-/* ── Breadcrumb row in resource detail ── */
+/* ── Nav row in resource detail: "All categories" + current category, each
+   a .btn-ghost with its icon inside it. The .btn-ghost icon-to-text gap is
+   widened to match this row's button-to-button gap (scoped here, not on the
+   shared .btn-ghost, since that class is also used elsewhere), so the whole
+   row — icon, text, icon, text — reads as one evenly spaced rhythm. ── */
 .res-detail-nav {
   display: flex;
   align-items: center;
-  gap: 14px;
   margin-bottom: 24px;
   flex-wrap: wrap;
 }
 
-.res-breadcrumb {
-  font-family: var(--fb);
-  font-size: var(--fs-lg);
-  color: var(--t2);
-  line-height: 1.4;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 500px;
-}
-
-.res-bc-cat-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  font-family: var(--fb);
-  font-size: var(--fs-lg);
-  color: var(--accent);
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.res-bc-cat-btn:hover {
-  color: var(--text)
+.res-detail-nav .btn-ghost {
+  gap: 20px;
 }
 
 .toc-section {
@@ -4013,6 +4045,11 @@ padding: 28px 28px;
   overflow: hidden
 }
 
+.res-card-desc ul,
+.res-card-desc ol {
+  padding-left: 18px
+}
+
 .res-meta {
   display: flex;
   align-items: center;
@@ -4081,7 +4118,7 @@ padding: 28px 28px;
 
 .res-res-title {
   font-family: var(--fd);
-  font-size: var(--fs-5xl);
+  font-size: var(--fs-4xl);
   font-weight: 700;
   color: var(--text);
   line-height: 1.25;
@@ -4093,6 +4130,16 @@ padding: 28px 28px;
   color: var(--t2);
   line-height: 1.75;
   margin-bottom: 36px
+}
+
+.res-res-desc ul,
+.res-res-desc ol {
+  padding-left: 20px;
+  margin-bottom: 12px
+}
+
+.res-res-desc li {
+  margin-bottom: 6px
 }
 
 .res-res-ctas {
@@ -4114,6 +4161,7 @@ padding: 28px 28px;
 
 .res-cat-card {
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: flex-start;
   gap: 14px;
@@ -4133,6 +4181,16 @@ padding: 28px 28px;
   transform: translateY(-4px);
   box-shadow: var(--sh2);
   border-color: var(--accent)
+}
+
+.res-cat-card img {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  pointer-events: none;
 }
 
 .res-cat-icon {
@@ -4455,6 +4513,20 @@ footer a:hover {
     max-width: 1200x;
   }
 
+  /* Image stacks above the text instead of sitting beside it once .res-main
+     is too narrow for a 1fr/1.4fr split to breathe. */
+  .res-res-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .res-res-img-wrap {
+    position: static;
+    max-width: 420px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
   .kc-split-panel, .kc-split-panel-2, .kc-split-panel-3 {
     grid-template-columns: 1fr;
   }
@@ -4524,6 +4596,14 @@ footer a:hover {
   }
   .res-cat-grid {
     grid-template-columns: repeat(2, 200px)
+  }
+
+  #p-res .pg-hdr {
+    padding-bottom: 12px;
+  }
+
+  .res-cat-mobile-header {
+    display: flex;
   }
 
 
@@ -5583,13 +5663,13 @@ footer a:hover {
   font-size: var(--fs-base-lg);
   font-weight: 600;
   cursor: pointer;
-  transition: background .2s, transform .15s, box-shadow .2s;
+  transition: background .2s, box-shadow .2s, transform .2s;
   box-shadow: 0 4px 16px rgba(139, 107, 154, .3)
 }
 
 .next-page-btn:hover {
   background: #7a5c8a;
-  transform: translateX(3px);
+  transform: scale(1.05);
   box-shadow: 0 6px 22px rgba(139, 107, 154, .4)
 }
 
@@ -5603,7 +5683,7 @@ footer a:hover {
 
 .back-page-btn:hover {
   background: var(--al);
-  transform: translateX(-3px)
+  transform: scale(1.05)
 }
 
 .next-page-btn svg,
@@ -5627,15 +5707,14 @@ footer a:hover {
 
 @media (max-width: 640px) {
   .next-page-wrap {
-    align-items: stretch;
-    flex-direction: column-reverse
+    flex-wrap: wrap;
+    gap: 10px
   }
 
   .next-page-btn,
   .back-page-btn {
-    justify-content: center;
-    margin: 0;
-    width: 100%
+    padding: 10px 18px;
+    font-size: var(--fs-base)
   }
 }
 

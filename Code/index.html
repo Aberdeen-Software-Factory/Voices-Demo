@@ -2264,20 +2264,23 @@
         <!-- Home: 3 category selectors -->
         <div id="res-home">
           <div class="res-cat-grid">
-
+            
             <button class="res-cat-card" onclick="filterResCategory('patient')">
               <div class="res-cat-name">Patient experience and service improvement</div>
               <span class="res-cat-count" id="rhc-patient"></span>
+              <img src="Figures/Primary Care Recognition Icon C2.png" alt="">
             </button>
 
             <button class="res-cat-card" onclick="filterResCategory('primary')">
               <div class="res-cat-name">Primary care recognition and referral</div>
               <span class="res-cat-count" id="rhc-primary"></span>
+              <img src="Figures/Professional Culture Icon C2.png" alt="">
             </button>
 
             <button class="res-cat-card" onclick="filterResCategory('nurse')">
               <div class="res-cat-name">Specialist Vasculitis Nurse roles</div>
               <span class="res-cat-count" id="rhc-nurse"></span>
+              <img src="Figures/Survey Icon C2.png" alt="">
             </button>
 
           </div>
@@ -2291,12 +2294,19 @@
 
             <!-- Grid view -->
             <div id="res-detail">
-              <button class="btn-ghost" onclick="goResHome()">
-                <svg viewBox="0 0 24 24">
-                  <polyline points="15 18 9 12 15 6" />
-                </svg>
-                All categories
-              </button>
+              <div class="res-detail-nav">
+                <button class="btn-ghost" onclick="goResHome()">
+                  <svg viewBox="0 0 24 24">
+                    <polyline points="15 18 9 12 15 6" />
+                  </svg>
+                  All categories
+                </button>
+              </div>
+              <div class="res-cat-mobile-header" id="res-cat-mobile-header">
+                <h2 id="res-cat-mobile-name" class="right-align"></h2>
+                <img id="res-cat-mobile-img" class="left-align" src="" alt="">
+
+              </div>
               <p id="res-cat-desc" class="res-cat-page-desc"></p>
               <div class="res-grid" id="res-grid">
                 <!-- populated from _RESOURCES in app.js -->
@@ -2305,13 +2315,18 @@
             <!-- Individual resource view -->
             <div id="res-resource-detail" style="display:none">
               <div class="res-detail-nav">
+                <button class="btn-ghost" onclick="goResHome()">
+                  <svg viewBox="0 0 24 24">
+                    <polyline points="15 18 9 12 15 6" />
+                  </svg>
+                  All categories
+                </button>
                 <button class="btn-ghost" onclick="closeResource()">
                   <svg viewBox="0 0 24 24">
                     <polyline points="15 18 9 12 15 6" />
                   </svg>
-                  Back
+                  <span id="res-back-label"></span>
                 </button>
-                <span class="res-breadcrumb" id="res-breadcrumb"></span>
               </div>
               <div class="res-res-layout">
                 <div class="res-res-img-wrap">
@@ -2319,7 +2334,7 @@
                 </div>
                 <div class="res-res-body">
                   <span id="res-res-type" class="res-type"></span>
-                  <h2 id="res-res-title" class="res-res-title"></h2>
+                  <h2 id="res-res-title"></h2>
                   <p id="res-res-desc" class="res-res-desc"></p>
                   <div id="res-res-ctas" class="res-res-ctas"></div>
                 </div>
