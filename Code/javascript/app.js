@@ -1324,6 +1324,11 @@ function downloadCalc(type){
         const lines=doc.splitTextToSize(name,deptW-3).slice(0,2);
         doc.text(lines,margin+firstColW+i*deptW+deptW/2,y+6,{align:'center'});
       });
+      doc.setDrawColor(255); doc.setLineWidth(0.35);
+      departments.forEach((_,i)=>{
+        const x=margin+firstColW+i*deptW;
+        doc.line(x,y,x,y+headerH);
+      });
       y+=headerH;
 
       data.forEach((row,rowIndex)=>{
@@ -1341,7 +1346,12 @@ function downloadCalc(type){
           doc.setTextColor(255); doc.setFontSize(6.5);
           doc.text(doc.splitTextToSize(status,deptW-2).slice(0,2),x+deptW/2,y+rowH/2,{align:'center',baseline:'middle'});
         });
-        doc.setDrawColor(225); doc.rect(margin,y,tableW,rowH,'S');
+        doc.setDrawColor(205); doc.setLineWidth(0.3);
+        doc.rect(margin,y,tableW,rowH,'S');
+        departments.forEach((_,i)=>{
+          const x=margin+firstColW+i*deptW;
+          doc.line(x,y,x,y+rowH);
+        });
         y+=rowH;
       });
     });
@@ -1630,3 +1640,4 @@ function _initCompInfoPopups(){
     window.csSelectRegion('Scotland');
   });
 })();
+
