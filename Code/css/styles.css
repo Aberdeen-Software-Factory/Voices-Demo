@@ -2444,11 +2444,12 @@ padding: 28px 28px;
 }
 
 .hm-table tbody td {
-  border-right: 1px solid var(--s3)
+  border-right: none
 }
 
-.hm-table tbody td:last-child {
-  border-right: none
+.hm-table thead th + th,
+.hm-table tbody td + td {
+  border-left: 2px solid #fff
 }
 
 .hm-table td[data-status] {
@@ -5254,7 +5255,8 @@ footer a:hover {
 } */
 
 .etbl-table tbody td:not(.kc-col) {
-  border-right: 1px solid var(--s3)
+  border-right: none;
+  border-left: 2px solid #fff
 }
 
 
@@ -5269,8 +5271,8 @@ footer a:hover {
   min-width: 200px
 }
 
-.etbl-table tbody td:last-child {
-  border-right: none
+.etbl-table thead th.dept-col {
+  border-left: 2px solid #fff
 }
 
 /* dept header cell */
