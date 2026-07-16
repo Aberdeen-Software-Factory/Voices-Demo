@@ -237,7 +237,7 @@ const _RES_CATS=[
    desc:'Resources to support earlier recognition of vasculitis and referral into specialist care.'},
   {cat:'nurse',  label:'Specialist Vasculitis Nurse roles',
    img:'Figures/Survey Icon C2.png',
-   desc:'Resources to support earlier recognition of vasculitis and referral into specialist care. '}
+   desc:'Example job descriptions, patient information and training resources to support development of specialist nurse roles.'}
 ];
 
 function _animateIn(el){
