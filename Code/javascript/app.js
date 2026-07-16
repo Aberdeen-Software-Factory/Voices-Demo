@@ -210,12 +210,18 @@ const _RESOURCES=[
   },
 ];
 
+function _resourceImage(resource){
+  if(!resource) return '';
+  if(resource.cat==='patient') return resource.img||'Figures/VOICES-logo.PNG';
+  return _RES_CATS.find(category=>category.cat===resource.cat)?.img||resource.img||'';
+}
+
 function _buildResGrid(){
   const grid=document.getElementById('res-grid');
   if(!grid) return;
   grid.innerHTML=_RESOURCES.map((r,i)=>`
     <div class="res-card" data-cat="${r.cat}" data-res-idx="${i}" onclick="openResource(this)">
-      <div class="res-card-img"><img src="${r.img||''}" alt=""></div>
+      <div class="res-card-img${r.cat==='patient'?'':' res-card-img--section'}"><img src="${_resourceImage(r)}" alt=""></div>
       <div class="res-card-title">${r.title}</div>
       <div class="res-card-desc">${r.desc||''}</div>
       <div class="res-meta"></div>
@@ -329,10 +335,14 @@ function openResFromSidebar(cat,idx){
 function openResource(card, _push=true){
   const r=_RESOURCES[+card.dataset.resIdx];
   if(!r) return;
+  const catInfo=_RES_CATS.find(c=>c.cat===r.cat);
   document.getElementById('res-res-title').textContent=r.title;
   document.getElementById('res-res-desc').innerHTML=r.desc||'';
   const img=document.getElementById('res-res-img');
-  img.src=r.img||''; img.alt=r.title;
+  const usesSectionIcon=r.cat!=='patient';
+  img.src=_resourceImage(r);
+  img.alt=usesSectionIcon?`${catInfo?.label||'Resource section'} icon`:'VOICES study logo';
+  img.closest('.res-res-img-wrap')?.classList.toggle('res-res-img-wrap--section',usesSectionIcon);
   const ctasEl=document.getElementById('res-res-ctas');
   if(ctasEl){
     const links=r.links||[];
@@ -349,7 +359,7 @@ function openResource(card, _push=true){
     const link=document.querySelector(`.res-sidebar-item[data-cat="${cardCat}"][data-idx="${idx}"]`);
     if(link) link.classList.add('active');
   }
-  const catLabel=_RES_CATS.find(c=>c.cat===cardCat)?.label||'';
+  const catLabel=catInfo?.label||'';
   const backLabel=document.getElementById('res-back-label');
   if(backLabel) backLabel.textContent=catLabel;
   if(_push){
