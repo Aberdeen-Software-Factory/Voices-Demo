@@ -2191,9 +2191,13 @@ padding: 28px 28px;
   max-width: 1440px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.1fr .9fr;
-  gap: 56px;
+  grid-template-columns: .9fr 1.1fr;
+  gap: 20px 56px;
   align-items: center
+}
+
+.catalyst-heading {
+  grid-column: 1 / -1;
 }
 
 .video-col {
@@ -2308,6 +2312,7 @@ padding: 28px 28px;
 
 .video-info {
   min-width: 0;
+  text-align: left;
 }
 
 .video-title {
