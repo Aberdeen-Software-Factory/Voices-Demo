@@ -2192,12 +2192,8 @@ padding: 28px 28px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: .9fr 1.1fr;
-  gap: 20px 56px;
-  align-items: center
-}
-
-.catalyst-heading {
-  grid-column: 1 / -1;
+  gap: 56px;
+  align-items: start
 }
 
 .video-col {
